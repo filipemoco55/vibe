@@ -48,8 +48,8 @@ h1 {
 }
 
 .product-card {
-    width: 370px;
-    height: 370px;
+    width: 300px;
+    height: 300px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
