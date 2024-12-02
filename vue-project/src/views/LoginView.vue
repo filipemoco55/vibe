@@ -52,8 +52,8 @@ body {
   display: flex;
   margin: 0;
   padding: 0;
-  height: 98vh;
-  width: 99vw;
+  height: 99vh;
+  width: 100vw;
 }
 
 .background-section {

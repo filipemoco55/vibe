@@ -4,61 +4,106 @@ import Navbar from '@/components/NavBar.vue';
 
 <template>
    <Navbar/>
-   <p>
-    Inicio
-   </p>
-</template>
+   
 
-<style scoped>
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #004f6f;
-}
-
-.nav a {
-    margin: 0 1rem;
+    <div class="event-card">
+      <div class="event-image">
+        <img src="/src/assets/foto exemplo.png" alt=Event Background>
+        <div class="event-overlay">
+          <h2 class="event-title">Come watch Coldplay and much more this summer</h2>
+          <button class="buy-button">BUY NOW</button>
+        </div>
+      </div>
+    </div>
+    <div><h1 class="upcoming-artists">More Upcoming Artists</h1> 
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: "EventCard",
+  };
+  </script>
+  
+  <style scoped>
+  .event-card {
+    text-align: center;
+    font-weight: Bold;
     color: white;
-    text-decoration: none;
-}
-
-.account-button {
-    padding: 0.5rem 1rem;
-    background-color: white;
-    color: #004f6f;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.upcoming-artists {
-    margin: 2rem;
-    text-align: center;
-}
-
-.artist-cards {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.artist-card {
-    background-color: #005a7a;
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-    width: 150px;
-}
-
-.artist-card img {
+    background-color: white; 
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; 
+    margin: 10px auto; 
+  }
+  
+  .event-image {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .event-image img {
     width: 100%;
-    border-radius: 50%;
+    display: block; 
+    height: auto;
+  }
+  
+  .event-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3); 
+    color: white;
+    text-align: justify;
+  }
+  
+  .event-title {
+    font-size: 50px;
+    margin-bottom: 320px;
+    line-height: 3; 
+  }
+  
+  .event-details {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+  
+  .buy-button {
+    
+    background-color: #0088ccb9;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 15px 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: medium;
+    transition: background-color 0.8s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    float: right;
+  }
+  
+  .buy-button:hover {
+    background-color: #003b57;
+    opacity: 0.7
+  }
+  
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin-top: 50px;
+    margin-left: 100px;
+    font-weight: bold;
+    font-size: 40px;
 }
 
-.artist-card p {
-    margin-top: 0.5rem;
-}
-</style>
+  </style>
+  
