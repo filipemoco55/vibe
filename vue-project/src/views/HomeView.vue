@@ -4,11 +4,10 @@ import Navbar from '@/components/NavBar.vue';
 
 <template>
     <Navbar />
+
     <h1>
         Home
     </h1>
-
-    <br>
 
     <footer class="footer">
         <div class="footer-content">
@@ -47,8 +46,11 @@ import Navbar from '@/components/NavBar.vue';
     </footer>
 </template>
 
+<script setup>
 
-<style scoped>
+</script>
+
+<style>
 h1 {
     font-family: 'Poppins', sans-serif;
     color: white;
@@ -64,28 +66,6 @@ h3 {
     margin: 30px;
     font-weight: bold;
     font-size: 40px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #004f6f;
-}
-
-.nav a {
-    margin: 0 1rem;
-    color: white;
-    text-decoration: none;
-}
-
-.account-button {
-    padding: 0.5rem 1rem;
-    background-color: white;
-    color: #004f6f;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 .footer {
