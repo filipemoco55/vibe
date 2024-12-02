@@ -5,7 +5,7 @@ import Navbar from '@/components/NavBar.vue';
 <template>
    <Navbar/>
    <p>
-    Home
+    Inicio
    </p>
 </template>
 
