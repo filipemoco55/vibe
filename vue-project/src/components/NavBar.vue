@@ -64,6 +64,7 @@ export default {
     background-color: white;
     color: #004f6f;
     border: none;
+    font-weight: bold;
     border-radius: 4px;
     font-size: 0.9rem;
     font-family: 'Poppins', sans-serif;
