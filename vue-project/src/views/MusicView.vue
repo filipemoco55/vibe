@@ -87,8 +87,8 @@ h1 {
     position: relative;
     background: #000;
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     display: flex;
     justify-content: center;
