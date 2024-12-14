@@ -14,10 +14,8 @@ import Navbar from '@/components/NavBar.vue';
       </div>
     </div>
   </div>
-  <div>
-    <h1 class="upcoming-artists">More Upcoming Artists</h1>
-  </div>
 
+    <h1>More Upcoming Artists</h1>
 
 
   <footer class="footer">
@@ -150,9 +148,9 @@ h2 {
   font-weight: bold;
   transition: background-color 0.8s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  position: absolute; 
-  left: 1100px; 
-  bottom: 20px; 
+  position: absolute;
+  left: 1100px;
+  bottom: 20px;
 }
 
 .buy-button:hover {
