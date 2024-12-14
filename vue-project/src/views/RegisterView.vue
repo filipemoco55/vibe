@@ -49,88 +49,88 @@ export default {
 <style scoped>
 html,
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .container {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    height: 98vh;
-    width: 99vw;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 99vh;
+  width: 100vw;
 }
 
 .background-section {
-    flex: 1;
-    position: relative;
+  flex: 1;
+  position: relative;
 }
 
 .background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .login-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
 }
 
 .logo img {
-    width: 250px;
-    height: auto;
-    margin-bottom: 20px;
+  width: 250px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .login-form {
-    width: 300px;
-    display: flex;
-    flex-direction: column;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .input-group label {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 5px;
-    display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .submit-button:hover {
-    background-color: #333;
+  background-color: #333;
 }
 
 .signup-link {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #555;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
 }
 </style>

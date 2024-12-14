@@ -6,8 +6,7 @@ import PosterView from '../views/PosterView.vue';
 import StoreView from '@/views/StoreView.vue';
 import MusicView from '@/views/MusicView.vue';
 import MoreView from '@/views/MoreView.vue';
-import PosterView2 from '@/views/PosterView2.vue';
-import Posterview3 from '@/views/Posterview3.vue';
+import TicketsView from '@/views/TicketsView.vue';
 
 
 const router = createRouter({
@@ -34,16 +33,6 @@ const router = createRouter({
       component: PosterView,
     },
     {
-      path: '/poster2',
-      name: 'Poster2',
-      component: PosterView2,
-    },
-    {
-      path: '/poster3',
-      name: 'Poster3',
-      component: Posterview3,
-    },
-    {
       path: '/store',
       name: 'Store',
       component: StoreView,
@@ -52,6 +41,11 @@ const router = createRouter({
       path: '/music',
       name: 'Music',
       component: MusicView,
+    },
+    {
+      path: '/tickets',
+      name: 'Tickets',
+      component: TicketsView,
     },
     {
       path: '/more',

@@ -1,6 +1,50 @@
 <script setup>
 import Navbar from '@/components/NavBar.vue';
+import { ref } from 'vue';
 
+const activeDay = ref('10 Jun');
+
+const content = {
+    "10 Jun": [
+        { image: "/src/assets/coldplay.jpg", caption: "COLDPLAY" },
+        { image: "/src/assets/cash.jpg", caption: "CASH COBAIN" },
+        { image: "/src/assets/luh.jpg", caption: "LUH TYLER" },
+        { image: "/src/assets/twenty.jpg", caption: "TWENTY ONE PILOTS" },
+        { image: "/src/assets/Ed.jpg", caption: "ED SHEERAN" },
+
+    ],
+    "11 Jun": [
+        { image: "/src/assets/luh.jpg", caption: "LUH TYLER" },
+        { image: "/src/assets/twenty.jpg", caption: "TWENTY ONE PILOTS" },
+    ],
+    "12 Jun": [
+        { image: "/src/assets/Ed.jpg", caption: "ED SHEERAN" },
+        { image: "/src/assets/pupil.jpg", caption: "PUPIL SLICER" },
+    ],
+};
+
+const secondaryContent = {
+    "10 Jun": [
+        { image: "/src/assets/danni.jpg", caption: "DJ DANNI GATO" },
+        { image: "/src/assets/djfifty.jpg", caption: "DJ FIFTY" },
+        { image: "/src/assets/bispo.jpg", caption: "BISPO" },
+        { image: "/src/assets/skrillex.jpg", caption: "SKRILLEX" },
+        { image: "/src/assets/djboring.jpg", caption: "DJ BORING" },
+        { image: "/src/assets/kappa.jpg", caption: "KAPPA J" },
+    ],
+    "11 Jun": [
+        { image: "/src/assets/secondary3.jpg", caption: "THE STRANGERS" },
+        { image: "/src/assets/secondary4.jpg", caption: "HOUSE GROOVE" },
+    ],
+    "12 Jun": [
+        { image: "/src/assets/secondary5.jpg", caption: "THE BEATS" },
+        { image: "/src/assets/secondary6.jpg", caption: "SUNSET TUNES" },
+    ],
+};
+
+const setActiveDay = (day) => {
+    activeDay.value = day;
+};
 </script>
 
 <template>
@@ -8,15 +52,10 @@ import Navbar from '@/components/NavBar.vue';
 
     <div>
         <div class="button-container">
-            <RouterLink to="/Poster" class="date-button">
-                10 Jun
-            </RouterLink>
-            <RouterLink to="/Poster2" class="date-button">
-                11 Jun
-            </RouterLink>
-            <RouterLink to="/Poster3" class="date-button">
-                12 Jun
-            </RouterLink>
+            <button v-for="day in Object.keys(content)" :key="day" class="date-button"
+                :class="{ active: activeDay === day }" @click="setActiveDay(day)">
+                {{ day }}
+            </button>
         </div>
 
         <h1>MAIN STAGE</h1>
@@ -24,7 +63,7 @@ import Navbar from '@/components/NavBar.vue';
             <button class="carousel-button left" @click="scrollLeft">‹</button>
 
             <div class="carousel" ref="carousel">
-                <div class="carousel-item" v-for="(item, index) in items" :key="index">
+                <div class="carousel-item" v-for="(item, index) in content[activeDay]" :key="index">
                     <img :src="item.image" alt="Concert Image" class="carousel-image" />
                     <div class="carousel-caption">{{ item.caption }}</div>
                 </div>
@@ -34,24 +73,19 @@ import Navbar from '@/components/NavBar.vue';
         </div>
 
         <h1>SECONDARY STAGE</h1>
-
         <div class="small-carousel-wrapper">
-            <button class="carousel-button left" @click="scrollLeftSmall">‹</button>
+            <button class="carousel-button left" @click="scrollLeftSecondary">‹</button>
 
-            <div class="small-carousel" ref="smallCarousel">
-                <div class="small-carousel-item" v-for="(item, index) in smallItems" :key="index">
-                    <div class="small-card">
-                        <img :src="item.image" alt="Artist" class="small-card-image" />
-                        <div class="small-card-caption">{{ item.caption }}</div>
-                    </div>
+            <div class="small-carousel" ref="secondaryCarousel">
+                <div class="small-carousel-item" v-for="(item, index) in secondaryContent[activeDay]" :key="index">
+                    <img :src="item.image" alt="Artist" class="small-card-image" />
+                    <div class="small-card-caption">{{ item.caption }}</div>
                 </div>
             </div>
 
-            <button class="carousel-button right" @click="scrollRightSmall">›</button>
+            <button class="carousel-button right" @click="scrollRightSecondary">›</button>
         </div>
     </div>
-
-
 
     <footer class="footer">
         <div class="footer-content">
@@ -88,36 +122,12 @@ import Navbar from '@/components/NavBar.vue';
             </div>
         </div>
     </footer>
-
 </template>
 
 <script>
 export default {
     name: "MainPage",
-    data() {
-        return {
-            items: [
-                { image: "/src/assets/coldplay.jpg", caption: "COLDPLAY" },
-                { image: "/src/assets/cash.jpg", caption: "CASH COBAIN" },
-                { image: "/src/assets/luh.jpg", caption: "LUH TYLER" },
-                { image: "/src/assets/twenty.jpg", caption: "TWENTY ONE PILOTS" },
-                { image: "/src/assets/Ed.jpg", caption: "ED SHEERAN" },
-            ],
-            smallItems: [
-                { image: "/src/assets/pupil.jpg", caption: "PUPIL SLICER" },
-                { image: "/src/assets/djboring.jpg", caption: "DJ BORING" },
-                { image: "/src/assets/nervo.jpg", caption: " DJ NERVO" },
-                { image: "/src/assets/third.jpg", caption: "THIRD PARTY" },
-                { image: "/src/assets/danni.jpg", caption: "DANNI GATO" },
-                { image: "/src/assets/bispo.jpg", caption: "BISPO" },
-                { image: "/src/assets/kappa.jpg", caption: "KAPPA JOTTA" },
-                { image: "/src/assets/skrillex.jpg", caption: "SKRILLEX" },
-                { image: "/src/assets/djfifty.jpg", caption: "DJ FIFTY" },
-            ],
-        };
-    },
     methods: {
-
         scrollLeft() {
             const carousel = this.$refs.carousel;
             carousel.scrollBy({ left: -carousel.offsetWidth, behavior: "smooth" });
@@ -126,14 +136,13 @@ export default {
             const carousel = this.$refs.carousel;
             carousel.scrollBy({ left: carousel.offsetWidth, behavior: "smooth" });
         },
-
-        scrollLeftSmall() {
-            const smallCarousel = this.$refs.smallCarousel;
-            smallCarousel.scrollBy({ left: -smallCarousel.offsetWidth, behavior: "smooth" });
+        scrollLeftSecondary() {
+            const secondaryCarousel = this.$refs.secondaryCarousel;
+            secondaryCarousel.scrollBy({ left: -secondaryCarousel.offsetWidth, behavior: "smooth" });
         },
-        scrollRightSmall() {
-            const smallCarousel = this.$refs.smallCarousel;
-            smallCarousel.scrollBy({ left: smallCarousel.offsetWidth, behavior: "smooth" });
+        scrollRightSecondary() {
+            const secondaryCarousel = this.$refs.secondaryCarousel;
+            secondaryCarousel.scrollBy({ left: secondaryCarousel.offsetWidth, behavior: "smooth" });
         },
     },
 };

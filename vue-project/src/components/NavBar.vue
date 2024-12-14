@@ -8,13 +8,13 @@
             <RouterLink to="/Poster">Poster</RouterLink>
             <RouterLink to="/store">Store</RouterLink>
             <RouterLink to="/music">Music</RouterLink>
+            <RouterLink to="/tickets">Tickets</RouterLink>
             <RouterLink to="/more">More</RouterLink>
         </nav>
         
         <RouterLink to="/login" class="account-button">
             My Account
         </RouterLink>
-
     </header>
 </template>
 
