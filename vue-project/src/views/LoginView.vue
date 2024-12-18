@@ -1,64 +1,91 @@
 <template>
   <div class="container">
-    <!-- Background Image Section -->
     <div class="background-section">
       <img src="@/assets/login.png" alt="Background" class="background-image" />
     </div>
 
-    <!-- Login Form Section -->
     <div class="login-section">
       <div class="logo">
         <img src="@/assets/Logo.png" alt="Logo" />
       </div>
+
+      <!-- Login Form -->
       <form class="login-form" @submit.prevent="handleLogin">
         <div class="input-group">
           <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" placeholder="email@gmail.com" required />
+          <input
+            type="email"
+            id="email"
+            v-model="email"
+            placeholder="admin@gmail.com"
+            required
+          />
         </div>
+
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" v-model="password" placeholder="**********" required />
+          <input
+            type="password"
+            id="password"
+            v-model="password"
+            placeholder="**********"
+            required
+          />
         </div>
-        <RouterLink to="/"
-          style="background-color: black; height: 50px; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white;">
-          Login
-        </RouterLink>
 
-        <div class="signup-link">
-          <RouterLink to="/register" style="color: #0077a1;" >Don't have an account ?</RouterLink>
-        </div>
+        <!-- Error Message -->
+        <p v-if="authStore.errorMessage" class="error-message">
+          {{ authStore.errorMessage }}
+        </p>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-button">Login</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/authStore";
+import { useRouter } from "vue-router";
+
 export default {
   data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  setup() {
+    const authStore = useAuthStore();
+    const router = useRouter();
 
+    return { authStore, router };
+  },
+  methods: {
+    handleLogin() {
+      const success = this.authStore.login(this.email, this.password);
+
+      if (success) {
+        this.router.push("/admin");
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Estilos mantidos */
 .container {
   display: flex;
   margin: 0;
   padding: 0;
-  height: 99vh;
+  height: 100vh;
   width: 100vw;
 }
 
 .background-section {
   flex: 1;
-  position: relative;
 }
 
 .background-image {
@@ -78,25 +105,15 @@ body {
 
 .logo img {
   width: 250px;
-  height: auto;
   margin-bottom: 20px;
 }
 
 .login-form {
   width: 300px;
-  display: flex;
-  flex-direction: column;
 }
 
 .input-group {
-  margin-bottom: 20px;
-}
-
-.input-group label {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 5px;
-  display: block;
+  margin-bottom: 15px;
 }
 
 .input-group input {
@@ -104,6 +121,11 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
 }
 
 .submit-button {
@@ -114,17 +136,5 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-}
-
-.submit-button:hover {
-  background-color: #333;
-}
-
-.signup-link {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
 }
 </style>

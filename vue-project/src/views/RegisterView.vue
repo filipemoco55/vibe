@@ -1,37 +1,30 @@
 <template>
     <div class="container">
-        <!-- Background Image Section -->
         <div class="background-section">
             <img src="@/assets/login.png" alt="Background" class="background-image" />
         </div>
 
-        <!-- Login Form Section -->
         <div class="login-section">
             <div class="logo">
                 <img src="@/assets/Logo.png" alt="Logo" />
             </div>
             <form class="login-form" @submit.prevent="handleLogin">
-                <!-- Nome Input -->
                 <div class="input-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" v-model="name" placeholder="First and last name" required />
                 </div>
-                <!-- Email Input -->
                 <div class="input-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" v-model="email" placeholder="email@gmail.com" required />
                 </div>
-                <!-- Password Input -->
                 <div class="input-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" v-model="password" placeholder="**********" required />
                 </div>
-                <!-- Submit Button -->
                 <RouterLink to="/"
                     style="background-color: black; height: 50px; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white;">
                     Login
                 </RouterLink>
-                <!-- Sign Up Link -->
                 <div class="signup-link">
                     <RouterLink to= "/login" style="color: #0077a1;">Already have an account?</RouterLink>
                 </div>

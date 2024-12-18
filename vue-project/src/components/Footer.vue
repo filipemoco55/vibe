@@ -43,30 +43,7 @@ export default {
 };
 </script>
 
-
-<style scoped>
-h1 {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  margin-top: 40px;
-  margin-left: 100px;
-  font-weight: bold;
-  font-size: 50px;
-}
-
-h3 {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  margin: 30px;
-  font-weight: bold;
-  font-size: 30px;
-}
-
-h2 {
-  color: white;
-  font-weight: bold;
-}
-
+<style scoped >
 .footer {
   background-color: #004f6f;
   color: white;

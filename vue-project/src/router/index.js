@@ -7,6 +7,9 @@ import StoreView from '@/views/StoreView.vue';
 import MusicView from '@/views/MusicView.vue';
 import MoreView from '@/views/MoreView.vue';
 import TicketsView from '@/views/TicketsView.vue';
+import AdminView from '@/views/AdminView.vue';
+import UsersAdminView from '@/views/UsersAdminView.vue';
+import TicketsAdminView from '@/views/TicketsAdminView.vue';
 
 
 const router = createRouter({
@@ -26,6 +29,11 @@ const router = createRouter({
       path: '/register',
       name: 'Register',
       component: RegisterView,
+    },
+    {
+      path: "/admin",
+      name: "Admin",
+      component: AdminView,
     },
     {
       path: '/poster',
@@ -51,6 +59,16 @@ const router = createRouter({
       path: '/more',
       name: 'More',
       component: MoreView,
+    },
+    {
+      path: '/users/admin',
+      name: 'UsersAdmin',
+      component: UsersAdminView,
+    },
+    {
+      path: '/tickets/admin',
+      name: 'TicketsAdmin',
+      component: TicketsAdminView,
     },
   ],
 })
