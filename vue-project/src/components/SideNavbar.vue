@@ -5,10 +5,13 @@
       </div>
       <ul class="menu">
         <li>
-          <router-link to="/admin" class="menu-link">Admin</router-link>
+          <router-link to="/" class="menu-link">Home</router-link>
         </li>
         <li>
           <router-link to="/users/admin" class="menu-link">Users </router-link>
+        </li>
+        <li>
+          <router-link to="/merch/admin" class="menu-link">Merch</router-link>
         </li>
         <li>
           <router-link to="/tickets/admin" class="menu-link">Tickets</router-link>
