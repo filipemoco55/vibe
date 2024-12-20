@@ -14,9 +14,9 @@
         </nav>
 
         <div v-if="isAuthenticated" class="user-actions">
-            <RouterLink to="/profile" class="profile-button">
+            <RouterLink to="/admin" class="profile-button">
                 <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
-                Perfil
+                Admin
             </RouterLink>
             <button @click="logout" class="logout-button">Logout</button>
         </div>
