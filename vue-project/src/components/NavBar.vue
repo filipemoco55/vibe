@@ -3,6 +3,7 @@
         <div class="logo">
             <img src="@/assets/Logo.png" alt="Logo" class="logo-img" />
         </div>
+
         <nav class="nav">
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/Poster">Poster</RouterLink>
@@ -12,15 +13,38 @@
             <RouterLink to="/more">More</RouterLink>
         </nav>
 
-        <RouterLink to="/login" class="account-button">
+        <div v-if="isAuthenticated" class="user-actions">
+            <RouterLink to="/profile" class="profile-button">
+                <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
+                Perfil
+            </RouterLink>
+            <button @click="logout" class="logout-button">Logout</button>
+        </div>
+
+        <RouterLink v-else to="/login" class="account-button">
             My Account
         </RouterLink>
     </header>
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/authStore";
+import { computed } from "vue";
+
 export default {
     name: "Navbar",
+    setup() {
+        const authStore = useAuthStore();
+        const isAuthenticated = computed(() => authStore.isAuthenticated);
+        const logout = () => {
+            authStore.logout();
+        };
+
+        return {
+            isAuthenticated,
+            logout,
+        };
+    },
 };
 </script>
 
@@ -74,5 +98,55 @@ export default {
 
 .account-button:hover {
     background-color: #ddeeff;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #004f6f;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.profile-button:hover {
+    background-color: #0077a1;
+}
+
+.user-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.logout-button {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #ff6666;
 }
 </style>

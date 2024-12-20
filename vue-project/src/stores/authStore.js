@@ -7,7 +7,6 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     login(email, password) {
-      
       const adminCredentials = {
         email: "admin@gmail.com",
         password: "123",
@@ -18,12 +17,12 @@ export const useAuthStore = defineStore("auth", {
         email === adminCredentials.email &&
         password === adminCredentials.password
       ) {
-        this.isAdmin = true;
+        this.isAuthenticated = true;
         this.userRole = adminCredentials.isAdmin;
-        return true; 
+        return true;
       } else {
         this.isAuthenticated = false;
-        this.errorMessage = "Invalid email or password!";
+        this.userRole = null;
         return false;
       }
     },
