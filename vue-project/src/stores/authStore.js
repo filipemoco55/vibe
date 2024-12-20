@@ -7,6 +7,7 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     login(email, password) {
+      
       const adminCredentials = {
         email: "admin@gmail.com",
         password: "123",

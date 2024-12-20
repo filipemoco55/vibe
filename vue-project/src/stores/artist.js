@@ -8,25 +8,29 @@ export const useArtistStore = defineStore('artist', {
                     id: 1, 
                     name: 'Don Toliver', 
                     genre: 'Hip-Hop', 
-                    image: ''
+                    image: '',
+                    preview: '',
                 },
                 {
                     id: 2, 
                     name: 'Michael Jackson', 
                     genre: 'Pop', 
-                    image: ''
+                    image: '',
+                    preview: '',
                 },
                 {
                     id: 3, 
                     name: 'Frank Ocean', 
                     genre: 'R&B', 
-                    image: ''
+                    image: '',
+                    preview: '',
                 },
                 {
                     id: 4, 
                     name: 'Avicii', 
                     genre: 'Eletronic', 
-                    image: ''
+                    image: '',
+                    preview: '',
                 }
             ]
         }

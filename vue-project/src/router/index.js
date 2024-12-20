@@ -35,7 +35,8 @@ const router = createRouter({
       name: "Admin",
       component: AdminView,
       meta: {
-        isAuthenticated: true
+        isAuthenticated: true,
+        isAdmin: true
       }
     },
     {
@@ -57,9 +58,6 @@ const router = createRouter({
       path: '/tickets',
       name: 'Tickets',
       component: TicketsView,
-      meta: {
-        isAuthenticated: true
-      }
     },
     {
       path: '/more',

@@ -44,8 +44,8 @@ export const useEventStore = defineStore('event', {
                     stage: 'Secondary Stage',
                     day: 12,
                     lineup: [
-                        artistStore.artist[0], // Don Toliver
-                        artistStore.artist[2], // Michael Jackson
+                        artistStore.artist[0],
+                        artistStore.artist[2],
                     ],
                     image: ''
                 },
