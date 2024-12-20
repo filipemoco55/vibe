@@ -12,20 +12,20 @@ export const useArtistStore = defineStore('artist', {
                 },
                 {
                     id: 2, 
-                    name: 'Don Toliver', 
-                    genre: 'Hip-Hop', 
+                    name: 'Michael Jackson', 
+                    genre: 'Pop', 
                     image: ''
                 },
                 {
                     id: 3, 
-                    name: 'Don Toliver', 
-                    genre: 'Hip-Hop', 
+                    name: 'Frank Ocean', 
+                    genre: 'R&B', 
                     image: ''
                 },
                 {
                     id: 4, 
-                    name: 'Don Toliver', 
-                    genre: 'Hip-Hop', 
+                    name: 'Avicii', 
+                    genre: 'Eletronic', 
                     image: ''
                 }
             ]
@@ -37,13 +37,13 @@ export const useArtistStore = defineStore('artist', {
 
     actions: {
         filterbyGenre(genre){
-
+            return this.artist.filter(artist => artist.genre === genre)
         },
         filterByName(name){
-
+            return this.artist.filter(artist => artist.name === name)
         },
         removeArtist(id){
-
+            this.artist = this.artist.filter(artist => artist.id != id)
         }
     }
 })

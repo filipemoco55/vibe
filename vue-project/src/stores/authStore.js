@@ -10,7 +10,7 @@ export const useAuthStore = defineStore("auth", {
       const adminCredentials = {
         email: "admin@gmail.com",
         password: "123",
-        role: "admin",
+        isAdmin: true,
       };
 
       if (
@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("auth", {
         password === adminCredentials.password
       ) {
         this.isAuthenticated = true;
-        this.userRole = adminCredentials.role;
+        this.userRole = adminCredentials.isAdmin;
         return true; 
       } else {
         this.isAuthenticated = false;
