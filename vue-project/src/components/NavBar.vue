@@ -11,7 +11,7 @@
             <RouterLink to="/tickets">Tickets</RouterLink>
             <RouterLink to="/more">More</RouterLink>
         </nav>
-        
+
         <RouterLink to="/login" class="account-button">
             My Account
         </RouterLink>
@@ -41,7 +41,7 @@ export default {
 .nav {
     display: flex;
     align-items: center;
-} 
+}
 
 .nav a,
 .nav RouterLink {

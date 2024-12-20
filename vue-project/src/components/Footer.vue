@@ -39,11 +39,11 @@
 
 <script>
 export default {
-    name: "Footer",
+  name: "Footer",
 };
 </script>
 
-<style scoped >
+<style scoped>
 .footer {
   background-color: #004f6f;
   color: white;

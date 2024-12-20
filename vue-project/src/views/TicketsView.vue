@@ -12,7 +12,7 @@ const tickets = [
     id: 1,
     location: 'PORTO',
     details: 'VIBE CONCERT PORTO 2025 | 10 - 12 JUN 2025',
-    dates: [
+    dates: [ 
       { date: 'Thursday 10 June', price: '€67.50' },
       { date: 'Friday 11 June', price: '€75.00' },
       { date: 'Saturday 12 June', price: '€67.50' },
