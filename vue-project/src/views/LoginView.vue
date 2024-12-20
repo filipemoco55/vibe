@@ -13,24 +13,12 @@
       <form class="login-form" @submit.prevent="handleLogin">
         <div class="input-group">
           <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            v-model="email"
-            placeholder="admin@gmail.com"
-            required
-          />
+          <input type="email" id="email" v-model="email" placeholder="admin@gmail.com" required />
         </div>
 
         <div class="input-group">
           <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            placeholder="**********"
-            required
-          />
+          <input type="password" id="password" v-model="password" placeholder="**********" required />
         </div>
 
         <!-- Error Message -->
@@ -64,10 +52,14 @@ export default {
   },
   methods: {
     handleLogin() {
+      console.log("Email:", this.email);
+      console.log("Password:", this.password);
       const success = this.authStore.login(this.email, this.password);
-
+      console.log("Success:", success);
       if (success) {
-        this.router.push("/admin");
+        const from = this.$route.query.from || "/";
+        this.$router.push(from);
+        console.log("Redirecting to:", from);
       }
     },
   },

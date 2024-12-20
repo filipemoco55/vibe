@@ -17,7 +17,7 @@ export const useAuthStore = defineStore("auth", {
         email === adminCredentials.email &&
         password === adminCredentials.password
       ) {
-        this.isAuthenticated = true;
+        this.isAdmin = true;
         this.userRole = adminCredentials.isAdmin;
         return true; 
       } else {

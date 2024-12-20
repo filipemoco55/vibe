@@ -1,6 +1,9 @@
 <script setup>
 import Navbar from '@/components/NavBar.vue';
 import { ref } from 'vue';
+import { useEventStore } from '@/stores/event';
+
+
 
 const activeDay = ref('10 Jun');
 
@@ -45,6 +48,7 @@ const secondaryContent = {
 const setActiveDay = (day) => {
     activeDay.value = day;
 };
+
 </script>
 
 <template>
@@ -146,6 +150,8 @@ export default {
         },
     },
 };
+
+
 </script>
 
 <style>

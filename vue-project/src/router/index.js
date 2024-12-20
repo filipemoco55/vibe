@@ -35,7 +35,7 @@ const router = createRouter({
       name: "Admin",
       component: AdminView,
       meta: {
-        requiresAuth: true
+        isAuthenticated: true
       }
     },
     {
@@ -58,7 +58,7 @@ const router = createRouter({
       name: 'Tickets',
       component: TicketsView,
       meta: {
-        requiresAuth: true
+        isAuthenticated: true
       }
     },
     {
@@ -71,7 +71,7 @@ const router = createRouter({
       name: 'UsersAdmin',
       component: UsersAdminView,
       meta: {
-        isAuthenticated: true,
+        isAuthenticated : true,
         isAdmin: true
       }
     },
@@ -80,7 +80,7 @@ const router = createRouter({
       name: 'TicketsAdmin',
       component: TicketsAdminView,
       meta: {
-        isAuthenticated: true,
+        isAuthenticated : true,
         isAdmin: true
       }
     },
@@ -91,14 +91,12 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem("isAuthenticated")
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    // next("/login")
     next({ path: "/login", query: { from: to.path } });
   } else {
     next()
   }
   
 });
-
 
 export default router
 
