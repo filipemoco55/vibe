@@ -14,6 +14,7 @@ const products = [
     { id: 6, name: 'Vibe Black Sweatpants', price: 60, image: 'link_para_imagem_2' },
     { id: 7, name: 'Vibe White Socks', price: 8, image: 'link_para_imagem_3' },
     { id: 8, name: 'Vibe Black Socks', price: 8, image: 'link_para_imagem_4' },
+    
 ];
 </script>
 
@@ -40,7 +41,6 @@ h1 {
     margin-left: 100px;
     font-weight: bold;
     font-size: 40px;
-    text-align: center;
 }
 
 .product-list {
