@@ -13,7 +13,7 @@ export const useArtistStore = defineStore('artist', {
                 },
                 {
                     id: 2, 
-                    name: 'Michael Jackson', 
+                    name: 'Sabrina Carpenter', 
                     genre: 'Pop', 
                     image: '',
                     preview: '',
@@ -27,7 +27,7 @@ export const useArtistStore = defineStore('artist', {
                 },
                 {
                     id: 4, 
-                    name: 'Avicii', 
+                    name: 'DJ Danni Gato', 
                     genre: 'Eletronic', 
                     image: '',
                     preview: '',
