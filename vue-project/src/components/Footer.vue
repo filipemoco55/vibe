@@ -1,5 +1,4 @@
 <template>
-
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-section logo-section">
