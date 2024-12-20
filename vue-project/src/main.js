@@ -15,7 +15,6 @@ pinia.use(piniaPluginPersistedstate)
 
 app.use(pinia)
 app.use(router)
-pinia.use(piniaPluginPersistedstate)
 app.mount('#app')
 
 
