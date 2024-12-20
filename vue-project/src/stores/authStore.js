@@ -20,7 +20,6 @@ export const useAuthStore = defineStore("auth", {
         this.isAuthenticated = true;
         this.userRole = adminCredentials.isAdmin;
 
-
         localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated));
         localStorage.setItem("userRole", JSON.stringify(this.userRole));
 
