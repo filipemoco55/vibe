@@ -33,25 +33,6 @@ const products = [
 </template>
 
 <style scoped>
-
-@media (max-width: 1200px) {
-    .product-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 900px) {
-    .product-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .product-list {
-        grid-template-columns: 1fr;
-    }
-}
-
 h1 {
     font-family: 'Poppins', sans-serif;
     color: white;
@@ -110,6 +91,42 @@ h1 {
     margin-left: 20px;
 }
 
+@media (max-width: 1200px) {
+    .product-list {
+        grid-template-columns: repeat(3, 1fr);
+        margin: 50px 50px;
+    }
+}
 
+@media (max-width: 900px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 50px 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .product-list {
+        grid-template-columns: 1fr;
+        margin: 50px 10px;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-left: 0;
+    }
+
+    .product-image {
+        height: 200px;
+    }
+
+    .product-title {
+        font-size: 14px;
+    }
+
+    .product-price {
+        font-size: 12px;
+    }
+}
 </style>
 
