@@ -36,6 +36,12 @@
   </script>
   
   <style scoped>
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
   .sidebar {
     height: 100vh;
     width: 250px;

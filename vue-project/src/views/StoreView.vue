@@ -2,7 +2,6 @@
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 
-
 const placeholderImage = 'src/assets/placeholder.png';
 
 const products = [
@@ -14,21 +13,23 @@ const products = [
     { id: 6, name: 'Vibe Black Sweatpants', price: 60, image: 'link_para_imagem_2' },
     { id: 7, name: 'Vibe White Socks', price: 8, image: 'link_para_imagem_3' },
     { id: 8, name: 'Vibe Black Socks', price: 8, image: 'link_para_imagem_4' },
-    
 ];
 </script>
 
 <template>
-    <Navbar />
+    <div>
+        <Navbar />
+        <h1>WEAR THE RHYTHM, FEEL THE VIBE!</h1>
 
-    <h1>WEAR THE RHYTHM, FEEL THE VIBE!</h1>
-
-    <div class="product-list">
-        <a v-for="product in products" :key="product.id" :href="product.link" class="product-card">
-            <div class="product-image" :style="{ backgroundImage: `url(${product.image || placeholderImage})` }"></div>
-            <h3 class="product-title">{{ product.name }}</h3>
-            <p class="product-price">{{ product.price }}€</p>
-        </a>
+        <div class="product-list">
+            <router-link v-for="product in products" :key="product.id"
+                :to="{ name: 'ShopView', params: { id: product.id } }" class="product-card">
+                <div class="product-image" :style="{ backgroundImage: `url(${product.image || placeholderImage})` }">
+                </div>
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-price">{{ product.price }}€</p>
+            </router-link>
+        </div>
     </div>
     <Footer></Footer>
 </template>
@@ -129,4 +130,3 @@ h1 {
     }
 }
 </style>
-
