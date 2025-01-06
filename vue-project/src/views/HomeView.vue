@@ -6,55 +6,44 @@ import Footer from '@/components/Footer.vue';
 <template>
   <Navbar />
 
-  <div class="event-card">
-    <div class="event-image">
-      <img src="/src/assets/foto exemplo.png" alt=Event Background>
-      <div class="event-overlay">
-        <h2 class="event-title">Come watch Coldplay and much more this summer</h2>
-        <button class="buy-button">BUY NOW</button>
-      </div>
-    </div>
+  <div class="video-container">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="/src/assets/video.mp4" type="video/mp4" />
+    </video>
+    <router-link to="/tickets" class="buy-button">Tickets</router-link>
   </div>
+
 
   <h1>More Upcoming Artists</h1>
 
   <Footer></Footer>
 </template>
 
+<style scoped>
+.video-container {
+  position: relative;
+  overflow: hidden;
+  height: 100%px;
+  max-width: 100%;
+}
 
-<script>
-export default {
-  name: "EventCard",
-};
-</script>
+.background-video {
+  width: 100%;
+  height: 100%;
+}
 
-
-<style>
 h1 {
   font-family: 'Poppins', sans-serif;
   color: white;
-  margin-top: 40px;
+  margin-top: 50px;
   margin-left: 100px;
   font-weight: bold;
-  font-size: 50px;
-}
-
-h3 {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  margin: 30px;
-  font-weight: bold;
-  font-size: 30px;
-}
-
-h2 {
-  color: white;
-  font-weight: bold;
+  font-size: 40px;
 }
 
 .event-card {
   text-align: center;
-  font-weight: Bold;
+  font-weight: bold;
   color: white;
   background-color: white;
   padding: 5px;
@@ -97,31 +86,25 @@ h2 {
   line-height: 3;
 }
 
-.event-details {
-  font-size: 1em;
-  margin-bottom: 20px;
-}
-
 .buy-button {
   background-color: #0088ccb9;
   color: rgb(255, 255, 255);
   border: none;
-  padding: 15px 50px;
+  padding: 15px 60px;
   border-radius: 10px;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   transition: background-color 0.8s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   position: absolute;
-  left: 1100px;
-  bottom: 20px;
+  top: 90%;
+  right: 1%;
 }
 
 .buy-button:hover {
   background-color: #003b57;
-  opacity: 0.7
+  opacity: 0.7;
 }
-
 </style>

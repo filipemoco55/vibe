@@ -14,7 +14,7 @@ const tickets = [
     id: 1,
     location: 'PORTO',
     details: 'VIBE CONCERT PORTO 2025 | 10 - 12 JUN 2025',
-    dates: [ 
+    dates: [
       { date: 'Thursday 10 June', price: '€67.50' },
       { date: 'Friday 11 June', price: '€75.00' },
       { date: 'Saturday 12 June', price: '€67.50' },
@@ -54,7 +54,6 @@ const tickets = [
 
 const buttons = ['DAY TICKETS', 'FULL FESTIVAL TICKETS', 'VIP'];
 
-// Alternar visibilidade dos tickets
 const toggleTicket = (id) => {
   if (selectedTicketId.value === id) {
     selectedTicketId.value = null;
@@ -90,7 +89,6 @@ const selectButton = (index) => {
         <span class="location">{{ ticket.location }}</span>
         <p class="details">{{ ticket.details }}</p>
 
-        <!-- Botões para selecionar tipo de ingresso -->
         <div v-if="selectedTicketId === ticket.id" class="buttons-container">
           <button v-for="(btn, index) in buttons" :key="index" :class="['button', { active: activeButton === index }]"
             @click.stop="selectButton(index)">
@@ -98,9 +96,7 @@ const selectButton = (index) => {
           </button>
         </div>
 
-        <!-- Detalhes dos ingressos apenas para o card selecionado -->
         <div v-if="showTicketDetails && selectedTicketId === ticket.id" class="ticket-details">
-          <!-- DAY TICKETS -->
           <div v-if="activeButton === 0">
             <h3>DAY FESTIVAL TICKETS</h3>
             <div v-for="(detail, index) in ticket.dates" :key="index" class="ticket-detail">
@@ -109,7 +105,6 @@ const selectButton = (index) => {
             </div>
           </div>
 
-          <!-- FULL FESTIVAL TICKETS -->
           <div v-if="activeButton === 1">
             <h3>FULL FESTIVAL TICKETS</h3>
             <div v-for="(festival, index) in ticket.fullFestival" :key="index" class="ticket-detail">
@@ -120,7 +115,6 @@ const selectButton = (index) => {
             </div>
           </div>
 
-          <!-- VIP TICKETS -->
           <div v-if="activeButton === 2">
             <h3>DAY VIP TICKETS</h3>
             <div v-for="(vip, index) in ticket.vip.filter(v => v.type === 'DAY VIP')" :key="index"

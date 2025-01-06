@@ -2,7 +2,6 @@
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 
-
 const placeholderImage = 'src/assets/placeholder.png';
 
 const products = [
@@ -18,40 +17,24 @@ const products = [
 </script>
 
 <template>
-    <Navbar />
+    <div>
+        <Navbar />
+        <h1>WEAR THE RHYTHM, FEEL THE VIBE!</h1>
 
-    <h1>WEAR THE RHYTHM, FEEL THE VIBE!</h1>
-
-    <div class="product-list">
-        <a v-for="product in products" :key="product.id" :href="product.link" class="product-card">
-            <div class="product-image" :style="{ backgroundImage: `url(${product.image || placeholderImage})` }"></div>
-            <h3 class="product-title">{{ product.name }}</h3>
-            <p class="product-price">{{ product.price }}€</p>
-        </a>
+        <div class="product-list">
+            <router-link v-for="product in products" :key="product.id"
+                :to="{ name: 'ShopView', params: { id: product.id } }" class="product-card">
+                <div class="product-image" :style="{ backgroundImage: `url(${product.image || placeholderImage})` }">
+                </div>
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-price">{{ product.price }}€</p>
+            </router-link>
+        </div>
     </div>
     <Footer></Footer>
 </template>
 
 <style scoped>
-
-@media (max-width: 1200px) {
-    .product-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 900px) {
-    .product-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .product-list {
-        grid-template-columns: 1fr;
-    }
-}
-
 h1 {
     font-family: 'Poppins', sans-serif;
     color: white;
@@ -59,7 +42,6 @@ h1 {
     margin-left: 100px;
     font-weight: bold;
     font-size: 40px;
-    text-align: center;
 }
 
 .product-list {
@@ -110,6 +92,41 @@ h1 {
     margin-left: 20px;
 }
 
+@media (max-width: 1200px) {
+    .product-list {
+        grid-template-columns: repeat(3, 1fr);
+        margin: 50px 50px;
+    }
+}
 
+@media (max-width: 900px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 50px 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .product-list {
+        grid-template-columns: 1fr;
+        margin: 50px 10px;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-left: 0;
+    }
+
+    .product-image {
+        height: 200px;
+    }
+
+    .product-title {
+        font-size: 14px;
+    }
+
+    .product-price {
+        font-size: 12px;
+    }
+}
 </style>
-

@@ -9,7 +9,6 @@
         <img src="@/assets/Logo.png" alt="Logo" />
       </div>
 
-      <!-- Login Form -->
       <form class="login-form" @submit.prevent="handleLogin">
         <div class="input-group">
           <label for="email">Email</label>
@@ -21,12 +20,10 @@
           <input type="password" id="password" v-model="password" placeholder="**********" required />
         </div>
 
-        <!-- Error Message -->
         <p v-if="authStore.errorMessage" class="error-message">
           {{ authStore.errorMessage }}
         </p>
 
-        <!-- Submit Button -->
         <button type="submit" class="submit-button">Login</button>
       </form>
     </div>
@@ -67,7 +64,7 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos mantidos */
+
 .container {
   display: flex;
   margin: 0;
