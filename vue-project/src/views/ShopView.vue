@@ -24,7 +24,7 @@ const product = products.find((p) => p.id === Number(productId));
 </script>
 
 <template>
-            <Navbar />
+    <Navbar />
     <div class="buy-page">
         <h1>{{ product.name }}</h1>
         <img :src="product.image" :alt="product.name" class="product-image" />
