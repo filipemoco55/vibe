@@ -37,17 +37,20 @@ export const useArtistStore = defineStore('artist', {
     },
     getters: {
         totalArtist: (state) => state.artist.length,
-    },
-
-    actions: {
         filterbyGenre(genre){
             return this.artist.filter(artist => artist.genre === genre)
         },
         filterByName(name){
             return this.artist.filter(artist => artist.name === name)
         },
+    },
+
+    actions: {
         removeArtist(id){
             this.artist = this.artist.filter(artist => artist.id != id)
+        },
+        addArtist(artist){
+            this.artist.push(artist)
         }
     }
 })

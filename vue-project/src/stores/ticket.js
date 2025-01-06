@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import { useEventStore } from './event'
+import { useAuthStore } from './authStore';
 
 const eventStore = useEventStore(); // Access the artist store
+const authStore = useAuthStore(); // Access the user store
 
 export const useTicketStore = defineStore('ticket', {
     state: () => {
@@ -73,9 +75,6 @@ export const useTicketStore = defineStore('ticket', {
     },
     getters: {
         total: (state) => state.ticket.length,
-    },
-
-    actions: {
         filterTicketByType(type) {
             return this.ticket.filter(ticket => ticket.type === type)
         },
@@ -87,6 +86,13 @@ export const useTicketStore = defineStore('ticket', {
         },
         filterTicketByEvent(event) {
             return this.ticket.filter(ticket => ticket.event === event)
-        }
+        },
+    },
+
+    actions: {
+        addTicketToUser(ticket) {
+            authStore.user.tickets.push(ticket)
+        },
+
     },
 })

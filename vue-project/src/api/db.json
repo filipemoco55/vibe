@@ -1,0 +1,100 @@
+{
+  "artist": [
+    {
+      "id": 1,
+      "name": "Kanye West",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 2,
+      "name": "Drake",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 3,
+      "name": "Kendrick Lamar",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 4,
+      "name": "J. Cole",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 5,
+      "name": "Travis Scott",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 6,
+      "name": "Lil Wayne",
+      "image": "https://i.scdn.com/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 7,
+      "name": "Eminem",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 8,
+      "name": "50 Cent",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "Hip-Hop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 9,
+      "name": "Beyonce",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "R&B",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 10,
+      "name": "Rihanna",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "R&B",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 11,
+      "name": "Chris Brown",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "R&B",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 12,
+      "name": "Usher",
+      "image": "https://i.scdn.co/image/ab67616d0000b273f4f3f4b3f4f3f4b3f4f3f4b3",
+      "genre": "R&B",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    }
+  ]
+}
