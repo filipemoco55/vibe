@@ -6,105 +6,172 @@ import Footer from '@/components/Footer.vue';
 <template>
   <Navbar />
 
+  <!-- Hero Section with Video Background -->
   <div class="video-container">
+    <div class="video-overlay">
+      <h1 class="hero-title">Welcome to Vibe Concert</h1>
+      <router-link to="/tickets" class="buy-button">Buy your Ticket Now!</router-link>
+    </div>
     <video autoplay muted loop playsinline class="background-video">
       <source src="/src/assets/video.mp4" type="video/mp4" />
     </video>
-    <router-link to="/tickets" class="buy-button">Tickets</router-link>
   </div>
 
+  <!-- Upcoming Artists Section -->
+  <section class="artists-section">
+    <h1>More Upcoming Artists</h1>
+    <div class="artist-grid">
+      <div v-for="artist in 6" :key="artist" class="artist-card">
+        <h2>Artista {{ artist }}</h2>
+      </div>
+    </div>
+  </section>
 
-  <h1>More Upcoming Artists</h1>
-
-  <Footer></Footer>
+  <Footer />
 </template>
 
 <style scoped>
-.video-container {
-  position: relative;
-  overflow: hidden;
-  height: 100%px;
-  max-width: 100%;
-}
-
-.background-video {
-  width: 100%;
-  height: 100%;
+/* General Styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background-color: #121212;
 }
 
 h1 {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  margin-top: 50px;
-  margin-left: 100px;
   font-weight: bold;
-  font-size: 40px;
-}
-
-.event-card {
+  font-size: 2.5rem;
   text-align: center;
-  font-weight: bold;
-  color: white;
-  background-color: white;
-  padding: 5px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 1300px;
-  margin: 10px auto;
+  margin: 2rem 0;
 }
 
-.event-image {
+
+.video-container {
   position: relative;
-  border-radius: 10px;
   overflow: hidden;
-}
-
-.event-image img {
+  height: 100vh;
   width: 100%;
-  display: block;
-  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.event-overlay {
+.background-video {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(45, 45, 45, 0.8));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
-  text-align: justify;
+  text-align: center;
 }
 
-.event-title {
-  font-size: 50px;
-  margin-bottom: 320px;
-  line-height: 3;
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  
 }
 
 .buy-button {
-  background-color: #0088ccb9;
-  color: rgb(255, 255, 255);
+  background-color: #00aaff;
+  color: white;
   border: none;
-  padding: 15px 60px;
-  border-radius: 10px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  transition: background-color 0.8s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 90%;
-  right: 1%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
 }
 
 .buy-button:hover {
-  background-color: #003b57;
-  opacity: 0.7;
+  background-color: #0077cc;
+  transform: scale(1.05);
+}
+
+/* Artists Section */
+.artists-section {
+  padding: 2rem;
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.artist-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.artist-card:hover {
+  transform: translateY(-10px);
+}
+
+.artist-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.artist-card h2 {
+  margin: 1rem 0;
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .buy-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .artist-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .buy-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .artist-image {
+    height: 200px;
+  }
 }
 </style>
