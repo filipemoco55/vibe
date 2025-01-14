@@ -230,4 +230,108 @@ h3 {
 .buy-btn:hover {
   background-color: #005f7a;
 }
+
+
+@media (max-width: 1024px) {
+  .tickets {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ticket-card {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .buttons-container {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .ticket-details {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  .buy-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 300px;
+    background-size: cover;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    margin-top: 6rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-left: 50px;
+  }
+
+  .ticket-card {
+    padding: 0.8rem;
+  }
+
+  .buttons-container {
+    justify-content: center;
+  }
+
+  .button {
+    padding: 0.4rem;
+    font-size: 0.7rem;
+  }
+
+  .ticket-details {
+    padding: 0.8rem;
+  }
+
+  .buy-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+    margin-top: 4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-left: 20px;
+  }
+
+  .ticket-card {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .button {
+    padding: 0.3rem;
+    font-size: 0.6rem;
+  }
+
+  .ticket-details {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .buy-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.6rem;
+  }
+}
 </style>
