@@ -9,7 +9,7 @@ const route = useRoute();
 const productId = route.params.id;
 
 const products = [
-    { id: 1, name: 'Vibe White T-Shirt', price: 40, image: '/assets/T-shirt.png' },
+    { id: 1, name: 'Vibe White T-Shirt', price: 40, image: './assets/T-shirt.png' },
     { id: 2, name: 'Vibe Black T-Shirt', price: 40, image: 'src/assets/T-shirtpreta.png' },
     { id: 3, name: 'Vibe White Hoodie', price: 90, image: 'src/assets/Hoodie.png' },
     { id: 4, name: 'Vibe Black Hoodie', price: 90, image: 'src/assets/Hoodiepreta.png' },
