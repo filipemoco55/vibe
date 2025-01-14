@@ -25,6 +25,10 @@
         </p>
 
         <button type="submit" class="submit-button">Login</button>
+
+        <div class="signup-link">
+          <RouterLink to="/register" style="color: #0077a1;">Dont have an account?</RouterLink>
+        </div>
       </form>
     </div>
   </div>
@@ -68,12 +72,13 @@ export default {
   display: flex;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 99vh;
   width: 100vw;
 }
 
 .background-section {
   flex: 1;
+  position: relative;
 }
 
 .background-image {
@@ -93,15 +98,25 @@ export default {
 
 .logo img {
   width: 250px;
+  height: auto;
   margin-bottom: 20px;
 }
 
 .login-form {
   width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
 }
 
 .input-group input {
@@ -109,11 +124,6 @@ export default {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.error-message {
-  color: red;
-  font-size: 14px;
 }
 
 .submit-button {
@@ -124,5 +134,27 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background-color: #333;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
 }
 </style>

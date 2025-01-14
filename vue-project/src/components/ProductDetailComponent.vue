@@ -22,7 +22,7 @@ const products = [
 const product = products.find((p) => p.id === productId);
 
 if (!product) {
-    router.replace({ name: 'ShopView' }); // Redireciona para a loja caso o produto não exista
+    router.replace({ name: 'ShopView' });
 }
 </script>
 
