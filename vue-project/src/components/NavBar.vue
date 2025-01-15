@@ -6,26 +6,33 @@
 
         <nav class="nav">
             <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/Poster">Poster</RouterLink>
+            <RouterLink to="/poster">Poster</RouterLink>
             <RouterLink to="/store">Store</RouterLink>
             <RouterLink to="/music">Music</RouterLink>
             <RouterLink to="/tickets">Tickets</RouterLink>
             <RouterLink to="/more">More</RouterLink>
         </nav>
 
-        <div v-if="isAuthenticated" class="user-actions">
-            <RouterLink to="/admin" class="profile-button">
+        <div class="user-actions">
+            <!-- Admin Button -->
+            <RouterLink v-if="isAdmin" to="/admin" class="profile-button">
                 <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
                 Admin
             </RouterLink>
-            <button @click="logout" class="logout-button">Logout</button>
-        </div>
 
-        <RouterLink v-else to="/login" class="account-button">
-            My Account
-        </RouterLink>
+            <!-- Logout Button -->
+            <button v-if="isAuthenticated" @click="logout" class="logout-button">
+                Logout
+            </button>
+
+            <!-- Login Button -->
+            <RouterLink v-else to="/login" class="account-button">
+                My Account
+            </RouterLink>
+        </div>
     </header>
 </template>
+
 
 <script>
 import { useAuthStore } from "@/stores/authStore";
@@ -35,13 +42,18 @@ export default {
     name: "Navbar",
     setup() {
         const authStore = useAuthStore();
+
+        // Computed properties for authentication and role checks
         const isAuthenticated = computed(() => authStore.isAuthenticated);
+        const isAdmin = computed(() => authStore.userRole === "admin");
+
         const logout = () => {
             authStore.logout();
         };
 
         return {
             isAuthenticated,
+            isAdmin,
             logout,
         };
     },

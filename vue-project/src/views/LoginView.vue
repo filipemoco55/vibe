@@ -20,8 +20,8 @@
           <input type="password" id="password" v-model="password" placeholder="**********" required />
         </div>
 
-        <p v-if="authStore.errorMessage" class="error-message">
-          {{ authStore.errorMessage }}
+        <p v-if="errorMessage" class="error-message">
+          {{ errorMessage }}
         </p>
 
         <button type="submit" class="submit-button">Login</button>
@@ -39,6 +39,7 @@ export default {
     return {
       email: "",
       password: "",
+      errorMessage: "",
     };
   },
   setup() {
@@ -49,22 +50,21 @@ export default {
   },
   methods: {
     handleLogin() {
-      console.log("Email:", this.email);
-      console.log("Password:", this.password);
       const success = this.authStore.login(this.email, this.password);
-      console.log("Success:", success);
+
       if (success) {
-        const from = this.$route.query.from || "/";
-        this.$router.push(from);
-        console.log("Redirecting to:", from);
+        this.router.push("/"); // Centralized logic in the router will handle redirection
+      } else {
+        this.errorMessage = "Invalid email or password. Please try again.";
       }
     },
+
   },
 };
+
 </script>
 
 <style scoped>
-
 .container {
   display: flex;
   margin: 0;

@@ -5,30 +5,30 @@ export const useArtistStore = defineStore('artist', {
         return {
             artist: [
                 {
-                    id: 1, 
-                    name: 'Don Toliver', 
-                    genre: 'Hip-Hop', 
+                    id: 1,
+                    name: 'Don Toliver',
+                    genre: 'Hip-Hop',
                     image: '',
                     preview: '',
                 },
                 {
-                    id: 2, 
-                    name: 'Sabrina Carpenter', 
-                    genre: 'Pop', 
+                    id: 2,
+                    name: 'Sabrina Carpenter',
+                    genre: 'Pop',
                     image: '',
                     preview: '',
                 },
                 {
-                    id: 3, 
-                    name: 'Frank Ocean', 
-                    genre: 'R&B', 
+                    id: 3,
+                    name: 'Frank Ocean',
+                    genre: 'R&B',
                     image: '',
                     preview: '',
                 },
                 {
-                    id: 4, 
-                    name: 'DJ Danni Gato', 
-                    genre: 'Eletronic', 
+                    id: 4,
+                    name: 'DJ Danni Gato',
+                    genre: 'Eletronic',
                     image: '',
                     preview: '',
                 }
@@ -37,19 +37,19 @@ export const useArtistStore = defineStore('artist', {
     },
     getters: {
         totalArtist: (state) => state.artist.length,
-        filterbyGenre(genre){
+        filterbyGenre(genre) {
             return this.artist.filter(artist => artist.genre === genre)
         },
-        filterByName(name){
+        filterByName(name) {
             return this.artist.filter(artist => artist.name === name)
         },
     },
 
     actions: {
-        removeArtist(id){
+        removeArtist(id) {
             this.artist = this.artist.filter(artist => artist.id != id)
         },
-        addArtist(artist){
+        addArtist(artist) {
             this.artist.push(artist)
         }
     }

@@ -1,24 +1,21 @@
 import { defineStore } from "pinia";
+import { useUserStore } from "./user";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated")) || false,
-    userRole: JSON.parse(localStorage.getItem("userRole")) || null,
+    isAuthenticated: false,
+    userRole: null,
   }),
   actions: {
     login(email, password) {
-      const adminCredentials = {
-        email: "admin@gmail.com",
-        password: "123",
-        isAdmin: true,
-      };
+      const userStore = useUserStore();
+      const user = userStore.users.find(
+        (u) => u.email === email && u.password === password
+      );
 
-      if (
-        email === adminCredentials.email &&
-        password === adminCredentials.password
-      ) {
+      if (user) {
         this.isAuthenticated = true;
-        this.userRole = adminCredentials.isAdmin;
+        this.userRole = user.isAdmin ? "admin" : "user";
 
         localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated));
         localStorage.setItem("userRole", JSON.stringify(this.userRole));
@@ -41,5 +38,13 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("isAuthenticated");
       localStorage.removeItem("userRole");
     },
+    loadStateFromLocalStorage() {
+      const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
+      const userRole = JSON.parse(localStorage.getItem("userRole"));
+
+      this.isAuthenticated = isAuthenticated || false;
+      this.userRole = userRole || null;
+    },
   },
+  persist: true,
 });
