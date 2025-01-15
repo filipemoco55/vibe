@@ -1,12 +1,41 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { defineProps, computed, ref, defineEmits } from 'vue';
+import { useEventStore } from '@/stores/event';
+import { useArtistStore } from '@/stores/artist';
 
 const props = defineProps({
-  content: Object,
-  activeDay: String,
+  activeDay: String,  // Active day is passed from the parent component
 });
 
+const emit = defineEmits(['setActiveDay']); // Emit event when day is selected
+
+// Access the stores
+const eventStore = useEventStore();
+const artistStore = useArtistStore();
+
+// Methods for changing days
+const setActiveDay = (day) => {
+  emit('setActiveDay', day);
+};
+
+// Get the event for the active day
+const activeEvent = computed(() => {
+  return eventStore.event.find(event => event.day === parseInt(props.activeDay));
+});
+
+// Main Stage Artists
+const mainStageArtists = computed(() => {
+  return activeEvent.value ? activeEvent.value.lineup.mainStage : [];
+});
+
+// Secondary Stage Artists
+const secondaryStageArtists = computed(() => {
+  return activeEvent.value ? activeEvent.value.lineup.secondaryStage : [];
+});
+
+// Carousel Scroll Logic
 const carousel = ref(null);
+const secondaryCarousel = ref(null);
 
 const scrollLeft = () => {
   carousel.value.scrollBy({ left: -carousel.value.offsetWidth, behavior: "smooth" });
@@ -15,34 +44,105 @@ const scrollLeft = () => {
 const scrollRight = () => {
   carousel.value.scrollBy({ left: carousel.value.offsetWidth, behavior: "smooth" });
 };
+
+const scrollLeftSecondary = () => {
+  secondaryCarousel.value.scrollBy({ left: -secondaryCarousel.value.offsetWidth, behavior: "smooth" });
+};
+
+const scrollRightSecondary = () => {
+  secondaryCarousel.value.scrollBy({ left: secondaryCarousel.value.offsetWidth, behavior: "smooth" });
+};
 </script>
 
 <template>
-  <div class="carousel-wrapper">
-    <button class="carousel-button left" @click="scrollLeft">‹</button>
-
-    <div class="carousel" ref="carousel">
-      <div class="carousel-item" v-for="(item, index) in content[activeDay]" :key="index">
-        <img :src="item.image" alt="Concert Image" class="carousel-image" />
-        <div class="carousel-caption">{{ item.caption }}</div>
-      </div>
+  <div>
+    <!-- Day Selection Buttons -->
+    <div class="button-container">
+      <button v-for="day in ['11', '12', '13']" :key="day" class="date-button"
+        :class="{ active: props.activeDay === day }" @click="setActiveDay(day)">
+        {{ day }} Jun
+      </button>
     </div>
 
-    <button class="carousel-button right" @click="scrollRight">›</button>
+    <!-- Main Stage Carousel -->
+    <h1>MAIN STAGE</h1>
+    <div class="carousel-wrapper">
+      <button class="carousel-button left" @click="scrollLeft">‹</button>
+
+      <div class="carousel" ref="carousel">
+        <div class="carousel-item" v-for="(artist, index) in mainStageArtists" :key="index">
+          <img :src="artist.image" alt="Artist Image" class="carousel-image" />
+          <div class="carousel-caption">{{ artist.name }}</div>
+        </div>
+      </div>
+
+      <button class="carousel-button right" @click="scrollRight">›</button>
+    </div>
+
+    <!-- Secondary Stage Carousel -->
+    <h1>SECONDARY STAGE</h1>
+    <div class="small-carousel-wrapper">
+      <button class="carousel-button left" @click="scrollLeftSecondary">‹</button>
+
+      <div class="small-carousel" ref="secondaryCarousel">
+        <div class="small-carousel-item" v-for="(artist, index) in secondaryStageArtists" :key="index">
+          <img :src="artist.image" alt="Artist" class="small-card-image" />
+          <div class="small-card-caption">{{ artist.name }}</div>
+        </div>
+      </div>
+
+      <button class="carousel-button right" @click="scrollRightSecondary">›</button>
+    </div>
   </div>
 </template>
 
-
-
 <style scoped>
-.carousel-wrapper {
+/* Button styles */
+.button-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  padding: 15px;
+}
+
+.date-button {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  justify-content: center;
+  border: none;
+  border-radius: 12px;
+  height: 70px;
+  width: 300px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: #0077a1;
+  background-color: white;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.date-button.active {
+  background-color: #002933;
+  color: white;
+}
+
+.date-button:hover {
+  transform: scale(1.05);
+}
+
+/* Carousel styles */
+.carousel-wrapper, .small-carousel-wrapper {
   position: relative;
   margin: 30px auto;
   max-width: 90%;
   overflow: hidden;
 }
 
-.carousel {
+.carousel, .small-carousel {
   display: flex;
   gap: 20px;
   scroll-behavior: smooth;
@@ -50,11 +150,11 @@ const scrollRight = () => {
   padding: 10px 0;
 }
 
-.carousel::-webkit-scrollbar {
+.carousel::-webkit-scrollbar, .small-carousel::-webkit-scrollbar {
   display: none;
 }
 
-.carousel-item {
+.carousel-item, .small-carousel-item {
   flex: 0 0 auto;
   width: 100%;
   max-width: 900px;
@@ -63,13 +163,13 @@ const scrollRight = () => {
   position: relative;
 }
 
-.carousel-image {
+.carousel-image, .small-card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.carousel-caption {
+.carousel-caption, .small-card-caption {
   position: absolute;
   bottom: 20px;
   left: 20px;
@@ -80,6 +180,7 @@ const scrollRight = () => {
   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 }
 
+/* Button for carousel navigation */
 .carousel-button {
   position: absolute;
   top: 50%;
@@ -110,6 +211,4 @@ const scrollRight = () => {
 .carousel-button:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
-
-
 </style>

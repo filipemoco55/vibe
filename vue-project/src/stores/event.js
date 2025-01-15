@@ -8,78 +8,96 @@ export const useEventStore = defineStore('event', {
                 {
                     id: 1,
                     name: 'Vibe festival',
-                    stage: 'Main Stage',
                     day: 11,
-                    lineup: [
-                        artistStore.artist[0],
-                        artistStore.artist[1],
-                    ],
-                    image: ''
+                    lineup: {
+                        mainStage: [
+
+                        ],
+                        secondaryStage: [
+
+                        ],
+                    },
                 },
                 {
                     id: 2,
                     name: 'Vibe festival',
-                    stage: 'Secondary Stage',
-                    day: 11,
-                    lineup: [
-                        artistStore.artist[2],
-                        artistStore.artist[3], 
-                    ],
-                    image: ''
+                    day: 12,
+                    lineup: {
+                        mainStage: [
+                        ],
+                        secondaryStage: [
+
+                        ],
+                    },
                 },
                 {
                     id: 3,
                     name: 'Vibe festival',
-                    stage: 'Main Stage',
-                    day: 12,
-                    lineup: [
-                        artistStore.artist[1], 
-                        artistStore.artist[3], 
-                    ],
-                    image: ''
-                },
-                {
-                    id: 4,
-                    name: 'Vibe festival',
-                    stage: 'Secondary Stage',
-                    day: 12,
-                    lineup: [
-                        artistStore.artist[0],
-                        artistStore.artist[2],
-                    ],
-                    image: ''
+                    day: 13,
+                    lineup: {
+                        mainStage: [
+
+                        ],
+                        secondaryStage: [
+                        ],
+                    },
                 },
             ]
         }
     },
+
+
     getters: {
         total: (state) => state.merch.length,
-    },
-
-    actions: {
-        addEvent(event) {
-            this.event.push(event)
-        },
         filterByStage(stage) {
             return this.merch.filter(merch => merch.stage === stage)
         },
         filterByDay(day) {
             return this.merch.filter(merch => merch.day === day)
         },
+    },
+
+    actions: {
+        addEvent(event) {
+            this.event.push(event)
+        },
+
         addArtistToLineup(eventId, artistId) {
             const artistStore = useArtistStore(); // Access the artist store
             const artist = artistStore.artist.find((a) => a.id === artistId);
-      
+
             if (artist) {
-              const event = this.event.find((e) => e.id === eventId);
-              if (event) {
-                event.lineup.push(artist); // Add artist to the lineup
-              } else {
-                console.error('Event not found');
-              }
+                const event = this.event.find((e) => e.id === eventId);
+                if (event) {
+                    event.lineup.push(artist); // Add artist to the lineup
+                } else {
+                    console.error('Event not found');
+                }
             } else {
-              console.error('Artist not found');
+                console.error('Artist not found');
             }
-          },
+        },
+
+        async initializeLineups() {
+            const artistStore = useArtistStore();
+            if (!artistStore.artists.length) {
+                await artistStore.fetchArtists(); // Ensure artists are fetched
+            }
+
+            // Populate lineups dynamically based on fetched artists
+            this.event.forEach((event, index) => {
+                if (event.day === 11) {
+                    event.lineup.mainStage = [artistStore.artists[0], artistStore.artists[1]];
+                    event.lineup.secondaryStage = [artistStore.artists[2], artistStore.artists[3]];
+                } else if (event.day === 12) {
+                    event.lineup.mainStage = [artistStore.artists[4], artistStore.artists[5]];
+                    event.lineup.secondaryStage = [artistStore.artists[6], artistStore.artists[7]];
+                } else if (event.day === 13) {
+                    event.lineup.mainStage = [artistStore.artists[8], artistStore.artists[9]];
+                    event.lineup.secondaryStage = [artistStore.artists[10], artistStore.artists[11]];
+                }
+            });
+        },
     },
 })
+

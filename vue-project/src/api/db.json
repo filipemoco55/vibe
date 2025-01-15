@@ -6,7 +6,7 @@
       "image": "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcT49ffQTaN3OJwECYvdmBeIdbj_EhMso90dbvn5w8TKmIDC0BzhAjkqhCqBEoGkw-mHH_2kpNA7unbke98",
       "genre": "Hip-Hop",
       "followers": 1234567,
-      "preview": "/public/audio/kanye.mp3"
+      "preview": "/audio/kanye.mp3"
     },
     {
       "id": 2,
@@ -14,7 +14,7 @@
       "image": "https://imageio.forbes.com/specials-images/imageserve/5ed578988b3c370006234c35/0x0.jpg?format=jpg&crop=1031,1031,x43,y49,safe&height=416&width=416&fit=bounds",
       "genre": "Hip-Hop",
       "followers": 1234567,
-      "preview": "/public/audio/drake.mp3"
+      "preview": "/audio/drake.mp3"
     },
     {
       "id": 3,
@@ -22,7 +22,7 @@
       "image": "https://upload.wikimedia.org/wikipedia/commons/3/32/Pulitzer2018-portraits-kendrick-lamar.jpg",
       "genre": "Hip-Hop",
       "followers": 1234567,
-      "preview": "/public/audio/kendrick.mp3"
+      "preview": "/audio/kendrick.mp3"
     },
     {
       "id": 4,
@@ -93,6 +93,30 @@
       "name": "Usher",
       "image": "https://ntvb.tmsimg.com/assets/assets/162483_v9_bb.jpg?w=360&h=480",
       "genre": "R&B",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 13,
+      "name": "Ariana Grande",
+      "image": "https://www.billboard.com/files/styles/900_wide/public/media/Ariana-Grande-press-photo-2019-billboard-1548.jpg",
+      "genre": "Pop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 14,
+      "name": "Dua Lipa",
+      "image": "https://www.billboard.com/files/styles/900_wide/public/media/Dua-Lipa-press-photo-2020-billboard-1548.jpg",
+      "genre": "Pop",
+      "followers": 1234567,
+      "preview": "https://youtube.com"
+    },
+    {
+      "id": 15,
+      "name": "Lady Gaga",
+      "image": "https://www.billboard.com/files/styles/900_wide/public/media/Lady-Gaga-press-photo-2020-billboard-1548.jpg",
+      "genre": "Pop",
       "followers": 1234567,
       "preview": "https://youtube.com"
     }
