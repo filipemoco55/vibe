@@ -11,7 +11,7 @@ import AdminView from '@/views/AdminView.vue';
 import UsersAdminView from '@/views/UsersAdminView.vue';
 import TicketsAdminView from '@/views/TicketsAdminView.vue';
 import MerchAdminView from '@/views/MerchAdminView.vue';
-import ShopView from '@/views/ShopView.vue';
+import ShopView from '@/views/ProductDetail.vue';
 
 
 const router = createRouter({
@@ -51,11 +51,12 @@ const router = createRouter({
       name: 'Store',
       component: StoreView,
     },
-    {
-      path: '/shop/:id',
-      name: 'ShopView',
-      component: ShopView,
-  },
+      {
+        path: '/shop/:id',
+        name: 'ProductDetail',
+        component: () => import('@/components/ProductDetailComponent.vue'),
+        props: true,
+    },
     {
       path: '/music',
       name: 'Music',
