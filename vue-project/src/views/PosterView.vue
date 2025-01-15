@@ -7,7 +7,7 @@ import { useEventStore } from '@/stores/event';
 import { useArtistStore } from '@/stores/artist';
 
 const activeDay = ref(11);
-const isLoading = ref(true);  // Loading state
+const isLoading = ref(true); 
 
 const setActiveDay = (day) => {
     activeDay.value = day;
@@ -17,10 +17,10 @@ onMounted(async () => {
     const artistStore = useArtistStore();
     const eventStore = useEventStore();
 
-    await artistStore.fetchArtists(); // Fetch artist data
-    await eventStore.initializeLineups(); // Initialize lineups with fetched artists
+    await artistStore.fetchArtists(); 
+    await eventStore.initializeLineups(); 
 
-    isLoading.value = false; // Stop loading after data is fetched and lineups are initialized
+    isLoading.value = false; 
 });
 
 
@@ -29,7 +29,7 @@ onMounted(async () => {
 <template>
     <Navbar />
 
-    <div v-if="isLoading">Loading artists...</div> <!-- Show loading message -->
+    <div v-if="isLoading">Loading artists...</div> 
 
     <div v-else>
         <CarouselPoster :activeDay="activeDay" @setActiveDay="setActiveDay" />

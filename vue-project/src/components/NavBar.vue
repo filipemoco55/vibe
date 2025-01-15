@@ -14,18 +14,15 @@
         </nav>
 
         <div class="user-actions">
-            <!-- Admin Button -->
             <RouterLink v-if="isAdmin" to="/admin" class="profile-button">
                 <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
                 Admin
             </RouterLink>
 
-            <!-- Logout Button -->
             <button v-if="isAuthenticated" @click="logout" class="logout-button">
                 Logout
             </button>
 
-            <!-- Login Button -->
             <RouterLink v-else to="/login" class="account-button">
                 My Account
             </RouterLink>
@@ -43,7 +40,6 @@ export default {
     setup() {
         const authStore = useAuthStore();
 
-        // Computed properties for authentication and role checks
         const isAuthenticated = computed(() => authStore.isAuthenticated);
         const isAdmin = computed(() => authStore.userRole === "admin");
 

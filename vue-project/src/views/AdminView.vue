@@ -1,14 +1,3 @@
-<template>
-  <div class="admin-container">
-    <Sidebar :logout="logout" />
-
-
-    <div class="content">
-      <h1>Admin Page</h1>
-    </div>
-  </div>
-</template>
-
 <script>
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "vue-router";
@@ -27,10 +16,21 @@ export default {
       router.push("/");
     };
 
-    return { logout }; 
+    return { logout };
   },
 };
 </script>
+
+<template>
+  <div class="admin-container">
+    <Sidebar :logout="logout" />
+
+
+    <div class="content">
+      <h1>Admin Page</h1>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .admin-container {

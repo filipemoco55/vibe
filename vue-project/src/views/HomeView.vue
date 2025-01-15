@@ -6,7 +6,6 @@ import Footer from '@/components/Footer.vue';
 <template>
   <Navbar />
 
-  <!-- Hero Section with Video Background -->
   <div class="video-container">
     <div class="video-overlay">
       <h1 class="hero-title">Welcome to Vibe Concert</h1>
@@ -17,7 +16,6 @@ import Footer from '@/components/Footer.vue';
     </video>
   </div>
 
-  <!-- Upcoming Artists Section -->
   <section class="artists-section">
     <h1>More Upcoming Artists</h1>
     <div class="artist-grid">
@@ -31,7 +29,6 @@ import Footer from '@/components/Footer.vue';
 </template>
 
 <style scoped>
-/* General Styles */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -86,7 +83,7 @@ h1 {
   margin-bottom: 1rem;
   color: #fff;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-  
+
 }
 
 .buy-button {
@@ -107,7 +104,6 @@ h1 {
   transform: scale(1.05);
 }
 
-/* Artists Section */
 .artists-section {
   padding: 2rem;
 }
@@ -144,7 +140,6 @@ h1 {
   font-size: 1.5rem;
 }
 
-/* Responsiveness */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2rem;

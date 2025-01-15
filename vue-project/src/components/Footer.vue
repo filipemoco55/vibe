@@ -7,11 +7,11 @@
       <div class="footer-section">
         <h3>VIBE - CONCERT</h3>
         <ul>
-          <li><router-link to="/legal-warning">Legal Warning</router-link></li>
-          <li><router-link to="/terms-and-conditions">Terms and Conditions</router-link></li>
-          <li><router-link to="/canal-reclamacoes">Canal de Reclamações</router-link></li>
-          <li><router-link to="/privacy-policy">Privacy Policy</router-link></li>
-          <li><router-link to="/register-conditions">Register Conditions</router-link></li>
+          <li><router-link to="">Legal Warning</router-link></li>
+          <li><router-link to="">Terms and Conditions</router-link></li>
+          <li><router-link to="">Canal de Reclamações</router-link></li>
+          <li><router-link to="">Privacy Policy</router-link></li>
+          <li><router-link to="">Register Conditions</router-link></li>
         </ul>
       </div>
 
@@ -31,7 +31,7 @@
           </router-link>
           <router-link to="/social/facebook" class="social-icon facebook">
             <img :src="facebookIcon" alt="facebook" />
-           </router-link>
+          </router-link>
           <router-link to="/social/instagram" class="social-icon instagram">
             <img :src="instagramIcon" alt="Instagram" />
           </router-link>
@@ -48,10 +48,7 @@
 export default {
   name: "Footer",
 };
-import twitterIcon from '@/assets/twitter.png';
-import facebookIcon from '@/assets/facebook.png';
-import instagramIcon from '@/assets/instagram.png';
-import youtubeIcon from '@/assets/youtube.png';
+
 </script>
 
 <style scoped>
@@ -165,9 +162,9 @@ import youtubeIcon from '@/assets/youtube.png';
 .social-icons img {
   width: 30px;
   height: 30px;
-  object-fit: contain; 
-  display: block; 
-  margin: 0 auto; 
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 .social-icon-img {

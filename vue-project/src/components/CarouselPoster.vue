@@ -56,7 +56,6 @@ const scrollRightSecondary = () => {
 
 <template>
   <div>
-    <!-- Day Selection Buttons -->
     <div class="button-container">
       <button v-for="day in ['11', '12', '13']" :key="day" class="date-button"
         :class="{ active: props.activeDay === day }" @click="setActiveDay(day)">
@@ -64,7 +63,6 @@ const scrollRightSecondary = () => {
       </button>
     </div>
 
-    <!-- Main Stage Carousel -->
     <h1>MAIN STAGE</h1>
     <div class="carousel-wrapper">
       <button class="carousel-button left" @click="scrollLeft">‹</button>
@@ -79,7 +77,6 @@ const scrollRightSecondary = () => {
       <button class="carousel-button right" @click="scrollRight">›</button>
     </div>
 
-    <!-- Secondary Stage Carousel -->
     <h1>SECONDARY STAGE</h1>
     <div class="small-carousel-wrapper">
       <button class="carousel-button left" @click="scrollLeftSecondary">‹</button>
@@ -97,7 +94,6 @@ const scrollRightSecondary = () => {
 </template>
 
 <style scoped>
-/* Button styles */
 .button-container {
   margin-top: 50px;
   display: flex;
@@ -134,28 +130,30 @@ const scrollRightSecondary = () => {
   transform: scale(1.05);
 }
 
-/* Carousel styles */
-.carousel-wrapper, .small-carousel-wrapper {
+.carousel-wrapper,
+.small-carousel-wrapper {
   position: relative;
   margin: 30px auto;
   max-width: 90%;
   overflow: hidden;
 }
 
-.carousel, .small-carousel {
+.carousel,
+.small-carousel {
   display: flex;
-  gap: 20px;
+  gap: 5px;
   scroll-behavior: smooth;
-  overflow-x: auto;
-  padding: 10px 0;
+
 }
 
-.carousel::-webkit-scrollbar, .small-carousel::-webkit-scrollbar {
+.carousel::-webkit-scrollbar,
+.small-carousel::-webkit-scrollbar {
   display: none;
 }
 
-.carousel-item, .small-carousel-item {
-  flex: 0 0 auto;
+.carousel-item,
+.small-carousel-item {
+
   width: 100%;
   max-width: 900px;
   border-radius: 12px;
@@ -163,24 +161,25 @@ const scrollRightSecondary = () => {
   position: relative;
 }
 
-.carousel-image, .small-card-image {
-  width: 100%;
-  height: 100%;
+.carousel-image,
+.small-card-image {
+  width: 80%;
+  height: 80%;
+  border-radius: 15px;
   object-fit: cover;
 }
 
-.carousel-caption, .small-card-caption {
+.carousel-caption,
+.small-card-caption {
   position: absolute;
-  bottom: 20px;
   left: 20px;
   color: white;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
+  font-size: 25px;
   font-weight: bold;
   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 }
 
-/* Button for carousel navigation */
 .carousel-button {
   position: absolute;
   top: 50%;
