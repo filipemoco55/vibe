@@ -16,7 +16,6 @@ export const useTicketStore = defineStore('ticket', {
                     price: 100,
                     event: [
                         eventStore.event[0],
-                        eventStore.event[1],
                     ],
                 },
                 {
@@ -26,7 +25,6 @@ export const useTicketStore = defineStore('ticket', {
                     price: 250,
                     event: [
                         eventStore.event[0],
-                        eventStore.event[1],
                     ],
                 },
                 {
@@ -36,7 +34,6 @@ export const useTicketStore = defineStore('ticket', {
                     price: 400,
                     event: [
                         eventStore.event[0],
-                        eventStore.event[1],
                     ],
                 },
                 {
@@ -45,8 +42,7 @@ export const useTicketStore = defineStore('ticket', {
                     type: 'Regular',
                     price: 100,
                     event: [
-                        eventStore.event[2],
-                        eventStore.event[3],
+                        eventStore.event[1],
                     ],
                 },
                 {
@@ -55,8 +51,7 @@ export const useTicketStore = defineStore('ticket', {
                     type: 'VIP',
                     price: 250,
                     event: [
-                        eventStore.event[2],
-                        eventStore.event[3],
+                        eventStore.event[1],
                     ],
                 },
                 {
@@ -65,8 +60,7 @@ export const useTicketStore = defineStore('ticket', {
                     type: 'VVIP',
                     price: 400,
                     event: [
-                        eventStore.event[2],
-                        eventStore.event[3],
+                        eventStore.event[1],
                     ],
                 }
 
