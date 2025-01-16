@@ -87,8 +87,8 @@ export const useEventStore = defineStore('event', {
             // Populate lineups dynamically based on fetched artists
             this.event.forEach((event, index) => {
                 if (event.day === 11) {
-                    event.lineup.mainStage = [artistStore.artists[0], artistStore.artists[1]];
-                    event.lineup.secondaryStage = [artistStore.artists[2], artistStore.artists[3]];
+                    event.lineup.mainStage = [artistStore.artists[0], artistStore.artists[1], artistStore.artists[12]];
+                    event.lineup.secondaryStage = [artistStore.artists[2], artistStore.artists[3], artistStore.artists[13]];
                 } else if (event.day === 12) {
                     event.lineup.mainStage = [artistStore.artists[4], artistStore.artists[5]];
                     event.lineup.secondaryStage = [artistStore.artists[6], artistStore.artists[7]];
