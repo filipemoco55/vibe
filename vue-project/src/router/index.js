@@ -12,6 +12,7 @@ import UsersAdminView from '@/views/UsersAdminView.vue';
 import TicketsAdminView from '@/views/TicketsAdminView.vue';
 import MerchAdminView from '@/views/MerchAdminView.vue';
 import ShopView from '@/views/ProductDetail.vue';
+import ProfileView from '@/views/ProfileView.vue';
 
 
 const router = createRouter({
@@ -71,6 +72,11 @@ const router = createRouter({
       path: '/more',
       name: 'More',
       component: MoreView,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
     },
     {
       path: '/users/admin',
