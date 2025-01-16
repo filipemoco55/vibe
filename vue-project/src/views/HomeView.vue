@@ -9,7 +9,7 @@ import Footer from '@/components/Footer.vue';
   <div class="video-container">
     <div class="video-overlay">
       <h1 class="hero-title">Welcome to Vibe Concert</h1>
-      <router-link to="/tickets" class="buy-button">Buy your Ticket Now!</router-link>
+      <router-link to="/profile" class="buy-button">Buy your Ticket Now!</router-link>
     </div>
     <video autoplay muted loop playsinline class="background-video">
       <source src="/src/assets/video.mp4" type="video/mp4" />

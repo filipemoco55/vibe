@@ -12,6 +12,7 @@ import UsersAdminView from '@/views/UsersAdminView.vue';
 import TicketsAdminView from '@/views/TicketsAdminView.vue';
 import MerchAdminView from '@/views/MerchAdminView.vue';
 import ShopView from '@/views/ProductDetail.vue';
+import Profile from '@/views/profile.vue';
 
 
 const router = createRouter({
@@ -62,15 +63,16 @@ const router = createRouter({
       name: 'Music',
       component: MusicView,
     },
-    {
-      path: '/tickets',
-      name: 'Tickets',
-      component: TicketsView,
-    },
+    ,
     {
       path: '/more',
       name: 'More',
       component: MoreView,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
     },
     {
       path: '/users/admin',

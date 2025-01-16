@@ -42,7 +42,7 @@ const handleSubmit = (event) => {
       </p>
       <ul>
         <li><strong>Location:</strong> Porto, Portugal and Jacarta, Indonesia </li>
-        <li><strong>Ticketing:</strong><router-link to="/tickets" class="buy-button">Buy your Ticket Now!</router-link></li>
+        <li><strong>Ticketing:</strong><router-link to="/tickets" class="buy-button"> Buy your Ticket Now!</router-link></li>
         <li><strong>Schedule:</strong> <a href="#">View Full Schedule</a></li>
       </ul>
     </section>
