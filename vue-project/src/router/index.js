@@ -13,6 +13,7 @@ import TicketsAdminView from '@/views/TicketsAdminView.vue';
 import MerchAdminView from '@/views/MerchAdminView.vue';
 import ShopView from '@/views/ProductDetail.vue';
 import ProfileView from '@/views/ProfileView.vue';
+import EventAdminView from '@/views/EventAdminView.vue';
 
 
 const router = createRouter({
@@ -100,6 +101,15 @@ const router = createRouter({
       path: '/merch/admin',
       name: 'MerchAdmin',
       component: MerchAdminView,
+      meta: {
+        isAuthenticated : true,
+        isAdmin: true
+      }
+    },
+    {
+      path: '/event/admin',
+      name: 'EventAdmin',
+      component: EventAdminView,
       meta: {
         isAuthenticated : true,
         isAdmin: true

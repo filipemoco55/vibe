@@ -1,37 +1,47 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, watchEffect } from 'vue';
+import { useAuthStore } from '@/stores/authStore'; 
+import { useUserStore } from '@/stores/user';
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 
-const user = ref({
-  name: 'John Doe',
-  email: 'johndoe@example.com',
-  profilePicture: '/profile-placeholder.jpg',
-  events: [
-    { id: 1, name: 'Vibe Music Festival - Day 1', date: '11 June 2025', location: 'Porto, Portugal' },
-    { id: 2, name: 'Vibe Music Festival - Day 2', date: '12 June 2025', location: 'Porto, Portugal' },
-  ],
-  merch: [
-    { id: 1, name: 'Vibe White Tshirt', size: 'L', price: 40 },
-    { id: 2, name: 'Vibe Black Tshirt', size: 'M', price: 40 },
-  ],
+
+const authStore = useAuthStore();
+const userStore = useUserStore();
+
+const loggedInUser = computed(() => {
+  if (authStore.isAuthenticated) {
+    return userStore.users.find((user) => 
+      user.email === (authStore.userRole === "admin" ? "admin@gmail.com" : "user@gmail.com")
+    );
+  }
+  return null;
+});
+
+// Redireciona se não autenticado
+watchEffect(() => {
+  if (!authStore.isAuthenticated) {
+    alert("Please Login before entering this page");
+    window.location.href = "/login"; 
+  }
 });
 </script>
+
 
 <template>
   <Navbar />
 
-  <div class="user-profile">
+  <div class="user-profile" v-if="loggedInUser">
     <div class="profile-header">
-      <img :src="user.profilePicture" alt="Profile Picture" class="profile-picture" />
-      <h1>{{ user.name }}</h1>
-      <p>{{ user.email }}</p>
+      <img :src="loggedInUser.profilePicture || '/default-profile.jpg'" alt="Profile Picture" class="profile-picture" />
+      <h1>{{ loggedInUser.name }}</h1>
+      <p>{{ loggedInUser.email }}</p>
     </div>
 
     <div class="section">
       <h2>Upcoming Events</h2>
-      <div v-if="user.events.length > 0" class="events-list">
-        <div class="event-card" v-for="event in user.events" :key="event.id">
+      <div v-if="loggedInUser.events.length > 0" class="events-list">
+        <div class="event-card" v-for="event in loggedInUser.events" :key="event.id">
           <h3>{{ event.name }}</h3>
           <p>Date: {{ event.date }}</p>
           <p>Location: {{ event.location }}</p>
@@ -40,11 +50,10 @@ const user = ref({
       <p v-else>No upcoming events.</p>
     </div>
 
-    <!-- Merch Purchased Section -->
     <div class="section">
       <h2>Purchased Merch</h2>
-      <div v-if="user.merch.length > 0" class="merch-list">
-        <div class="merch-item" v-for="item in user.merch" :key="item.id">
+      <div v-if="loggedInUser.merch.length > 0" class="merch-list">
+        <div class="merch-item" v-for="item in loggedInUser.merch" :key="item.id">
           <h3>{{ item.name }}</h3>
           <p>Size: {{ item.size }}</p>
           <p>Price: ${{ item.price }}</p>
@@ -53,7 +62,6 @@ const user = ref({
       <p v-else>No merch purchased yet.</p>
     </div>
 
-    <!-- Edit Profile Button -->
     <div class="edit-profile">
       <button>Edit Profile</button>
     </div>
@@ -61,6 +69,7 @@ const user = ref({
 
   <Footer />
 </template>
+
 
 <style scoped>
 .user-profile {

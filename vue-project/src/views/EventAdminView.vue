@@ -2,12 +2,26 @@
 import { ref } from "vue";
 import Sidebar from "@/components/SideNavbar.vue";
 
-const users = ref([
-  { id: 1, name: "Vibe White T-Shirt", price: 40, image: null },
-  { id: 2, name: "Vibe Black T-Shirt", price: 40, image: null },
+const events = ref([
+  { 
+    id: 1, 
+    name: "Vibe Festival", 
+    date: "2025-06-15", 
+    lineup: {
+      mainStage: "Artist A, Artist B",
+      secondaryStage: "Artist C, Artist D"
+    }
+  },
+  { 
+    id: 2, 
+    name: "Art Attack event", 
+    date: "2025-12-10", 
+    lineup: {
+      mainStage: "Artist X, Artist Y",
+      secondaryStage: "Artist Z, Artist W"
+    }
+  }
 ]);
-
-
 </script>
 
 <template>
@@ -15,37 +29,26 @@ const users = ref([
     <Sidebar :logout="logout" />
 
     <div class="content">
-      <h1>Ticket Page</h1>
+      <h1>Event Page</h1>
 
-      <table class="users-table">
+      <table class="events-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Day</th>
-            <th>Price</th>
-            <th>Type</th>
-            <th>Event</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Main Stage</th>
+            <th>Secondary Stage</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>11</td>
-            <td>75€</td>
-            <td>Day Acess</td>
-            <td>Vibe Festival</td>
-            <td>
-              <button class="action-btn edit">Edit</button>
-              <button class="action-btn delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>12</td>
-            <td>75€</td>
-            <td>Day Acess</td>
-            <td>Vibe Festival</td>
+          <tr v-for="event in events" :key="event.id">
+            <td>{{ event.id }}</td>
+            <td>{{ event.name }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.lineup.mainStage }}</td>
+            <td>{{ event.lineup.secondaryStage }}</td>
             <td>
               <button class="action-btn edit">Edit</button>
               <button class="action-btn delete">Delete</button>
@@ -53,7 +56,7 @@ const users = ref([
           </tr>
         </tbody>
       </table>
-      <button class="add-button">Add Ticket</button>
+      <button class="add-button">Add Event</button>
     </div>
   </div>
 </template>
@@ -96,25 +99,25 @@ h1 {
   transform: scale(1.05);
 }
 
-.users-table {
+.events-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
 }
 
-.users-table th,
-.users-table td {
+.events-table th,
+.events-table td {
   border: 1px solid #ccc;
   padding: 0.8rem;
   text-align: left;
 }
 
-.users-table th {
+.events-table th {
   background-color: #eaeaea;
   font-weight: bold;
 }
 
-.users-table tr:nth-child(even) {
+.events-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
