@@ -33,7 +33,6 @@ const addToCart = () => {
 
 
 <template>
-    <Navbar />
     <br>
     <div class="buy-page" v-if="product">
         <h1>{{ product.name }}</h1>
