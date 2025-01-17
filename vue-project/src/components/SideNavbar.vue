@@ -19,6 +19,9 @@
       <li>
         <router-link to="/event/admin" class="menu-link">Event</router-link>
       </li>
+      <li>
+        <router-link to="/artist/admin" class="menu-link">Artist</router-link>
+      </li>
     </ul>
     <div class="logout-section">
       <button @click="logout" class="logout-button">Logout</button>
