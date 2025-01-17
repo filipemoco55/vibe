@@ -1,20 +1,21 @@
 <template>
   <Navbar />
 
-  <div v-if="isLoading" class="loader-container">
-    <div class="loader"></div>
+  <div v-if="isLoading" class="spinner-wrapper">
+    <div class="spinner"></div>
+    <p>Loading Music...</p>
   </div>
-  <div v-else-if="hasError" class="error-container">
-    <p class="error-message">The server is offline or data could not be loaded. Please try again later.</p>
+
+  <!-- Error Message -->
+  <div v-else-if="hasError" class="error-wrapper">
+    <h2>Oops! Something went wrong.</h2>
+    <p>We’re experiencing technical difficulties. Please try again later.</p>
+    <p>If the issue persists, contact our support team.</p>
+    <img src="@/assets/server-error.png" alt="Server Error" class="error-image" />
   </div>
-  <div v-else-if="artists.length === 0" class="no-data-container">
-    <p class="no-data-message">No artists available at the moment. Check back later!</p>
-  </div>
+
   <div v-else>
-    <MusicComponent 
-      title="Popular Artists!" 
-      :items="artists" 
-    />
+    <MusicComponent title="Popular Artists!" :items="artists" />
   </div>
 
   <Footer />
@@ -44,6 +45,7 @@ onMounted(async () => {
 
     if (!artists.value.length) {
       console.warn("No artists data received.");
+      hasError.value = true;
     }
   } catch (error) {
     console.error("Error fetching artists:", error);
@@ -56,45 +58,72 @@ onMounted(async () => {
 
 
 <style scoped>
-.loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
+h1 {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin-top: 50px;
+    margin-left: 100px;
+    font-weight: bold;
+    font-size: 40px;
 }
 
-.loader {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-top: 4px solid #000;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
+.spinner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    /* Center vertically */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    text-align: center;
 }
 
-.error-container,
-.no-data-container {
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.error-message {
-  color: red;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.no-data-message {
-  color: gray;
-  font-size: 16px;
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.error-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 70vh; /* Center vertically */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+}
+
+.error-wrapper h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.error-wrapper p {
+    margin: 5px 0;
+}
+
+.error-image {
+    width: 200px;
+    margin-top: 20px;
+    opacity: 0.8;
 }
 </style>
