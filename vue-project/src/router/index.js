@@ -40,7 +40,7 @@ const router = createRouter({
       name: "Admin",
       component: AdminView,
       meta: {
-        isAuthenticated: true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -54,11 +54,14 @@ const router = createRouter({
       name: 'Store',
       component: StoreView,
     },
-      {
-        path: '/shop/:id',
-        name: 'ProductDetail',
-        component: () => import('@/components/ProductDetailComponent.vue'),
-        props: true,
+    {
+      path: '/shop/:id',
+      name: 'ProductDetail',
+      component: ShopView,
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/music',
@@ -79,13 +82,16 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+      meta: {
+        requiresAuth: true
+      },
     },
     {
       path: '/users/admin',
       name: 'UsersAdmin',
       component: UsersAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -94,7 +100,7 @@ const router = createRouter({
       name: 'TicketsAdmin',
       component: TicketsAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -103,7 +109,7 @@ const router = createRouter({
       name: 'MerchAdmin',
       component: MerchAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -112,7 +118,7 @@ const router = createRouter({
       name: 'EventAdmin',
       component: EventAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -121,7 +127,7 @@ const router = createRouter({
       name: 'ArtistAdmin',
       component: ArtistAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -136,7 +142,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  
+
 });
 
 export default router

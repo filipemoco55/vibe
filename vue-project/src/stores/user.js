@@ -9,7 +9,7 @@ export const useUserStore = defineStore("user", {
           email: "admin@gmail.com", 
           password: "123", 
           isAdmin: true, 
-          profilePicture: "/profile-admin.jpg",
+          profilePicture: "src/assets/user.png",
           events: [
             { id: 1, name: "Admin Event 1", date: "2025-01-20", location: "Online" },
           ],
@@ -23,7 +23,7 @@ export const useUserStore = defineStore("user", {
           email: "user@gmail.com", 
           password: "1234", 
           isAdmin: false, 
-          profilePicture: "/profile-user.jpg",
+          profilePicture: "src/assets/user.png",
           events: [
             { id: 1, name: "User Event 1", date: "2025-01-25", location: "City Center" },
           ],

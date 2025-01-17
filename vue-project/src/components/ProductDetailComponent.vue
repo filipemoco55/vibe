@@ -1,30 +1,35 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { useMerchStore } from '@/stores/merch'; // Import the store
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 
 const route = useRoute();
 const router = useRouter();
+const merchStore = useMerchStore();
 
+// Extract product ID from the route params
 const productId = Number(route.params.id);
 
-const products = [
-    { id: 1, name: 'Vibe White T-Shirt', price: 40, image: './assets/T-shirt.png' },
-    { id: 2, name: 'Vibe Black T-Shirt', price: 40, image: 'src/assets/T-shirtpreta.png' },
-    { id: 3, name: 'Vibe White Hoodie', price: 90, image: 'src/assets/Hoodie.png' },
-    { id: 4, name: 'Vibe Black Hoodie', price: 90, image: 'src/assets/Hoodiepreta.png' },
-    { id: 5, name: 'Vibe White Sweatpants', price: 60, image: 'link_para_imagem_1' },
-    { id: 6, name: 'Vibe Black Sweatpants', price: 60, image: 'link_para_imagem_2' },
-    { id: 7, name: 'Vibe White Socks', price: 8, image: 'link_para_imagem_3' },
-    { id: 8, name: 'Vibe Black Socks', price: 8, image: 'link_para_imagem_4' },
-];
+// Find the product in the store
+const product = merchStore.merch.find((p) => p.id === productId);
 
-const product = products.find((p) => p.id === productId);
-
+// Handle redirect if the product is not found
 if (!product) {
     router.replace({ name: 'ShopView' });
 }
+
+// State for the selected size
+const selectedSize = ref('M');
+
+// Function to handle adding the product to the cart
+const addToCart = () => {
+    merchStore.addItem(product.id, product.name, product.price, selectedSize.value, product.image);
+    router.push('/cart'); // Redirect to the cart page
+};
 </script>
+
 
 
 <template>
@@ -35,16 +40,16 @@ if (!product) {
         <p class="product-price">{{ product.price }}€</p>
 
         <label for="size">Choose a size:</label>
-        <select id="size" class="size-select">
+        <select id="size" v-model="selectedSize" class="size-select">
             <option value="S">Small (S)</option>
             <option value="M">Medium (M)</option>
             <option value="L">Large (L)</option>
             <option value="XL">Extra Large (XL)</option>
         </select>
 
-        <router-link to="/cart" class="buy-button">
+        <button @click="addToCart" class="buy-button">
             Add to Cart
-        </router-link>
+        </button>
     </div>
     <div v-else class="not-found">
         <h2>Product Not Found</h2>
@@ -53,6 +58,7 @@ if (!product) {
     </div>
     <Footer />
 </template>
+
 
 
 <style scoped>

@@ -14,15 +14,28 @@
         </nav>
 
         <div class="user-actions">
+            <!-- Profile Icon visible only when logged in -->
+            <RouterLink
+                v-if="isAuthenticated"
+                to="/profile"
+                class="profile-icon-button"
+                title="Profile"
+            >
+                <img src="@/assets/user.png" alt="User Icon" class="profile-icon" />
+            </RouterLink>
+
+            <!-- Admin Button -->
             <RouterLink v-if="isAdmin" to="/admin" class="profile-button">
                 <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
                 Admin
             </RouterLink>
 
+            <!-- Logout Button -->
             <button v-if="isAuthenticated" @click="logout" class="logout-button">
                 Logout
             </button>
 
+            <!-- Login Button -->
             <RouterLink v-else to="/login" class="account-button">
                 My Account
             </RouterLink>
@@ -55,6 +68,7 @@ export default {
     },
 };
 </script>
+
 
 <style scoped>
 .header {
@@ -156,5 +170,28 @@ export default {
 
 .logout-button:hover {
     background-color: #ff6666;
+}
+
+.profile-icon-button {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.profile-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-icon-button:hover .profile-icon {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 </style>

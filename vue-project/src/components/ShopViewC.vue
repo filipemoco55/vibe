@@ -1,34 +1,39 @@
 <script setup>
-const props = defineProps({
-    products: {
-        type: Array,
-        required: true,
-    },
-});
+import { useMerchStore } from '@/stores/merch'; // Import the store
+import { computed } from 'vue';
 
+const merchStore = useMerchStore(); // Access the store
+
+// Get the merchandise items from the store
+const merchItems = computed(() => merchStore.merch);
 </script>
+
 
 <template>
     <div>
         <h1>WEAR THE RHYTHM, FEEL THE VIBE!</h1>
 
-        <div class="product-list">
+        <div v-if="merchItems.length === 0" class="no-merch-message">
+            <p>No merchandise available at the moment. Check back later!</p>
+        </div>
+        <div v-else class="merch-list">
             <router-link
-                v-for="product in products"
-                :key="product.id"
-                :to="{ name: 'ProductDetail', params: { id: product.id } }"
-                class="product-card"
+                v-for="item in merchItems"
+                :key="item.id"
+                :to="{ name: 'ProductDetail', params: { id: item.id } }"
+                class="merch-card"
             >
                 <div
-                    class="product-image"
-                    :style="{ backgroundImage: `url(${product.image || placeholderImage})` }"
+                    class="merch-image"
+                    :style="{ backgroundImage: `url(${item.image || placeholderImage})` }"
                 ></div>
-                <h3 class="product-title">{{ product.name }}</h3>
-                <p class="product-price">{{ product.price }}€</p>
+                <h3 class="merch-title">{{ item.name }}</h3>
+                <p class="merch-price">{{ item.price }}€</p>
             </router-link>
         </div>
     </div>
 </template>
+
 
 <style scoped>
 h1 {
@@ -40,14 +45,14 @@ h1 {
     font-size: 40px;
 }
 
-.product-list {
+.merch-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin: 50px 100px;
 }
 
-.product-card {
+.merch-card {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -58,11 +63,11 @@ h1 {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.product-card:hover {
+.merch-card:hover {
     transform: scale(1.05);
 }
 
-.product-image {
+.merch-image {
     width: 100%;
     height: 300px;
     border-radius: 8px;
@@ -70,7 +75,7 @@ h1 {
     background-position: center;
 }
 
-.product-title {
+.merch-title {
     margin-top: 10px;
     margin-left: 20px;
     font-family: 'Poppins', sans-serif;
@@ -80,7 +85,7 @@ h1 {
     color: #333;
 }
 
-.product-price {
+.merch-price {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     color: #555;
@@ -88,41 +93,10 @@ h1 {
     margin-left: 20px;
 }
 
-@media (max-width: 1200px) {
-    .product-list {
-        grid-template-columns: repeat(3, 1fr);
-        margin: 50px 50px;
-    }
-}
-
-@media (max-width: 900px) {
-    .product-list {
-        grid-template-columns: repeat(2, 1fr);
-        margin: 50px 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    .product-list {
-        grid-template-columns: 1fr;
-        margin: 50px 10px;
-    }
-
-    h1 {
-        font-size: 32px;
-        margin-left: 0;
-    }
-
-    .product-image {
-        height: 200px;
-    }
-
-    .product-title {
-        font-size: 14px;
-    }
-
-    .product-price {
-        font-size: 12px;
-    }
+.no-merch-message {
+    text-align: center;
+    color: gray;
+    font-size: 18px;
+    margin: 20px 0;
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup>
 import { computed, watchEffect } from 'vue';
-import { useAuthStore } from '@/stores/authStore'; 
+import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/user';
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
@@ -11,7 +11,7 @@ const userStore = useUserStore();
 
 const loggedInUser = computed(() => {
   if (authStore.isAuthenticated) {
-    return userStore.users.find((user) => 
+    return userStore.users.find((user) =>
       user.email === (authStore.userRole === "admin" ? "admin@gmail.com" : "user@gmail.com")
     );
   }
@@ -22,7 +22,7 @@ const loggedInUser = computed(() => {
 watchEffect(() => {
   if (!authStore.isAuthenticated) {
     alert("Please Login before entering this page");
-    window.location.href = "/login"; 
+    window.location.href = "/login";
   }
 });
 </script>
@@ -30,11 +30,12 @@ watchEffect(() => {
 
 <template>
   <Navbar />
+  <br>
 
   <div class="user-profile" v-if="loggedInUser">
     <div class="profile-header">
       <img :src="loggedInUser.profilePicture || '/default-profile.jpg'" alt="Profile Picture" class="profile-picture" />
-      <h1>{{ loggedInUser.name }}</h1>
+      <h2>{{ loggedInUser.name }}</h2>
       <p>{{ loggedInUser.email }}</p>
     </div>
 
@@ -97,7 +98,7 @@ watchEffect(() => {
 }
 
 h1 {
-    
+
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
