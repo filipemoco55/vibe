@@ -19,6 +19,11 @@
                 Admin
             </RouterLink>
 
+            <RouterLink v-else-if="isAuthenticated" to="/profile" class="profile-button">
+                <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
+                Profile
+            </RouterLink>
+
             <button v-if="isAuthenticated" @click="logout" class="logout-button">
                 Logout
             </button>
