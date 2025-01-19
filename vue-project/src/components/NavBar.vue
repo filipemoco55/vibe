@@ -15,21 +15,11 @@
 
         <div class="user-actions">
             <!-- Profile Icon visible only when logged in -->
-            <RouterLink
-                v-if="isAuthenticated"
-                to="/profile"
-                class="profile-icon-button"
-                title="Profile"
-            >
+            <RouterLink v-if="isAuthenticated" to="/profile" class="profile-icon-button" title="Profile">
                 <img src="@/assets/user.png" alt="User Icon" class="profile-icon" />
             </RouterLink>
 
-            <RouterLink
-                v-if="isAuthenticated"
-                to="/cart"
-                class="profile-icon-button"
-                title="cart"
-            >
+            <RouterLink v-if="isAuthenticated" to="/cart" class="profile-icon-button" title="cart">
                 <img src="@/assets/cart.png" alt="User Icon" class="profile-icon" />
             </RouterLink>
 
@@ -37,11 +27,6 @@
             <RouterLink v-if="isAdmin" to="/admin" class="profile-button">
                 <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
                 Admin
-            </RouterLink>
-
-            <RouterLink v-else-if="isAuthenticated" to="/profile" class="profile-button">
-                <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
-                Profile
             </RouterLink>
 
             <!-- Logout Button -->
