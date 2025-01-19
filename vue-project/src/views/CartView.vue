@@ -31,19 +31,6 @@ const loadCartFromStorage = () => {
 };
 
 
-watch(
-  () => authStore.isAuthenticated,
-  (newValue) => {
-    if (!newValue) {
-      cartStore.clearCart();
-      localStorage.removeItem(`cart_${authStore.loggedInUser?.id}`);
-    } else {
-      loadCartFromStorage();
-    }
-  },
-  { immediate: true }
-);
-
 // Carregar o carrinho ao montar o componente
 onMounted(() => {
   if (authStore.isAuthenticated) {
