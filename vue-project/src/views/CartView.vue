@@ -4,30 +4,25 @@ import NavBar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 import { useCartStore } from '@/stores/cart';
 import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/user';
 
 
 const cartStore = useCartStore();
 const authStore = useAuthStore();
+const userStore = useUserStore();
 
 
 const removeItem = (id) => {
   cartStore.removeFromCart(id);
 };
 
-
 const clearCart = () => {
   cartStore.clearCart();
 };
 
-
-watch(() => cartStore.cart, () => {
-  localStorage.setItem('cart', JSON.stringify(cartStore.cart));
-});
-
-// Carregar os itens do carrinho ao montar o componente, se o usuário estiver logado
+// Carregar os itens do carrinho do componente, se o usuário estiver logado
 const loadCartFromStorage = () => {
   if (authStore.isAuthenticated && authStore.loggedInUser) {
-    // Usamos uma chave exclusiva para cada usuário
     const savedCart = localStorage.getItem(`cart_${authStore.loggedInUser.id}`);
     if (savedCart) {
       cartStore.cart = JSON.parse(savedCart);
@@ -35,17 +30,19 @@ const loadCartFromStorage = () => {
   }
 };
 
-// Limpar o carrinho ao fazer logout
-watch(() => authStore.isAuthenticated, (newValue) => {
-  if (!newValue) {
-   
-    cartStore.clearCart();
-    localStorage.removeItem(`cart_${authStore.loggedInUser?.id}`);
-  } else {
-    
-    loadCartFromStorage();
-  }
-}, { immediate: true });
+
+watch(
+  () => authStore.isAuthenticated,
+  (newValue) => {
+    if (!newValue) {
+      cartStore.clearCart();
+      localStorage.removeItem(`cart_${authStore.loggedInUser?.id}`);
+    } else {
+      loadCartFromStorage();
+    }
+  },
+  { immediate: true }
+);
 
 // Carregar o carrinho ao montar o componente
 onMounted(() => {
@@ -53,7 +50,38 @@ onMounted(() => {
     loadCartFromStorage();
   }
 });
+
+
+const finalizePurchase = () => {
+  if (!authStore.isAuthenticated) {
+    alert('Você precisa estar logado para finalizar a compra.');
+    return;
+  }
+
+  const userId = authStore.loggedInUser.id;
+  const user = userStore.users.find((u) => u.id === userId);
+
+  if (user) {
+    // Adicionar os itens do carrinho ao histórico de compras do usuário
+    user.merch.push(...cartStore.cart);
+
+    // Atualizar o estado do usuário na store
+    userStore.updateUser(userId, { merch: user.merch });
+
+    // Persistir o histórico no localStorage
+    localStorage.setItem(`user_${userId}_merch`, JSON.stringify(user.merch));
+
+  
+    cartStore.clearCart();
+    localStorage.removeItem(`cart_${userId}`);
+
+    alert('Compra finalizada com sucesso! O histórico foi atualizado.');
+  } else {
+    alert('Usuário não encontrado.');
+  }
+};
 </script>
+
 
 <template>
   <NavBar />
@@ -72,6 +100,7 @@ onMounted(() => {
         </div>
         <div class="cart-summary">
           <p class="total-price">Total: €{{ cartStore.totalPrice }}</p>
+          <button @click="finalizePurchase" class="finalize-button">Purchase</button>
           <button @click="clearCart" class="clear-button">Clear Cart</button>
         </div>
       </div>
@@ -199,5 +228,19 @@ h2 {
   text-align: center;
   color: #999;
   font-size: 16px;
+}
+.finalize-button {
+  background: #2ae604;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+.finalize-button:hover {
+  background: #109636;
 }
 </style>
