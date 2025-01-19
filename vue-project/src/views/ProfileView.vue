@@ -5,20 +5,18 @@ import { useUserStore } from '@/stores/user';
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 
-
 const authStore = useAuthStore();
 const userStore = useUserStore();
 
+// Computed para buscar o usuário logado com base no authStore
 const loggedInUser = computed(() => {
   if (authStore.isAuthenticated) {
-    return userStore.users.find((user) =>
-      user.email === (authStore.userRole === "admin" ? "admin@gmail.com" : "user@gmail.com")
-    );
+    return userStore.users.find((user) => user.id === authStore.loggedInUser.id);
   }
   return null;
 });
 
-// Redireciona se não autenticado
+// Redireciona para login se o usuário não estiver autenticado
 watchEffect(() => {
   if (!authStore.isAuthenticated) {
     alert("Please Login before entering this page");
@@ -26,7 +24,6 @@ watchEffect(() => {
   }
 });
 </script>
-
 
 <template>
   <Navbar />
@@ -70,6 +67,7 @@ watchEffect(() => {
 
   <Footer />
 </template>
+
 
 
 <style scoped>

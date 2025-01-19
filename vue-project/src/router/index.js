@@ -15,6 +15,7 @@ import ShopView from '@/views/ProductDetail.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import EventAdminView from '@/views/EventAdminView.vue';
 import ArtistAdminView from '@/views/ArtistAdminView.vue';
+import CartView from '@/views/cartView.vue';
 
 
 const router = createRouter({
@@ -78,6 +79,12 @@ const router = createRouter({
       name: 'More',
       component: MoreView,
     },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: CartView,
+  },
+  
     {
       path: '/profile',
       name: 'profile',

@@ -24,6 +24,15 @@
                 <img src="@/assets/user.png" alt="User Icon" class="profile-icon" />
             </RouterLink>
 
+            <RouterLink
+                v-if="isAuthenticated"
+                to="/cart"
+                class="profile-icon-button"
+                title="cart"
+            >
+                <img src="@/assets/cart.png" alt="User Icon" class="profile-icon" />
+            </RouterLink>
+
             <!-- Admin Button -->
             <RouterLink v-if="isAdmin" to="/admin" class="profile-button">
                 <img src="@/assets/logo.png" alt="User Icon" class="user-icon" />
@@ -52,6 +61,9 @@
 <script>
 import { useAuthStore } from "@/stores/authStore";
 import { computed } from "vue";
+// import { useCartStore } from '@/stores/cart';
+
+// const cartStore = useCartStore();
 
 export default {
     name: "Navbar",

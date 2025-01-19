@@ -33,5 +33,17 @@ export const useUserStore = defineStore("user", {
         },
       ],
     }),
+    actions: {
+      updateUser(userId, updatedData) {
+        const user = this.users.find((u) => u.id === userId);
+        if (user) {
+          Object.assign(user, updatedData);
+          localStorage.setItem(`user_${userId}`, JSON.stringify(user)); // Persistência local
+        } else {
+          console.error(`Usuário com ID ${userId} não encontrado.`);
+        }
+      },
+    },
   });
+  
   
