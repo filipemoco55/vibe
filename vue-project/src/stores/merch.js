@@ -8,25 +8,25 @@ export const useMerchStore = defineStore('merch', {
                     id: 1,
                     name: 'Vibe White T-Shirt',
                     price: 40,
-                    image: 'src/assets/T-shirt.png'
+                    image:'src/assets/T-shirt.png',
                 },
                 {
                     id: 2,
                     name: 'Vibe Black T-Shirt',
                     price: 40,
-                    image: 'src/assets/T-shirtpreta.png'
+                    image: 'src/assets/T-shirtpreta.png',
                 },
                 {
                     id: 3,
                     name: 'Vibe White Hoodie',
                     price: 90,
-                    image: 'src/assets/Hoodie.png'
+                    image:'src/assets/Hoodie.png',
                 },
                 {
                     id: 4,
                     name: 'Vibe Black Hoodie',
                     price: 90,
-                    image: 'src/assets/Hoodiepreta.png'
+                    image: 'src/assets/Hoodiepreta.png',
                 },
                 {
                     id: 5,
@@ -58,7 +58,6 @@ export const useMerchStore = defineStore('merch', {
     getters: {
         total: (state) => state.merch.length,
     },
-
     actions: {
         addItem(id, name, price, size, image) {
             const newMerch = {
@@ -66,13 +65,12 @@ export const useMerchStore = defineStore('merch', {
                 name: name,
                 price: price,
                 size: size,
-                image: image
-
-            }
-            this.merch.push(newMerch)
+                image: image,
+            };
+            this.merch.push(newMerch);
         },
         removeItem(id) {
-            this.merch = this.merch.filter(merch => merch.id != id)
-        }
+            this.merch = this.merch.filter((merch) => merch.id != id);
+        },
     },
-})
+});

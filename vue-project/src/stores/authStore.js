@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./user";
+import { useCartStore } from "./cart";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     isAuthenticated: false,
     userRole: null,
-    loggedInUser: null, 
+    loggedInUser: null,
   }),
   actions: {
     login(email, password) {
@@ -17,11 +18,15 @@ export const useAuthStore = defineStore("auth", {
       if (user) {
         this.isAuthenticated = true;
         this.userRole = user.isAdmin ? "admin" : "user";
-        this.loggedInUser = user; // Define o utilizador logado
+        this.loggedInUser = user;
 
         localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated));
         localStorage.setItem("userRole", JSON.stringify(this.userRole));
-        localStorage.setItem("loggedInUser", JSON.stringify(this.loggedInUser)); // Armazena o utilizador logado
+        localStorage.setItem("loggedInUser", JSON.stringify(this.loggedInUser));
+
+        // Carregar o carrinho associado ao usuário
+        const cartStore = useCartStore();
+        cartStore.loadCart(user.id);
 
         return true;
       } else {
@@ -36,6 +41,7 @@ export const useAuthStore = defineStore("auth", {
         return false;
       }
     },
+
     logout() {
       this.isAuthenticated = false;
       this.userRole = null;
@@ -44,7 +50,12 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("isAuthenticated");
       localStorage.removeItem("userRole");
       localStorage.removeItem("loggedInUser");
+
+      // Limpar o carrinho ao fazer logout
+      const cartStore = useCartStore();
+      cartStore.clearCart();
     },
+
     loadStateFromLocalStorage() {
       const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
       const userRole = JSON.parse(localStorage.getItem("userRole"));

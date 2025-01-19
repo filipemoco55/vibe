@@ -1,13 +1,15 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
-import { useMerchStore } from '@/stores/merch'; // Import the store
-import Navbar from '@/components/NavBar.vue';
-import Footer from '@/components/Footer.vue';
+import { useMerchStore } from '@/stores/merch';
+import { useCartStore } from '@/stores/cart';
+import { useAuthStore } from '@/stores/authStore';
 
 const route = useRoute();
 const router = useRouter();
 const merchStore = useMerchStore();
+const cartStore = useCartStore();
+const authStore = useAuthStore();
 
 // Extract product ID from the route params
 const productId = Number(route.params.id);
@@ -25,15 +27,24 @@ const selectedSize = ref('M');
 
 // Function to handle adding the product to the cart
 const addToCart = () => {
-    merchStore.addItem(product.id, product.name, product.price, selectedSize.value, product.image);
-    router.push('/cart'); // Redirect to the cart page
+    if (!authStore.isAuthenticated) {
+        alert('Please log in to add items to the cart.');
+        return;
+    }
+
+    cartStore.addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize.value,
+        image: product.image,
+    });
+
+    alert('Item added to cart!');
 };
 </script>
 
-
-
 <template>
-    <br>
     <div class="buy-page" v-if="product">
         <h1>{{ product.name }}</h1>
         <img :src="product.image" :alt="product.name" class="product-image" />
@@ -56,12 +67,19 @@ const addToCart = () => {
         <p>The product you're looking for doesn't exist or may have been removed.</p>
         <router-link to="/shop" class="back-button">Return to Shop</router-link>
     </div>
-    <Footer />
 </template>
 
-
-
 <style scoped>
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+
 .buy-page {
     display: flex;
     flex-direction: column;
