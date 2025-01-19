@@ -1,13 +1,58 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
+import { useArtistStore } from '@/stores/artist';
+
+// Countdown component (from the code you provided)
+const targetDate = new Date("2025-11-11T18:00:00"); // Target date for countdown
+const countdown = ref({
+  months: 0,
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0
+});
+
+// Function to update countdown
+const updateCountdown = () => {
+  const now = new Date();
+  const diffInMs = targetDate - now;
+
+  if (diffInMs <= 0) {
+    // Countdown finished
+    countdown.value = { months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+    return;
+  }
+
+  const totalSeconds = Math.floor(diffInMs / 1000);
+  const months = Math.floor(totalSeconds / (30 * 24 * 3600)); // Approximate months
+  const days = Math.floor((totalSeconds % (30 * 24 * 3600)) / (24 * 3600));
+  const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  countdown.value = { months, days, hours, minutes, seconds };
+};
+
+
+const artistStore = useArtistStore();
+const artists = ref([]);
+
+
+onMounted(() => {
+  artistStore.fetchArtists();
+  artists.value = artistStore.artists.slice(0, 6); // Get the first 6 artists
+  setInterval(updateCountdown, 1000); // Update countdown every second
+});
 </script>
 
 <template>
   <Navbar />
 
-  <div class="video-container">
-    <div class="video-overlay">
+  <!-- Hero Section with Background Video -->
+  <div class="hero-container">
+    <div class="hero-overlay">
       <h1 class="hero-title">Welcome to Vibe Concert</h1>
       <router-link to="/tickets" class="buy-button">Buy your Ticket Now!</router-link>
     </div>
@@ -16,11 +61,24 @@ import Footer from '@/components/Footer.vue';
     </video>
   </div>
 
+  <!-- Countdown Section -->
+  <div class="countdown-section">
+    <div class="countdown-timer">
+      <div><strong>{{ countdown.months }}</strong> Months</div>
+      <div><strong>{{ countdown.days }}</strong> Days</div>
+      <div><strong>{{ countdown.hours }}</strong> Hours</div>
+      <div><strong>{{ countdown.minutes }}</strong> Minutes</div>
+      <div><strong>{{ countdown.seconds }}</strong> Seconds</div>
+    </div>
+  </div>
+
+  <!-- Artists Section -->
   <section class="artists-section">
     <h1>More Upcoming Artists</h1>
     <div class="artist-grid">
-      <div v-for="artist in 6" :key="artist" class="artist-card">
-        <h2>Artista {{ artist }}</h2>
+      <div v-for="artist in artists" :key="artist.id" class="artist-card">
+        <img :src="artist.image" alt="Artist Image" class="artist-image" />
+        <h2>{{ artist.name }}</h2>
       </div>
     </div>
   </section>
@@ -43,8 +101,7 @@ h1 {
   margin: 2rem 0;
 }
 
-
-.video-container {
+.hero-container {
   position: relative;
   overflow: hidden;
   height: 100vh;
@@ -64,7 +121,7 @@ h1 {
   z-index: -1;
 }
 
-.video-overlay {
+.hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -83,7 +140,6 @@ h1 {
   margin-bottom: 1rem;
   color: #fff;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-
 }
 
 .buy-button {
@@ -102,6 +158,21 @@ h1 {
 .buy-button:hover {
   background-color: #0077cc;
   transform: scale(1.05);
+}
+
+.countdown-section {
+  padding: 2rem;
+  text-align: center;
+  background: #121212;
+  color: white;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.5rem;
 }
 
 .artists-section {

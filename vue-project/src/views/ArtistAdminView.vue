@@ -2,28 +2,22 @@
 import { ref } from "vue";
 import Sidebar from "@/components/SideNavbar.vue";
 
-const events = ref([
-  { 
-    id: 1, 
-    name: "Vibe Festival", 
-    date: "2025-06-15", 
-    location: "Porto,Portugal",
-    lineup: {
-      mainStage: "Artist A, Artist B",
-      secondaryStage: "Artist C, Artist D"
-    }
-  },
-  { 
-    id: 2, 
-    name: "Art Attack event", 
-    date: "2025-12-10", 
-    location: "Porto,Portugal",
-    lineup: {
-      mainStage: "Artist X, Artist Y",
-      secondaryStage: "Artist Z, Artist W"
-    }
-  }
+const artists = ref([
+  { id: 1, name: "Artist A", genre: "Pop", followers: 50000, image: null },
+  { id: 2, name: "Artist B", genre: "Rock", followers: 75000, image: null },
+  { id: 3, name: "Artist C", genre: "Electronic", followers: 120000, image: null },
 ]);
+
+const handleImageUpload = (event, item) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      item.image = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+};
 </script>
 
 <template>
@@ -31,28 +25,32 @@ const events = ref([
     <Sidebar :logout="logout" />
 
     <div class="content">
-      <h1>Event Page</h1>
+      <h1>Artist Page</h1>
 
-      <table class="events-table">
+      <table class="artist-table">
         <thead>
-          <tr>
+            <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Main Stage</th>
-            <th>Secondary Stage</th>
+            <th>Genre</th>
+            <th>Followers</th>
+            <th>Image</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="event in events" :key="event.id">
-            <td>{{ event.id }}</td>
-            <td>{{ event.name }}</td>
-            <td>{{ event.date }}</td>
-            <td>{{ event.location }}</td>
-            <td>{{ event.lineup.mainStage }}</td>
-            <td>{{ event.lineup.secondaryStage }}</td>
+          <tr v-for="item in artists" :key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.genre }}</td>
+            <td>{{ item.followers }}</td>
+            <td>
+              <div>
+                <img v-if="item.image" :src="item.image" alt="Item Image" class="table-image" />
+                <span v-else>No Image</span>
+              </div>
+              <input type="file" @change="handleImageUpload($event, item)" accept="image/*" />
+            </td>
             <td>
               <button class="action-btn edit">Edit</button>
               <button class="action-btn delete">Delete</button>
@@ -60,7 +58,7 @@ const events = ref([
           </tr>
         </tbody>
       </table>
-      <button class="add-button">Add Event</button>
+      <button class="add-button">Add Artist</button>
     </div>
   </div>
 </template>
@@ -103,25 +101,25 @@ h1 {
   transform: scale(1.05);
 }
 
-.events-table {
+.artist-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
 }
 
-.events-table th,
-.events-table td {
+.artist-table th,
+.artist-table td {
   border: 1px solid #ccc;
   padding: 0.8rem;
   text-align: left;
 }
 
-.events-table th {
+.artist-table th {
   background-color: #eaeaea;
   font-weight: bold;
 }
 
-.events-table tr:nth-child(even) {
+.artist-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
@@ -141,5 +139,14 @@ h1 {
 .action-btn.delete {
   background-color: #f44336;
   color: #fff;
+}
+
+.table-image {
+  width: 60px;
+  height: auto;
+  display: block;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 </style>

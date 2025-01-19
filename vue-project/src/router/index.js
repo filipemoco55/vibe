@@ -14,6 +14,7 @@ import MerchAdminView from '@/views/MerchAdminView.vue';
 import ShopView from '@/views/ProductDetail.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import EventAdminView from '@/views/EventAdminView.vue';
+import ArtistAdminView from '@/views/ArtistAdminView.vue';
 
 
 const router = createRouter({
@@ -39,7 +40,7 @@ const router = createRouter({
       name: "Admin",
       component: AdminView,
       meta: {
-        isAuthenticated: true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -53,11 +54,14 @@ const router = createRouter({
       name: 'Store',
       component: StoreView,
     },
-      {
-        path: '/shop/:id',
-        name: 'ProductDetail',
-        component: () => import('@/components/ProductDetailComponent.vue'),
-        props: true,
+    {
+      path: '/shop/:id',
+      name: 'ProductDetail',
+      component: ShopView,
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/music',
@@ -78,13 +82,16 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+      meta: {
+        requiresAuth: true
+      },
     },
     {
       path: '/users/admin',
       name: 'UsersAdmin',
       component: UsersAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -93,7 +100,7 @@ const router = createRouter({
       name: 'TicketsAdmin',
       component: TicketsAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -102,7 +109,7 @@ const router = createRouter({
       name: 'MerchAdmin',
       component: MerchAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -111,7 +118,16 @@ const router = createRouter({
       name: 'EventAdmin',
       component: EventAdminView,
       meta: {
-        isAuthenticated : true,
+        requiresAuth: true,
+        isAdmin: true
+      }
+    },
+    {
+      path: '/artist/admin',
+      name: 'ArtistAdmin',
+      component: ArtistAdminView,
+      meta: {
+        requiresAuth: true,
         isAdmin: true
       }
     },
@@ -126,7 +142,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  
+
 });
 
 export default router
