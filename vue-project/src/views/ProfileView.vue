@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watchEffect } from 'vue';
+import { ref, computed } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/user';
 import Navbar from '@/components/NavBar.vue';
@@ -8,7 +8,7 @@ import Footer from '@/components/Footer.vue';
 const authStore = useAuthStore();
 const userStore = useUserStore();
 
-// Computed para buscar o usuário logado com base no authStore
+// Computed para buscar o usuário logado
 const loggedInUser = computed(() => {
   if (authStore.isAuthenticated) {
     return userStore.users.find((user) => user.id === authStore.loggedInUser.id);
@@ -16,18 +16,42 @@ const loggedInUser = computed(() => {
   return null;
 });
 
-// Redireciona para login se o usuário não estiver autenticado
-watchEffect(() => {
-  if (!authStore.isAuthenticated) {
-    alert("Please Login before entering this page");
-    window.location.href = "/login";
+// Estados para a edição do perfil
+const editing = ref(false);
+const profilePicture = ref('');
+const name = ref('');
+const email = ref('');
+
+// Abrir o editor e carregar os dados do usuário
+const openEditor = () => {
+  if (loggedInUser.value) {
+    profilePicture.value = loggedInUser.value.profilePicture || '';
+    name.value = loggedInUser.value.name || '';
+    email.value = loggedInUser.value.email || '';
+    editing.value = true;
   }
-});
+};
+
+// Salvar alterações no perfil
+const saveChanges = () => {
+  const userId = loggedInUser.value.id;
+  const updatedUser = {
+    profilePicture: profilePicture.value,
+    name: name.value,
+    email: email.value,
+  };
+
+  userStore.updateUser(userId, updatedUser);
+  authStore.loggedInUser = { ...authStore.loggedInUser, ...updatedUser };
+
+  localStorage.setItem(`user_${userId}`, JSON.stringify(authStore.loggedInUser));
+  editing.value = false;
+};
 </script>
 
 <template>
   <Navbar />
-  <br>
+  <br />
 
   <div class="user-profile" v-if="loggedInUser">
     <div class="profile-header">
@@ -60,17 +84,40 @@ watchEffect(() => {
       <p v-else>No merch purchased yet.</p>
     </div>
 
+    <!-- Botão para abrir o editor -->
     <div class="edit-profile">
-      <button>Edit Profile</button>
+      <button @click="openEditor">Edit Profile</button>
+    </div>
+
+    <!-- Modal de edição do perfil -->
+    <div class="modal" v-if="editing">
+      <div class="modal-content">
+        <h2>Edit Profile</h2>
+        <label>
+          Profile Picture URL:
+          <input v-model="profilePicture" type="text" placeholder="Enter image URL" />
+        </label>
+        <label>
+          Name:
+          <input v-model="name" type="text" placeholder="Enter your name" />
+        </label>
+        <label>
+          Email:
+          <input v-model="email" type="email" placeholder="Enter your email" />
+        </label>
+        <div class="buttons">
+          <button @click="saveChanges" class="save-button">Save Changes</button>
+          <button @click="editing = false" class="cancel-button">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <Footer />
 </template>
 
-
-
 <style scoped>
+/* Design original do perfil */
 .user-profile {
   color: white;
   font-family: 'Poppins', sans-serif;
@@ -96,7 +143,6 @@ watchEffect(() => {
 }
 
 h1 {
-
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
@@ -165,11 +211,53 @@ button:hover {
   background-color: #005f7f;
 }
 
-button:focus {
-  outline: none;
+/* Estilos do modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-button:active {
-  background-color: #004a61;
+.modal-content {
+  background: #121212;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 400px;
+  text-align: center;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-button {
+  background: #2ae604;
+}
+
+.cancel-button {
+  background: #e74c3c;
 }
 </style>
