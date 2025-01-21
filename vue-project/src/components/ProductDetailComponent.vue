@@ -22,13 +22,17 @@ if (!product) {
     router.replace({ name: 'ShopView' });
 }
 
-// State for the selected size
-const selectedSize = ref('M');
+// State for the selected size (default to the first available size)
+const selectedSize = ref(product?.size[0] || null);
 
-// Function to handle adding the product to the cart
 const addToCart = () => {
     if (!authStore.isAuthenticated) {
         alert('Please log in to add items to the cart.');
+        return;
+    }
+
+    if (!selectedSize.value) {
+        alert('Please select a size.');
         return;
     }
 
@@ -50,15 +54,19 @@ const addToCart = () => {
         <img :src="product.image" :alt="product.name" class="product-image" />
         <p class="product-price">{{ product.price }}€</p>
 
-        <label for="size">Choose a size:</label>
-        <select id="size" v-model="selectedSize" class="size-select">
-            <option value="S">Small (S)</option>
-            <option value="M">Medium (M)</option>
-            <option value="L">Large (L)</option>
-            <option value="XL">Extra Large (XL)</option>
-        </select>
+        <div v-if="product.size.length > 0">
+            <label for="size">Choose a size:</label>
+            <select id="size" v-model="selectedSize" class="size-select">
+                <option v-for="size in product.size" :key="size" :value="size">
+                    {{ size }}
+                </option>
+            </select>
+        </div>
+        <div v-else>
+            <p class="no-sizes">No sizes available for this product.</p>
+        </div>
 
-        <button @click="addToCart" class="buy-button">
+        <button @click="addToCart" class="buy-button" :disabled="!selectedSize">
             Add to Cart
         </button>
     </div>
@@ -70,86 +78,151 @@ const addToCart = () => {
 </template>
 
 <style scoped>
-
-h1 {
+.buy-page {
   font-family: 'Poppins', sans-serif;
   color: white;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 40px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 40px auto;
+  background-color: #002933;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 
-
-.buy-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 50px;
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
 
 .product-image {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    margin-bottom: 20px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .product-price {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 10px 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2e7d32;
+  margin: 20px 0;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  margin-bottom: 10px;
+  display: block;
 }
 
 .size-select {
-    margin: 20px 0;
-    padding: 10px;
-    font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #001f26;
+  color: #94a3b8;
+  margin: 10px auto;
+}
+
+.size-select:focus {
+  outline: none;
+  border-color: #0077a1;
+  box-shadow: 0 0 5px rgba(0, 119, 161, 0.5);
 }
 
 .buy-button {
-    padding: 10px 20px;
-    background-color: #0088ccb9;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    text-align: center;
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #0077a1;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .buy-button:hover {
-    background-color: #003b57;
+  background-color: #005f7a;
+  transform: scale(1.05);
+}
+
+.buy-button:disabled {
+  background-color: #4a5568;
+  cursor: not-allowed;
 }
 
 .not-found {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 50px;
-    color: #555;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #001f26;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
 }
 
 .not-found h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.not-found p {
+  font-size: 1.2rem;
+  color: #94a3b8;
 }
 
 .back-button {
-    padding: 10px 20px;
-    background-color: #ccc;
-    color: #333;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
-    margin-top: 20px;
-    text-align: center;
+  display: inline-block;
+  background-color: #0077a1;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
 }
 
 .back-button:hover {
-    background-color: #bbb;
-    color: #000;
+  background-color: #005f7a;
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .buy-page {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .product-image {
+    max-width: 300px;
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+  }
+
+  .buy-button {
+    font-size: 1rem;
+  }
+
+  .back-button {
+    font-size: 0.9rem;
+  }
 }
 </style>

@@ -98,52 +98,48 @@ const finalizePurchase = () => {
 </template>
 
 <style scoped>
-* {
-  box-sizing: border-box;
+/* Estilo principal */
+.cart-page {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 40px auto;
+  background-color: #002933;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f3f4f6;
-  margin: 0;
-  padding: 0;
+/* Seção do carrinho */
+.cart-section {
+  background-color: #001f26;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
 }
 
 h1 {
-  color: #2c3e50;
+  font-size: 2.5rem;
   font-weight: bold;
-  font-size: 3rem;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.cart-page {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.cart-section {
-  background-color: #ffffff;
-  padding: 40px;
-  margin: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  color: #ffffff;
 }
 
 .cart-item {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  background: #fafafa;
+  background: #003641;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .cart-item:hover {
   transform: translateY(-5px);
+  background: #004851;
 }
 
 .cart-image {
@@ -151,22 +147,24 @@ h1 {
   height: 90px;
   margin-right: 20px;
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .item-details {
   flex-grow: 1;
+  text-align: left;
 }
 
 h2 {
-  font-size: 20px;
-  color: #333;
+  font-size: 1.5rem;
+  color: #ffffff;
   margin-bottom: 5px;
 }
 
 .item-size,
 .item-price {
-  font-size: 14px;
-  color: #666;
+  font-size: 1rem;
+  color: #94a3b8;
 }
 
 .remove-button {
@@ -174,9 +172,9 @@ h2 {
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
@@ -187,47 +185,70 @@ h2 {
 .cart-summary {
   text-align: right;
   margin-top: 30px;
+  color: #ffffff;
 }
 
 .total-price {
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #2c3e50;
+  margin-bottom: 20px;
 }
 
-.clear-button {
-  background: #3498db;
+.clear-button,
+.finalize-button {
+  background: #0077a1;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   margin-top: 15px;
 }
 
 .clear-button:hover {
-  background: #2980b9;
+  background: #005f7a;
+  transform: scale(1.05);
+}
+
+.finalize-button {
+  background: #2ae604;
+}
+
+.finalize-button:hover {
+  background: #109636;
+  transform: scale(1.05);
 }
 
 .empty-cart-message {
-  text-align: center;
-  color: #999;
-  font-size: 16px;
+  font-size: 1.2rem;
+  color: #94a3b8;
+  margin-top: 20px;
 }
-.finalize-button {
-  background: #2ae604;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 15px;
-}
-.finalize-button:hover {
-  background: #109636;
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .cart-page {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cart-image {
+    margin-bottom: 15px;
+  }
+
+  .clear-button,
+  .finalize-button {
+    font-size: 1rem;
+  }
 }
 </style>

@@ -24,6 +24,7 @@
       </li>
     </ul>
     <div class="logout-section">
+      
       <button @click="logout" class="logout-button">Logout</button>
     </div>
   </div>
@@ -35,7 +36,7 @@ export default {
   props: {
     logout: {
       type: Function,
-      required: true,
+      required: true, 
     },
   },
 };
