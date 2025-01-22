@@ -74,7 +74,7 @@ onMounted(() => {
 
   <!-- Artists Section -->
   <section class="artists-section">
-    <h1>More Upcoming Artists</h1>
+    <h1 class="More">More Upcoming Artists</h1>
     <div class="artist-grid">
       <div v-for="artist in artists" :key="artist.id" class="artist-card">
         <img :src="artist.image" alt="Artist Image" class="artist-image" />
@@ -241,5 +241,12 @@ h1 {
   .artist-image {
     height: 200px;
   }
+}
+.More {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 40px;
 }
 </style>

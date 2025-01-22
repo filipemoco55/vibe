@@ -11,9 +11,12 @@ export default {
     const authStore = useAuthStore();
     const router = useRouter();
 
+   
+    authStore.loadStateFromLocalStorage();
+
     const logout = () => {
-      authStore.logout();
-      router.push("/");
+      authStore.logout(); 
+      router.push("/login"); 
     };
 
     return { logout };
@@ -23,8 +26,8 @@ export default {
 
 <template>
   <div class="admin-container">
+    <!-- Passando a prop logout para o Sidebar -->
     <Sidebar :logout="logout" />
-
 
     <div class="content">
       <h1>Admin Page</h1>
