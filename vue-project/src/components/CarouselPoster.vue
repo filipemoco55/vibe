@@ -147,8 +147,10 @@ const scrollRightSecondary = () => {
 .carousel-item,
 .small-carousel-item {
   flex: 0 0 auto;
-  width: 300px;
-  max-width: 300px;
+  width: 500px;
+  margin-left: 30px;
+  height: 500px;
+  max-width: 500px;
   border-radius: 20px;
   overflow: hidden;
   position: relative;
@@ -163,7 +165,8 @@ const scrollRightSecondary = () => {
 .carousel-image,
 .small-card-image {
   width: 100%;
-  height: 200px;
+  gap: 50px;
+  height: 500px;
   border-radius: 15px 15px 0 0;
   object-fit: cover;
 }
