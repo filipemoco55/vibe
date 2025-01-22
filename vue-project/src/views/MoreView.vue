@@ -11,11 +11,11 @@ const message = ref('');
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  
- 
+
+
   alert(`Feedback enviado com sucesso! Obrigado, ${name.value}!`);
 
- 
+
   name.value = '';
   email.value = '';
   message.value = '';
@@ -30,7 +30,8 @@ const handleSubmit = (event) => {
     <section class="intro-section">
       <h1>About the Event</h1>
       <p>
-        Welcome to our exclusive event! Here, you can find all the information about our featured artists, and more exciting surprises. Stay tuned for the latest updates.
+        Welcome to our exclusive event! Here, you can find all the information about our featured artists, and more
+        exciting surprises. Stay tuned for the latest updates.
       </p>
     </section>
 
@@ -42,12 +43,26 @@ const handleSubmit = (event) => {
       </p>
       <ul>
         <li><strong>Location:</strong> Porto, Portugal and Jacarta, Indonesia </li>
-        <li><strong>Ticketing:</strong><router-link to="/tickets" class="buy-button"> Buy your Ticket Now!</router-link></li>
+        <li><strong>Ticketing:</strong><router-link to="/tickets" class="buy-button"> Buy your Ticket Now!</router-link>
+        </li>
         <li><strong>Schedule:</strong> <a href="#">View Full Schedule</a></li>
       </ul>
     </section>
 
-    
+    <section class="map-section">
+      <h2>How to get there</h2>
+      <p>
+        Our event is going to take place at the Queimódromo. Look below for the pinned map.
+      </p>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1262.7130741599756!2d-8.685146732682757!3d41.17261064376814!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd246f7f4002cf19%3A0x6b6e3092d43e6880!2sQueim%C3%B3dromo%20do%20Porto!5e0!3m2!1spt-PT!2spt!4v1737557367101!5m2!1spt-PT!2spt"
+          width="100%" height="450" style="border: 0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+
+
     <section class="feedback-section">
       <h2>We Value Your Feedback</h2>
       <p>Share your thoughts about the event or ask us anything!</p>
@@ -62,7 +77,8 @@ const handleSubmit = (event) => {
         </div>
         <div class="form-group">
           <label for="message">Message:</label>
-          <textarea v-model="message" id="message" rows="5" placeholder="Write your message here..." required></textarea>
+          <textarea v-model="message" id="message" rows="5" placeholder="Write your message here..."
+            required></textarea>
         </div>
         <button type="submit" class="submit-button">Send Feedback</button>
       </form>
@@ -198,5 +214,69 @@ const handleSubmit = (event) => {
 
 .submit-button:hover {
   background-color: #005f7a;
+}
+
+.map-section {
+  background-color: #001f26;
+  padding: 40px;
+  margin: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+.map-section h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.map-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  color: #cccccc; /* Slightly muted color for the text */
+}
+
+.map-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px; /* Rounded corners for a polished look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 650px; /* Fixed height for responsiveness */
+  border: 0;
+  border-radius: 10px; /* Match the container's rounded corners */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .details-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .details-section p {
+    font-size: 1rem;
+  }
+
+  .map-container iframe {
+    height: 350px; /* Smaller height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .details-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .details-section p {
+    font-size: 0.9rem;
+  }
+
+  .map-container iframe {
+    height: 300px; /* Even smaller for mobile */
+  }
 }
 </style>
