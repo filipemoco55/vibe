@@ -14,7 +14,7 @@ export const useUserStore = defineStore("user", {
             { id: 1, name: "Admin Event 1", date: "2025-01-20", location: "Online" },
           ],
           merch: [
-            { id: 1, name: "Admin Shirt", size: "M", price: 25 },
+            { id: 1, name: "Admin Shirt", size: "M", price: 30 },
           ],
         },
         { 

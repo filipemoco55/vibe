@@ -78,6 +78,7 @@ const addToCart = () => {
 </template>
 
 <style scoped>
+
 .buy-page {
   font-family: 'Poppins', sans-serif;
   color: white;
@@ -88,6 +89,7 @@ const addToCart = () => {
   border-radius: 12px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
   text-align: center;
+
 }
 
 h1 {

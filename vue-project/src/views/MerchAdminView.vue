@@ -74,7 +74,7 @@ const saveMerchItem = () => {
 };
 
 const addSize = (size) => {
-  const trimmedSize = size.trim(); 
+  const trimmedSize = size.trim();
   if (trimmedSize && !currentMerchItem.value.size.includes(trimmedSize)) {
     currentMerchItem.value.size.push(trimmedSize);
   } else if (!trimmedSize) {
@@ -153,18 +153,15 @@ const removeMerchItem = (id) => {
           <input v-model="currentMerchItem.name" type="text" placeholder="Name" />
           <input v-model="currentMerchItem.price" type="number" placeholder="Price" />
           <div class="size-input">
-  <input
-    type="text"
-    placeholder="Add Size"
-    @keydown.enter.prevent="addSize($event.target.value); $event.target.value = ''"
-  />
-        <div class="sizes-list">
-             <span class="size-tag" v-for="size in currentMerchItem.size" :key="size">
+            <input type="text" placeholder="Add Size"
+              @keydown.enter.prevent="addSize($event.target.value); $event.target.value = ''" />
+            <div class="sizes-list">
+              <span class="size-tag" v-for="size in currentMerchItem.size" :key="size">
                 {{ size }}
-             <button @click="removeSize(size)">x</button>
-          </span>
-        </div>
-    </div>
+                <button @click="removeSize(size)">x</button>
+              </span>
+            </div>
+          </div>
 
           <input type="file" @change="handleImageUpload" accept="image/*" />
           <div class="modal-actions">
@@ -205,7 +202,8 @@ h1 {
   margin-bottom: 2rem;
 }
 
-.merch-table th, .merch-table td {
+.merch-table th,
+.merch-table td {
   padding: 12px 15px;
   text-align: left;
   border: 1px solid #ddd;
@@ -341,10 +339,11 @@ h1 {
   margin-left: 5px;
   cursor: pointer;
 }
+
 .table-image {
-  max-width: 100px; 
-  max-height: 100px; 
-  object-fit: cover; 
-  border-radius: 4px; 
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 </style>

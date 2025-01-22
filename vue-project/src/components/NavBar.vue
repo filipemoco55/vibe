@@ -13,6 +13,7 @@
             <RouterLink to="/more">More</RouterLink>
         </nav>
 
+
         <div class="user-actions">
             <!-- Profile Icon visible only when logged in -->
             <RouterLink v-if="isAuthenticated" to="/profile" class="profile-icon-button" title="Profile">
@@ -87,8 +88,10 @@ export default {
 }
 
 .nav {
+    margin-left: 200px;
     display: flex;
     align-items: center;
+    text-align: center;
 }
 
 .nav a,
