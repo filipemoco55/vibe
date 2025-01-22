@@ -79,20 +79,24 @@ const addToCart = () => {
 
 <style scoped>
 
-h1 {
+.buy-page {
   font-family: 'Poppins', sans-serif;
   color: white;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 40px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 40px auto;
+  background-color: #002933;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
+
 }
 
-
-.buy-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 50px;
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
 
 .product-image {
