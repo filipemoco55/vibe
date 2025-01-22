@@ -95,10 +95,12 @@ body {
 }
 
 h1 {
-  font-weight: bold;
-  font-size: 2.5rem;
-  text-align: center;
-  margin: 2rem 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin-top: 50px;
+    margin-left: 100px;
+    font-weight: bold;
+    font-size: 40px;
 }
 
 .hero-container {

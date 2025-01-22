@@ -15,7 +15,7 @@ import ShopView from '@/views/ProductDetail.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import EventAdminView from '@/views/EventAdminView.vue';
 import ArtistAdminView from '@/views/ArtistAdminView.vue';
-import CartView from '@/views/cartView.vue';
+import CartView from '@/views/CartView.vue';
 
 
 const router = createRouter({

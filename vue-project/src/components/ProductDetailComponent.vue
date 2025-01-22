@@ -70,13 +70,12 @@ const addToCart = () => {
 </template>
 
 <style scoped>
-
 h1 {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 40px;
 }
 
 
