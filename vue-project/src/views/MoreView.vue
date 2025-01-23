@@ -60,6 +60,17 @@ const handleSubmit = (event) => {
           width="100%" height="450" style="border: 0;" allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
+      <br>
+      <br>
+      <p>
+        And the other big event will be in Jacarta, Indonesia. look below for the pinned map.
+      </p>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.343273033742!2d106.80227485509864!3d-6.218383150176047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14d30079f01%3A0x2e74f2341fff266d!2sEst%C3%A1dio%20Gelora%20Bung%20Karno!5e0!3m2!1spt-PT!2spt!4v1737662083375!5m2!1spt-PT!2spt"
+          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </section>
 
 
@@ -234,21 +245,26 @@ const handleSubmit = (event) => {
   font-size: 1.2rem;
   margin-bottom: 2rem;
   line-height: 1.6;
-  color: #cccccc; /* Slightly muted color for the text */
+  color: #cccccc;
+  /* Slightly muted color for the text */
 }
 
 .map-container {
   position: relative;
   overflow: hidden;
-  border-radius: 10px; /* Rounded corners for a polished look */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  border-radius: 10px;
+  /* Rounded corners for a polished look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  /* Subtle shadow for depth */
 }
 
 .map-container iframe {
   width: 100%;
-  height: 650px; /* Fixed height for responsiveness */
+  height: 650px;
+  /* Fixed height for responsiveness */
   border: 0;
-  border-radius: 10px; /* Match the container's rounded corners */
+  border-radius: 10px;
+  /* Match the container's rounded corners */
 }
 
 /* Responsive Design */
@@ -262,7 +278,8 @@ const handleSubmit = (event) => {
   }
 
   .map-container iframe {
-    height: 350px; /* Smaller height for smaller screens */
+    height: 350px;
+    /* Smaller height for smaller screens */
   }
 }
 
@@ -276,7 +293,8 @@ const handleSubmit = (event) => {
   }
 
   .map-container iframe {
-    height: 300px; /* Even smaller for mobile */
+    height: 300px;
+    /* Even smaller for mobile */
   }
 }
 </style>
