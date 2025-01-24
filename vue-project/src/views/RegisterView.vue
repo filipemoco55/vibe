@@ -1,43 +1,60 @@
 <template>
-    <div class="container">
-        <div class="background-section">
-            <img src="@/assets/login.png" alt="Background" class="background-image" />
-        </div>
-
-        <div class="login-section">
-            <div class="logo">
-                <img src="@/assets/Logo.png" alt="Logo" />
-            </div>
-            <form class="login-form" @submit.prevent="handleLogin">
-                <div class="input-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" v-model="name" placeholder="First and last name" required />
-                </div>
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" v-model="email" placeholder="email@gmail.com" required />
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" v-model="password" placeholder="**********" required />
-                </div>
-                <RouterLink to="/"
-                    style="background-color: black; height: 50px; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white;">
-                    Login
-                </RouterLink>
-                <div class="signup-link">
-                    <RouterLink to= "/login" style="color: #0077a1;">Already have an account?</RouterLink>
-                </div>
-            </form>
-        </div>
+  <div class="container">
+    <div class="background-section">
+      <img src="@/assets/login.png" alt="Background" class="background-image" />
     </div>
+
+    <div class="login-section">
+      <div class="logo">
+        <img src="@/assets/Logo.png" alt="Logo" />
+      </div>
+      <form class="login-form" @submit.prevent="handleRegister">
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" v-model="name" placeholder="First and last name" required />
+        </div>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" v-model="email" placeholder="email@gmail.com" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="password" placeholder="**********" required />
+        </div>
+        <button type="submit" class="submit-button">Register</button>
+      </form>
+    </div>
+  </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
+const name = ref("");
+const email = ref("");
+const password = ref("");
+const userStore = useUserStore();
+const router = useRouter();
+
+const handleRegister = () => {
+  const newUser = {
+    id: userStore.users.length + 1, // Gerar ID simples. Melhor usar algo único na produção.
+    name: name.value,
+    email: email.value,
+    password: password.value,
+    isAdmin: false,
+    profilePicture: "src/assets/user.png", 
+    events: [],
+    merch: [],
+  };
+
+  userStore.addUser(newUser);
+  router.push("/login"); 
 };
 </script>
+
 
 <style scoped>
 html,

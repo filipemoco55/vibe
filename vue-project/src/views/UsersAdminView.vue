@@ -1,13 +1,28 @@
 <script setup>
 import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
 import Sidebar from "@/components/SideNavbar.vue";
+import { useRouter } from "vue-router";
 
-const users = ref([
-  { id: 1, name: "Vibe White T-Shirt", price: 40, image: null },
-  { id: 2, name: "Vibe Black T-Shirt", price: 40, image: null },
-]);
+const userStore = useUserStore();
+const router = useRouter();
 
+const deleteUser = (userId) => {
+  userStore.removeUser(userId);
+};
 
+const editUser = (userId) => {
+  const user = userStore.users.find((u) => u.id === userId);
+  if (user) {
+    // Aqui, você poderia adicionar lógica para abrir um formulário de edição, por exemplo.
+    router.push({ name: "edit-user", params: { userId: user.id } });
+  }
+};
+
+const addUser = () => {
+  // Aqui, você poderia direcionar o usuário para uma página de cadastro
+  router.push({ name: "register" });
+};
 </script>
 
 <template>
@@ -16,6 +31,8 @@ const users = ref([
 
     <div class="content">
       <h1>Users Page</h1>
+
+      <button @click="addUser">Add User</button>
 
       <table class="users-table">
         <thead>
@@ -29,26 +46,15 @@ const users = ref([
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Admin</td>
-            <td>admin@gmail.com</td>
-            <td>123</td>
-            <td>Admin</td>
+          <tr v-for="user in userStore.users" :key="user.id">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.password }}</td>
+            <td>{{ user.isAdmin ? 'Admin' : 'User' }}</td>
             <td>
-              <button class="action-btn edit">Edit</button>
-              <button class="action-btn delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>User</td>
-            <td>user@gmail.com</td>
-            <td>1234</td>
-            <td>User</td>
-            <td>
-              <button class="action-btn edit">Edit</button>
-              <button class="action-btn delete">Delete</button>
+              <button class="action-btn edit" @click="editUser(user.id)">Edit</button>
+              <button class="action-btn delete" @click="deleteUser(user.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -56,6 +62,8 @@ const users = ref([
     </div>
   </div>
 </template>
+
+
 
 <style scoped>
 .admin-container {
