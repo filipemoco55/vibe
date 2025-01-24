@@ -12,17 +12,10 @@ const deleteUser = (userId) => {
 };
 
 const editUser = (userId) => {
-  const user = userStore.users.find((u) => u.id === userId);
-  if (user) {
-    // Aqui, você poderia adicionar lógica para abrir um formulário de edição, por exemplo.
-    router.push({ name: "edit-user", params: { userId: user.id } });
-  }
+  router.push({ name: "edit-user", params: { userId } });
 };
 
-const addUser = () => {
-  // Aqui, você poderia direcionar o usuário para uma página de cadastro
-  router.push({ name: "register" });
-};
+
 </script>
 
 <template>
@@ -32,7 +25,6 @@ const addUser = () => {
     <div class="content">
       <h1>Users Page</h1>
 
-      <button @click="addUser">Add User</button>
 
       <table class="users-table">
         <thead>

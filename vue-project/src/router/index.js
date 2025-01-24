@@ -16,6 +16,7 @@ import ProfileView from '@/views/ProfileView.vue';
 import EventAdminView from '@/views/EventAdminView.vue';
 import ArtistAdminView from '@/views/ArtistAdminView.vue';
 import CartView from '@/views/CartView.vue';
+import EditUser from '@/views/EditUser.vue';
 
 
 const router = createRouter({
@@ -64,6 +65,11 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: "/edit-user/:userId",
+      name: "edit-user",
+      component: EditUser,
+    },  
     {
       path: '/music',
       name: 'Music',
