@@ -17,6 +17,7 @@ const setActiveDay = (day) => {
 
 // Fetch data when the component is mounted
 onMounted(async () => {
+    
     const artistStore = useArtistStore();
     const eventStore = useEventStore();
 
