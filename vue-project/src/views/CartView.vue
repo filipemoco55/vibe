@@ -98,7 +98,7 @@ const finalizePurchase = () => {
 </template>
 
 <style scoped>
-/* Estilo principal */
+
 .cart-page {
   font-family: 'Poppins', sans-serif;
   color: white;
@@ -111,7 +111,7 @@ const finalizePurchase = () => {
   text-align: center;
 }
 
-/* Seção do carrinho */
+
 .cart-section {
   background-color: #001f26;
   padding: 40px;

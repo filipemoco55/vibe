@@ -9,6 +9,7 @@ export const useEventStore = defineStore('event', {
                     id: 1,
                     name: 'Vibe festival',
                     day: 11,
+                    location: 'Porto, Portugal',
                     lineup: {
                         mainStage: [
 
@@ -22,6 +23,7 @@ export const useEventStore = defineStore('event', {
                     id: 2,
                     name: 'Vibe festival',
                     day: 12,
+                    location: 'Porto, Portugal',
                     lineup: {
                         mainStage: [
                         ],
@@ -34,6 +36,7 @@ export const useEventStore = defineStore('event', {
                     id: 3,
                     name: 'Vibe festival',
                     day: 13,
+                    location: 'Porto, Portugal',
                     lineup: {
                         mainStage: [
 

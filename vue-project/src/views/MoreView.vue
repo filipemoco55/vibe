@@ -246,28 +246,28 @@ const handleSubmit = (event) => {
   margin-bottom: 2rem;
   line-height: 1.6;
   color: #cccccc;
-  /* Slightly muted color for the text */
+  
 }
 
 .map-container {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  /* Rounded corners for a polished look */
+ 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  /* Subtle shadow for depth */
+ 
 }
 
 .map-container iframe {
   width: 100%;
   height: 650px;
-  /* Fixed height for responsiveness */
+ 
   border: 0;
   border-radius: 10px;
-  /* Match the container's rounded corners */
+  
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .details-section h2 {
     font-size: 1.8rem;
@@ -279,7 +279,7 @@ const handleSubmit = (event) => {
 
   .map-container iframe {
     height: 350px;
-    /* Smaller height for smaller screens */
+    
   }
 }
 
@@ -294,7 +294,7 @@ const handleSubmit = (event) => {
 
   .map-container iframe {
     height: 300px;
-    /* Even smaller for mobile */
+    
   }
 }
 </style>
