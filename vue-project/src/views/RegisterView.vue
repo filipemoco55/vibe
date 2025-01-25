@@ -22,6 +22,9 @@
           <input type="password" id="password" v-model="password" placeholder="**********" required />
         </div>
         <button type="submit" class="submit-button">Register</button>
+        <div class="signup-link">
+          <RouterLink to="/login" style="color: #0077a1;">Already have an account?</RouterLink>
+        </div>
       </form>
     </div>
   </div>
