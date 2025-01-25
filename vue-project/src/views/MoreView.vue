@@ -75,26 +75,29 @@ const handleSubmit = (event) => {
 
 
     <section class="feedback-section">
-      <h2>We Value Your Feedback</h2>
-      <p>Share your thoughts about the event or ask us anything!</p>
-      <form @submit="handleSubmit" class="feedback-form">
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input v-model="name" type="text" id="name" placeholder="Enter your name" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input v-model="email" type="email" id="email" placeholder="Enter your email" required />
-        </div>
-        <div class="form-group">
-          <label for="message">Message:</label>
-          <textarea v-model="message" id="message" rows="5" placeholder="Write your message here..."
-            required></textarea>
-        </div>
-        <button type="submit" class="submit-button">Send Feedback</button>
-      </form>
+      <div class="feedback-container">
+        <form action="https://api.web3forms.com/submit" method="POST" class="feedback-form">
+          <div class="form-header">
+            <h2>We Value Your Feedback</h2>
+            <p>Share your thoughts about the event or ask us anything!</p>
+          </div>
+          <input type="hidden" name="access_key" value="d036c687-2033-4e9f-a452-1cf1e9a9a651" />
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Enter your name" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Enter your email" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <textarea name="message" placeholder="Write your message here..." class="form-input" required></textarea>
+          </div>
+          <button type="submit" class="submit-button">Send Feedback</button>
+        </form>
+      </div>
     </section>
   </div>
+
+
 
   <Footer />
 </template>
