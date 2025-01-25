@@ -58,7 +58,7 @@ const finalizePurchase = () => {
     // Persistir o histórico no localStorage
     localStorage.setItem(`user_${userId}_merch`, JSON.stringify(user.merch));
 
-  
+
     cartStore.clearCart();
     localStorage.removeItem(`cart_${userId}`);
 

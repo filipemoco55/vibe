@@ -27,16 +27,16 @@
         <h3>Follow us</h3>
         <div class="social-icons">
           <router-link to="/social/twitter" class="social-icon twitter">
-            <img src="../assets/Twitter.png" alt="Twitter" />
+            <img src="@/assets/Twitter.png" alt="Twitter" />
           </router-link>
           <router-link to="/social/facebook" class="social-icon facebook">
-            <img src="./assets/" alt="facebook" />
+            <img src="@/assets/facebook.png" alt="facebook" />
           </router-link>
           <router-link to="/social/instagram" class="social-icon instagram">
-            <img src="./assets/Twitter.png" alt="Instagram" />
+            <img src="../assets/instagram.png" alt="Instagram" />
           </router-link>
           <router-link to="/social/youtube" class="social-icon youtube">
-            <img src="./assets/Twitter.png" alt="youtube" />
+            <img src="@/assets/youtube.png" alt="youtube" />
           </router-link>
         </div>
       </div>
