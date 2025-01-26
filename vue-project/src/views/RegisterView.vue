@@ -43,7 +43,8 @@ const router = useRouter();
 
 const handleRegister = () => {
   const newUser = {
-    id: userStore.users.length + 1, // Gerar ID simples. Melhor usar algo único na produção.
+    id: Date.now(), //gera um id aleatorio
+    //id: userStore.users.length + 1, // a diferença e que este gera um id simples
     name: name.value,
     email: email.value,
     password: password.value,
