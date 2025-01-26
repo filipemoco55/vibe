@@ -38,9 +38,15 @@ const addArtist = async () => {
 };
 
 const updateArtist = async () => {
-  if (artistToUpdate.value) {
-    await artistStore.updateArtist({ ...artistToUpdate.value });
-    showUpdateModal.value = false;
+  if (artistToUpdate.value && artistToUpdate.value.name && artistToUpdate.value.genre) {
+    try {
+      await artistStore.updateArtist(artistToUpdate.value, artistToUpdate.value.id);
+      showUpdateModal.value = false;
+    } catch (error) {
+      console.error('Error updating artist:', error);
+    }
+  } else {
+    alert("Please fill out all required fields.");
   }
 };
 
@@ -144,8 +150,6 @@ const openUpdateModal = (artist) => {
 
 
 <style scoped>
-
-
 .modal {
   position: fixed;
   top: 0;
@@ -314,6 +318,7 @@ h1 {
   from {
     background-color: rgba(0, 0, 0, 0);
   }
+
   to {
     background-color: rgba(0, 0, 0, 0.6);
   }
@@ -324,6 +329,7 @@ h1 {
     transform: translateY(-20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;

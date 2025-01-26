@@ -29,12 +29,12 @@ export const useArtistStore = defineStore('artist', {
         async updateArtist(artist, id) {
             try {
                 await put(API_BASE_URL, `${ENDPOINT}/${id}`, artist); // Update in backend
-                this.artists = this.artists.map((a) => (a.id === artist.id ? artist : a)); // Update local state
+                this.artists = this.artists.map((a) => (a.id === id ? artist : a)); // Update local state
             } catch (error) {
                 console.error('Failed to update artist:', error);
             }
         },
-
+        
         async removeArtist(id) {
             try {
                 await del(API_BASE_URL, `${ENDPOINT}/${id}`);

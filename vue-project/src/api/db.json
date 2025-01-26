@@ -117,14 +117,14 @@
       "name": "Lady Gaga",
       "image": "https://upload.wikimedia.org/wikipedia/commons/4/43/Lady_Gaga_by_Cameron_Smith_in_2023.jpg",
       "genre": "Pop",
-      "followers": 1234567,
+      "followers": 12345678,
       "preview": "https://youtube.com"
     },
     {
       "id": "16",
       "name": "Bruno Mars",
       "genre": "Pop",
-      "followers": 1965345,
+      "followers": 19653456,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq2iHk7y7LSHJf-KUnJS6sERARdUm0Vq5q02fgIfQhp0kZU9VPCvdufjuNen-rppc1l08&usqp=CAU"
     }
   ]
