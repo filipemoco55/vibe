@@ -6,7 +6,6 @@
       <p class="phase">Choose your tickets and join the event for an unforgettable experience!</p>
     </section>
 
-   
     <div class="ticket-list-container">
       <div v-for="(eventTickets, eventName) in groupedTickets" :key="eventName" class="event-section">
         <div class="event-header">
@@ -48,14 +47,14 @@ const eventStore = useEventStore();
 const authStore = useAuthStore();
 const groupedTickets = ref({});
 
-// adiciona o ticket a cada user
+
 const addTicketToUser = (ticket) => {
   ticketStore.addTicketToUser(ticket);
   console.log("Ticket adicionado:", ticket);
+  updateGroupedTickets(); //Vai atuazilar os tickets apos serem adicionadaos
 };
 
-// Sgrupa os tickets por eventos
-const groupTicketsByEvent = () => {
+const updateGroupedTickets = () => {
   const ticketsByEvent = {};
 
   ticketStore.ticket.forEach(ticket => {
@@ -71,24 +70,24 @@ const groupTicketsByEvent = () => {
   groupedTickets.value = ticketsByEvent;
 };
 
-
+// Inicializa os tickets e grupos ao carregar a página
 onMounted(() => {
-  ticketStore.initializeTickets();
-  groupTicketsByEvent();
+  ticketStore.initializeTickets(); 
+  updateGroupedTickets(); 
 });
 </script>
 
 <style scoped>
-
 h1 {
-    font-family: 'Poppins', sans-serif;
-    color: white;
+  font-family: 'Poppins', sans-serif;
+  color: white;
 }
 
 .phase {
-    font-family: 'Poppins', sans-serif;
-    color: white;
+  font-family: 'Poppins', sans-serif;
+  color: white;
 }
+
 .tickets-page {
   font-family: 'Poppins', sans-serif;
   color: rgb(0, 0, 0);

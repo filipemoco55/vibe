@@ -62,7 +62,7 @@ export const useMerchStore = defineStore('merch', {
         ],
     }),
     getters: {
-        total: (state) => state.merch.length, // Quantidade total de itens
+        total: (state) => state.merch.length, 
     },
     actions: {
         addItem(id, name, price, size, image) {
