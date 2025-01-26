@@ -24,7 +24,7 @@ export const useAuthStore = defineStore("auth", {
         localStorage.setItem("userRole", JSON.stringify(this.userRole));
         localStorage.setItem("loggedInUser", JSON.stringify(this.loggedInUser));
 
-        // Carregar o carrinho associado ao usuário
+        
         const cartStore = useCartStore();
         cartStore.loadCart(user.id);
 
@@ -51,7 +51,7 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("userRole");
       localStorage.removeItem("loggedInUser");
 
-      // Limpar o carrinho ao fazer logout
+     
       const cartStore = useCartStore();
       cartStore.clearCart();
     },
