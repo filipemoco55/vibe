@@ -26,21 +26,26 @@ export const useArtistStore = defineStore('artist', {
             }
         },
 
-        async addArtist(newArtist) {
+        async updateArtist(updatedArtist) {
             try {
-                const createdArtist = await post(API_BASE_URL, ENDPOINT, newArtist);
-                this.artists.push(createdArtist); // Add the new artist to the local state
+                const { id, ...data } = updatedArtist; // Extract ID and the rest of the data
+                const response = await put(API_BASE_URL, `${ENDPOINT}/${id}`, data); // Update backend
+                // Update local state
+                const index = this.artists.findIndex((artist) => artist.id === id);
+                if (index !== -1) {
+                    this.artists[index] = { ...this.artists[index], ...response };
+                }
             } catch (error) {
-                console.error('Failed to add artist:', error);
+                console.error("Failed to update artist:", error);
             }
         },
 
         async removeArtist(id) {
             try {
-                await del(API_BASE_URL, `${ENDPOINT}/${id}`);
-                this.artists = this.artists.filter((artist) => artist.id !== id); // Remove locally
+                await del(API_BASE_URL, `${ENDPOINT}/${id}`); // Remove from backend
+                this.artists = this.artists.filter((artist) => artist.id !== id); // Update local state
             } catch (error) {
-                console.error('Failed to remove artist:', error);
+                console.error("Failed to remove artist:", error);
             }
         },
     },
