@@ -1,58 +1,81 @@
 <script setup>
-import { defineProps, computed, ref, defineEmits } from 'vue';
+import { defineProps, computed, ref, defineEmits, onMounted } from 'vue';
 import { useEventStore } from '@/stores/event';
 import { useArtistStore } from '@/stores/artist';
 
 const props = defineProps({
-  activeDay: String,  // Active day is passed from the parent component
+  activeDay: String,
 });
 
-const emit = defineEmits(['setActiveDay']); // Emit event when day is selected
+const emit = defineEmits(['setActiveDay']);
 
-// Access the stores
 const eventStore = useEventStore();
 const artistStore = useArtistStore();
 
-// Methods for changing days
 const setActiveDay = (day) => {
   emit('setActiveDay', day);
 };
 
-// Get the event for the active day
 const activeEvent = computed(() => {
   return eventStore.event.find(event => event.day === parseInt(props.activeDay));
 });
 
-// Main Stage Artists
 const mainStageArtists = computed(() => {
   return activeEvent.value ? activeEvent.value.lineup.mainStage : [];
 });
 
-// Secondary Stage Artists
 const secondaryStageArtists = computed(() => {
   return activeEvent.value ? activeEvent.value.lineup.secondaryStage : [];
 });
 
-// Carousel Scroll Logic
 const carousel = ref(null);
 const secondaryCarousel = ref(null);
 
+
 const scrollLeft = () => {
-  carousel.value.scrollBy({ left: -carousel.value.offsetWidth, behavior: "smooth" });
+  if (carousel.value) {
+    carousel.value.scrollBy({ left: -carousel.value.clientWidth, behavior: "smooth" });
+  } else {
+    console.error("Carousel principal não encontrado.");
+  }
 };
 
 const scrollRight = () => {
-  carousel.value.scrollBy({ left: carousel.value.offsetWidth, behavior: "smooth" });
+  if (carousel.value) {
+    carousel.value.scrollBy({ left: carousel.value.clientWidth, behavior: "smooth" });
+  } else {
+    console.error("Carousel principal não encontrado.");
+  }
 };
 
 const scrollLeftSecondary = () => {
-  secondaryCarousel.value.scrollBy({ left: -secondaryCarousel.value.offsetWidth, behavior: "smooth" });
+  if (secondaryCarousel.value) {
+    secondaryCarousel.value.scrollBy({ left: -secondaryCarousel.value.clientWidth, behavior: "smooth" });
+  } else {
+    console.error("Carousel secundário não encontrado.");
+  }
 };
 
 const scrollRightSecondary = () => {
-  secondaryCarousel.value.scrollBy({ left: secondaryCarousel.value.offsetWidth, behavior: "smooth" });
+  if (secondaryCarousel.value) {
+    secondaryCarousel.value.scrollBy({ left: secondaryCarousel.value.clientWidth, behavior: "smooth" });
+  } else {
+    console.error("Carousel secundário não encontrado.");
+  }
 };
+
+// Verificar referências ao montar
+onMounted(() => {
+  if (!carousel.value) {
+    console.error("Referência para o carrossel principal está ausente.");
+  }
+  if (!secondaryCarousel.value) {
+    console.error("Referência para o carrossel secundário está ausente.");
+  }
+});
 </script>
+
+
 
 <template>
   <div>
@@ -94,6 +117,7 @@ const scrollRightSecondary = () => {
 </template>
 
 
+
 <style scoped>
 .button-container {
   margin-top: 30px;
@@ -103,6 +127,7 @@ const scrollRightSecondary = () => {
   padding: 15px;
   flex-wrap: wrap;
 }
+
 .date-button {
   display: inline-flex;
   align-items: center;
@@ -120,14 +145,17 @@ const scrollRightSecondary = () => {
   background: linear-gradient(135deg, #e3f6fd, #ffffff);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
+
 .date-button.active {
   background: linear-gradient(135deg, #004e62, #006d88);
   color: white;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 }
+
 .date-button:hover {
   transform: scale(1.1);
 }
+
 .carousel-wrapper,
 .small-carousel-wrapper {
   position: relative;
@@ -137,13 +165,21 @@ const scrollRightSecondary = () => {
   border-radius: 20px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
+
 .carousel,
 .small-carousel {
   display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
   gap: 15px;
   padding: 10px;
-  scroll-behavior: smooth;
 }
+
+.carousel::-webkit-scrollbar,
+.small-carousel::-webkit-scrollbar {
+  display: none;
+}
+
 .carousel-item,
 .small-carousel-item {
   flex: 0 0 auto;
@@ -157,11 +193,13 @@ const scrollRightSecondary = () => {
   background-color: #f0f4f8;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .carousel-item:hover,
 .small-carousel-item:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }
+
 .carousel-image,
 .small-card-image {
   width: 100%;
@@ -170,6 +208,7 @@ const scrollRightSecondary = () => {
   border-radius: 15px 15px 0 0;
   object-fit: cover;
 }
+
 .carousel-caption,
 .small-card-caption {
   position: absolute;
@@ -184,6 +223,7 @@ const scrollRightSecondary = () => {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
+
 .carousel-button {
   position: absolute;
   top: 50%;
@@ -203,16 +243,20 @@ const scrollRightSecondary = () => {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 .carousel-button.left {
   left: 15px;
 }
+
 .carousel-button.right {
   right: 15px;
 }
+
 .carousel-button:hover {
   background: linear-gradient(135deg, #004e62, #005f7a);
   transform: scale(1.1);
 }
+
 h1 {
   font-family: 'Poppins', sans-serif;
   color: white;
