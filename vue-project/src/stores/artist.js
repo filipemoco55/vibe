@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { get, post, del } from '@/api/api'; // Import your API functions
+import { get, post, del, put } from '@/api/api'; // Import your API functions
 
 const API_BASE_URL = 'http://localhost:3000';
 const ENDPOINT = 'artist';
@@ -26,27 +26,34 @@ export const useArtistStore = defineStore('artist', {
             }
         },
 
-        async updateArtist(updatedArtist) {
+        async updateArtist(artist, id) {
             try {
-                const { id, ...data } = updatedArtist; // Extract ID and the rest of the data
-                const response = await put(API_BASE_URL, `${ENDPOINT}/${id}`, data); // Update backend
-                // Update local state
-                const index = this.artists.findIndex((artist) => artist.id === id);
-                if (index !== -1) {
-                    this.artists[index] = { ...this.artists[index], ...response };
-                }
+                await put(API_BASE_URL, `${ENDPOINT}/${id}`, artist); // Update in backend
+                this.artists = this.artists.map((a) => (a.id === artist.id ? artist : a)); // Update local state
             } catch (error) {
-                console.error("Failed to update artist:", error);
+                console.error('Failed to update artist:', error);
             }
         },
 
         async removeArtist(id) {
             try {
-                await del(API_BASE_URL, `${ENDPOINT}/${id}`); // Remove from backend
-                this.artists = this.artists.filter((artist) => artist.id !== id); // Update local state
+                await del(API_BASE_URL, `${ENDPOINT}/${id}`);
+                this.artists = this.artists.filter((artist) => artist.id !== id);
             } catch (error) {
                 console.error("Failed to remove artist:", error);
             }
         },
+
+        async addArtist(artist) {
+            try {
+                const newArtist = await post(API_BASE_URL, ENDPOINT, artist);
+                this.artists.push(newArtist);
+            } catch (error) {
+                console.error('Failed to add artist:', error);
+            }
+        },
+    },
+    persist: {
+        enabled: true,
     },
 });

@@ -12,7 +12,7 @@ const itemsPerPage = 8;
 // Modal state
 const showAddModal = ref(false);
 const showUpdateModal = ref(false);
-const newArtist = ref({ name: "", genre: "", followers: 0, image: null });
+const newArtist = ref({ name: "", genre: "", followers: 0, image: "" });
 const artistToUpdate = ref(null);
 
 // Fetch artists on page load
@@ -32,7 +32,7 @@ const totalPages = computed(() => Math.ceil(artistStore.artists.length / itemsPe
 const addArtist = async () => {
   if (newArtist.value.name && newArtist.value.genre) {
     await artistStore.addArtist({ ...newArtist.value });
-    newArtist.value = { name: "", genre: "", followers: 0, image: null };
+    newArtist.value = { name: "", genre: "", followers: 0, image: "" };
     showAddModal.value = false;
   }
 };
@@ -48,17 +48,13 @@ const deleteArtist = async (id) => {
   await artistStore.removeArtist(id);
 };
 
-const handleImageUpload = (event, target) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      target.image = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
+// Open update modal and set the artist to update
+const openUpdateModal = (artist) => {
+  artistToUpdate.value = { ...artist };
+  showUpdateModal.value = true;
 };
 </script>
+
 
 <template>
   <div class="admin-container">
@@ -90,13 +86,10 @@ const handleImageUpload = (event, target) => {
               <span v-else>No Image</span>
             </td>
             <td>
-              <button
-                class="action-btn edit"
-                @click="() => { artistToUpdate.value = { ...item }; showUpdateModal.value = true; }"
-              >
+              <button class="action-btn edit" @click="openUpdateModal(item)">
                 Update
               </button>
-              <button class="action-btn delete" @click="() => deleteArtist(item.id)">Delete</button>
+              <button class="action-btn delete" @click="deleteArtist(item.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -121,7 +114,7 @@ const handleImageUpload = (event, target) => {
           <input v-model="newArtist.name" placeholder="Name" required />
           <input v-model="newArtist.genre" placeholder="Genre" required />
           <input v-model.number="newArtist.followers" placeholder="Followers" type="number" />
-          <input type="file" @change="(e) => handleImageUpload(e, newArtist)" accept="image/*" />
+          <input v-model="newArtist.image" placeholder="Image URL" type="text" />
           <div class="modal-actions">
             <button type="submit" class="action-btn save">Add</button>
             <button type="button" class="action-btn cancel" @click="showAddModal = false">Cancel</button>
@@ -138,7 +131,7 @@ const handleImageUpload = (event, target) => {
           <input v-model="artistToUpdate.name" placeholder="Name" required />
           <input v-model="artistToUpdate.genre" placeholder="Genre" required />
           <input v-model.number="artistToUpdate.followers" placeholder="Followers" type="number" />
-          <input type="file" @change="(e) => handleImageUpload(e, artistToUpdate)" accept="image/*" />
+          <input v-model="artistToUpdate.image" placeholder="Image URL" type="text" />
           <div class="modal-actions">
             <button type="submit" class="action-btn save">Update</button>
             <button type="button" class="action-btn cancel" @click="showUpdateModal = false">Cancel</button>
@@ -149,33 +142,68 @@ const handleImageUpload = (event, target) => {
   </div>
 </template>
 
+
 <style scoped>
+
+
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .modal-content {
-  background: white;
+  background: #fff;
   padding: 2rem;
-  border-radius: 8px;
-  width: 400px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  width: 450px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.4s ease-in-out;
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+}
+
+.action-btn.save {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.action-btn.cancel {
+  background-color: #f44336;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.modal-actions button:hover {
+  opacity: 0.9;
 }
 
 .action-btn.save {
@@ -280,5 +308,25 @@ h1 {
   margin: 0.5rem 0;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+@keyframes fadeIn {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 </style>
