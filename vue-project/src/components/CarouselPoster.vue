@@ -257,10 +257,11 @@ onMounted(() => {
 }
 
 h1 {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin-top: 50px;
+    margin-left: 100px;
+    font-weight: bold;
+    font-size: 40px;
 }
 </style>

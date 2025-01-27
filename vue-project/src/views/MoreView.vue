@@ -91,17 +91,15 @@ const handleSubmit = (event) => {
     </section>
   </div>
 
-
-
   <Footer />
 </template>
 
 <style scoped>
+
 .more-page {
   font-family: 'Poppins', sans-serif;
   color: white;
 }
-
 
 .intro-section {
   margin: 40px;
