@@ -1,34 +1,43 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useEventStore } from "@/stores/event"; // Import the Pinia store
 import Sidebar from "@/components/SideNavbar.vue";
 
-const events = ref([
-  {
-    id: 1,
-    name: "Vibe Festival",
-    date: "2025-06-15",
-    location: "Porto,Portugal",
+const eventStore = useEventStore(); // Access the event store
+const events = ref([]);
+
+// Fetch data from the store when the component is mounted
+onMounted(() => {
+  eventStore.initializeLineups(); // Initialize the lineups dynamically
+  events.value = eventStore.event; // Populate the events from the store
+});
+
+// Add/Edit/Delete functionality
+const addEvent = () => {
+  const newEvent = {
+    id: Date.now(),
+    name: "New Event",
+    day: 14,
+    location: "New Location",
     lineup: {
-      mainStage: "Artist A, Artist B",
-      secondaryStage: "Artist C, Artist D"
-    }
-  },
-  {
-    id: 2,
-    name: "Art Attack event",
-    date: "2025-12-10",
-    location: "Porto,Portugal",
-    lineup: {
-      mainStage: "Artist X, Artist Y",
-      secondaryStage: "Artist Z, Artist W"
-    }
+      mainStage: [],
+      secondaryStage: [],
+    },
+  };
+  eventStore.addEvent(newEvent); // Add the new event to the store
+};
+
+const deleteEvent = (eventId) => {
+  const index = events.value.findIndex((e) => e.id === eventId);
+  if (index !== -1) {
+    events.value.splice(index, 1);
   }
-]);
+};
 </script>
 
 <template>
   <div class="admin-container">
-    <Sidebar :logout="logout" />
+    <Sidebar />
 
     <div class="content">
       <h1>Event Page</h1>
@@ -38,7 +47,7 @@ const events = ref([
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Date</th>
+            <th>Day</th>
             <th>Location</th>
             <th>Main Stage</th>
             <th>Secondary Stage</th>
@@ -49,23 +58,97 @@ const events = ref([
           <tr v-for="event in events" :key="event.id">
             <td>{{ event.id }}</td>
             <td>{{ event.name }}</td>
-            <td>{{ event.date }}</td>
+            <td>{{ event.day }}</td>
             <td>{{ event.location }}</td>
-            <td>{{ event.lineup.mainStage }}</td>
-            <td>{{ event.lineup.secondaryStage }}</td>
+            <!-- Extract artist names for mainStage -->
+            <td>{{ event.lineup.mainStage.map(artist => artist.name).join(", ") }}</td>
+            <!-- Extract artist names for secondaryStage -->
+            <td>{{ event.lineup.secondaryStage.map(artist => artist.name).join(", ") }}</td>
             <td>
               <button class="action-btn edit">Edit</button>
-              <button class="action-btn delete">Delete</button>
+              <button class="action-btn delete" @click="deleteEvent(event.id)">Delete</button>
             </td>
           </tr>
         </tbody>
+
       </table>
-      <button class="add-button">Add Event</button>
+      <button class="add-button" @click="addEvent">Add Event</button>
     </div>
   </div>
 </template>
 
 <style scoped>
+/* Same styles as before */
+</style>
+
+
+
+<style scoped>
+/* Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.artist-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #f44336;
+  color: white;
+  margin-left: 1rem;
+}
+
+
 .admin-container {
   display: flex;
   height: 100vh;
