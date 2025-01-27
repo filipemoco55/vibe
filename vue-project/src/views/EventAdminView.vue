@@ -1,39 +1,79 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useEventStore } from "@/stores/event"; // Import the Pinia store
+import { ref, onMounted, computed } from "vue";
+import { useEventStore } from "@/stores/event";
+import { useArtistStore } from "@/stores/artist"; // Import artist store
 import Sidebar from "@/components/SideNavbar.vue";
 
 const eventStore = useEventStore(); // Access the event store
-const events = ref([]);
+const artistStore = useArtistStore(); // Access the artist store
+const events = ref([]); // Local events reference
+const showModal = ref(false); // Modal visibility state
 
-// Fetch data from the store when the component is mounted
-onMounted(() => {
-  eventStore.initializeLineups(); // Initialize the lineups dynamically
-  events.value = eventStore.event; // Populate the events from the store
+// New event template
+const newEvent = ref({
+  name: "",
+  day: null,
+  location: "",
+  lineup: {
+    mainStage: [],
+    secondaryStage: [],
+  },
 });
 
-// Add/Edit/Delete functionality
+// Fetch data when the component mounts
+onMounted(() => {
+  eventStore.initializeLineups(); // Initialize event lineups
+  artistStore.fetchArtists(); // Fetch artists from the artist store
+  events.value = eventStore.event; // Sync events with the store
+});
+
+// Computed property for the next event ID
+const nextEventId = computed(() => {
+  const maxId = events.value.reduce((max, event) => Math.max(max, event.id), 0);
+  return maxId + 1;
+});
+
+// Add a new event
 const addEvent = () => {
-  const newEvent = {
-    id: Date.now(),
-    name: "New Event",
-    day: 14,
-    location: "New Location",
+  if (newEvent.value.name && newEvent.value.day && newEvent.value.location) {
+    const eventToAdd = {
+      ...newEvent.value,
+      id: nextEventId.value, // Auto-incremented ID
+    };
+
+    eventStore.addEvent(eventToAdd); // Add the event to the store
+    resetForm();
+    showModal.value = false; // Close the modal
+  } else {
+    alert("Please fill out all fields!");
+  }
+};
+
+// Reset the form after submission
+const resetForm = () => {
+  newEvent.value = {
+    name: "",
+    day: null,
+    location: "",
     lineup: {
       mainStage: [],
       secondaryStage: [],
     },
   };
-  eventStore.addEvent(newEvent); // Add the new event to the store
 };
 
+// Delete an event
 const deleteEvent = (eventId) => {
   const index = events.value.findIndex((e) => e.id === eventId);
   if (index !== -1) {
     events.value.splice(index, 1);
   }
 };
+
+// Artists list for the multi-select dropdown
+const artists = computed(() => artistStore.artists);
 </script>
+
 
 <template>
   <div class="admin-container">
@@ -42,6 +82,7 @@ const deleteEvent = (eventId) => {
     <div class="content">
       <h1>Event Page</h1>
 
+      <!-- Events Table -->
       <table class="events-table">
         <thead>
           <tr>
@@ -60,9 +101,7 @@ const deleteEvent = (eventId) => {
             <td>{{ event.name }}</td>
             <td>{{ event.day }}</td>
             <td>{{ event.location }}</td>
-            <!-- Extract artist names for mainStage -->
             <td>{{ event.lineup.mainStage.map(artist => artist.name).join(", ") }}</td>
-            <!-- Extract artist names for secondaryStage -->
             <td>{{ event.lineup.secondaryStage.map(artist => artist.name).join(", ") }}</td>
             <td>
               <button class="action-btn edit">Edit</button>
@@ -70,17 +109,84 @@ const deleteEvent = (eventId) => {
             </td>
           </tr>
         </tbody>
-
       </table>
-      <button class="add-button" @click="addEvent">Add Event</button>
+
+      <!-- Add Event Button -->
+      <button class="add-button" @click="showModal = true">Add Event</button>
+
+      <!-- Add Event Modal -->
+      <div v-if="showModal" class="modal-overlay">
+        <div class="modal">
+          <h2>Add Event</h2>
+
+          <!-- Event Form -->
+          <form @submit.prevent="addEvent">
+            <label>
+              Event Name:
+              <input type="text" v-model="newEvent.name" required />
+            </label>
+
+            <label>
+              Day:
+              <input type="number" v-model="newEvent.day" required />
+            </label>
+
+            <label>
+              Location:
+              <input type="text" v-model="newEvent.location" required />
+            </label>
+
+            <!-- Main Stage Multi-Select -->
+            <label>
+              Main Stage Lineup:
+              <select
+                v-model="newEvent.lineup.mainStage"
+                multiple
+                required
+              >
+                <option
+                  v-for="artist in artists"
+                  :key="artist.id"
+                  :value="artist"
+                >
+                  {{ artist.name }}
+                </option>
+              </select>
+            </label>
+
+            <!-- Secondary Stage Multi-Select -->
+            <label>
+              Secondary Stage Lineup:
+              <select
+                v-model="newEvent.lineup.secondaryStage"
+                multiple
+                required
+              >
+                <option
+                  v-for="artist in artists"
+                  :key="artist.id"
+                  :value="artist"
+                >
+                  {{ artist.name }}
+                </option>
+              </select>
+            </label>
+
+            <!-- Submit & Cancel Buttons -->
+            <button type="submit">Add Event</button>
+            <button type="button" @click="showModal = false">Cancel</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 
 
+
+
 <style scoped>
-/* Modal styling */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -110,19 +216,12 @@ label {
   margin-bottom: 1rem;
 }
 
-.artist-checkbox-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.checkbox-item {
-  display: flex;
-  align-items: center;
-}
-
-input[type="checkbox"] {
-  margin-right: 0.5rem;
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 button {
@@ -220,5 +319,18 @@ h1 {
 .action-btn.delete {
   background-color: #f44336;
   color: #fff;
+}
+
+select[multiple] {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+option {
+  padding: 0.5rem;
 }
 </style>
