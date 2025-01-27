@@ -57,7 +57,7 @@ export default {
       const success = this.authStore.login(this.email, this.password);
 
       if (success) {
-        this.router.push("/"); 
+        this.router.push("/");
       } else {
         this.errorMessage = "Invalid email or password. Please try again.";
       }

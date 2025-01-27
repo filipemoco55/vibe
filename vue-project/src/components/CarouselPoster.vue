@@ -64,7 +64,6 @@ const scrollRightSecondary = () => {
   }
 };
 
-// Verificar referências ao montar
 onMounted(() => {
   if (!carousel.value) {
     console.error("Referência para o carrossel principal está ausente.");

@@ -20,7 +20,6 @@ const clearCart = () => {
   cartStore.clearCart();
 };
 
-// Carregar os itens do carrinho do componente, se o usuário estiver logado
 const loadCartFromStorage = () => {
   if (authStore.isAuthenticated && authStore.loggedInUser) {
     const savedCart = localStorage.getItem(`cart_${authStore.loggedInUser.id}`);
@@ -31,7 +30,6 @@ const loadCartFromStorage = () => {
 };
 
 
-// Carregar o carrinho ao montar o componente
 onMounted(() => {
   if (authStore.isAuthenticated) {
     loadCartFromStorage();
@@ -49,13 +47,10 @@ const finalizePurchase = () => {
   const user = userStore.users.find((u) => u.id === userId);
 
   if (user) {
-    // Adicionar os itens do carrinho ao histórico de compras do usuário
     user.merch.push(...cartStore.cart);
 
-    // Atualizar o estado do usuário na store
     userStore.updateUser(userId, { merch: user.merch });
 
-    // Persistir o histórico no localStorage
     localStorage.setItem(`user_${userId}_merch`, JSON.stringify(user.merch));
 
 
@@ -227,7 +222,6 @@ h2 {
   margin-top: 20px;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .cart-page {
     padding: 20px;

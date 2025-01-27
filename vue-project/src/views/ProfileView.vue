@@ -7,8 +7,6 @@ import Footer from '@/components/Footer.vue';
 
 const authStore = useAuthStore();
 const userStore = useUserStore();
-
-// Computed para buscar o usuário logado
 const loggedInUser = computed(() => {
   if (authStore.isAuthenticated) {
     return userStore.users.find((user) => user.id === authStore.loggedInUser.id);
@@ -16,13 +14,11 @@ const loggedInUser = computed(() => {
   return null;
 });
 
-// Estados para a edição do perfil
 const editing = ref(false);
 const profilePicture = ref('');
 const name = ref('');
 const email = ref('');
 
-// Abrir o editor e carregar os dados do usuário
 const openEditor = () => {
   if (loggedInUser.value) {
     profilePicture.value = loggedInUser.value.profilePicture || '';
@@ -32,7 +28,6 @@ const openEditor = () => {
   }
 };
 
-// Salvar alterações no perfil
 const saveChanges = () => {
   const userId = loggedInUser.value.id;
   const updatedUser = {
@@ -117,7 +112,6 @@ const saveChanges = () => {
 </template>
 
 <style scoped>
-/* Design original do perfil */
 .user-profile {
   color: white;
   font-family: 'Poppins', sans-serif;
@@ -211,7 +205,6 @@ button:hover {
   background-color: #005f7f;
 }
 
-/* Estilos do modal */
 .modal {
   position: fixed;
   top: 0;

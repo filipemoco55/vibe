@@ -11,18 +11,14 @@ const merchStore = useMerchStore();
 const cartStore = useCartStore();
 const authStore = useAuthStore();
 
-// Extract product ID from the route params
 const productId = Number(route.params.id);
 
-// Find the product in the store
 const product = merchStore.merch.find((p) => p.id === productId);
 
-// Handle redirect if the product is not found
 if (!product) {
     router.replace({ name: 'ShopView' });
 }
 
-// State for the selected size (default to the first available size)
 const selectedSize = ref(product?.size[0] || null);
 
 const addToCart = () => {
@@ -201,7 +197,6 @@ label {
   transform: scale(1.05);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .buy-page {
     padding: 20px;

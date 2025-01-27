@@ -73,7 +73,6 @@ h1 {
     align-items: center;
     justify-content: center;
     height: 70vh;
-    /* Center vertically */
     color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
@@ -106,7 +105,7 @@ h1 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 70vh; /* Center vertically */
+    height: 70vh; 
     color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 18px;

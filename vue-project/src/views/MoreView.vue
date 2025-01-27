@@ -3,18 +3,13 @@ import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 import { ref } from 'vue';
 
-
 const name = ref('');
 const email = ref('');
 const message = ref('');
-
-
 const handleSubmit = (event) => {
   event.preventDefault();
 
-
   alert(`Feedback enviado com sucesso! Obrigado, ${name.value}!`);
-
 
   name.value = '';
   email.value = '';
@@ -72,7 +67,6 @@ const handleSubmit = (event) => {
           referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
-
 
     <section class="feedback-section">
       <div class="feedback-container">
@@ -249,25 +243,25 @@ const handleSubmit = (event) => {
   margin-bottom: 2rem;
   line-height: 1.6;
   color: #cccccc;
-  
+
 }
 
 .map-container {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
- 
+
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
- 
+
 }
 
 .map-container iframe {
   width: 100%;
   height: 650px;
- 
+
   border: 0;
   border-radius: 10px;
-  
+
 }
 
 
@@ -282,7 +276,7 @@ const handleSubmit = (event) => {
 
   .map-container iframe {
     height: 350px;
-    
+
   }
 }
 
@@ -297,7 +291,7 @@ const handleSubmit = (event) => {
 
   .map-container iframe {
     height: 300px;
-    
+
   }
 }
 </style>

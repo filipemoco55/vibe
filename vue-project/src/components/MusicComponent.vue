@@ -3,7 +3,6 @@
     <h1>Popular Artist</h1>
     <br />
     <div class="cards-container">
-      <!-- Inside your v-for loop where you display the artists -->
       <div class="card" v-for="(item, index) in items" :key="index" @click="playAudio(item.preview)">
         <img :src="item.image" :alt="item.name" />
         <div class="play-icon">▶</div>
@@ -144,7 +143,6 @@ h1 {
   }
 }
 
-/* Telas médias */
 @media (min-width: 768px) and (max-width: 1023px) {
   .cards-container {
     gap: 70px;
@@ -168,7 +166,6 @@ h1 {
   }
 }
 
-/* Telas pequenas  */
 @media (max-width: 767px) {
   h1 {
     font-size: 30px;

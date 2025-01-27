@@ -51,7 +51,7 @@ const groupedTickets = ref({});
 const addTicketToUser = (ticket) => {
   ticketStore.addTicketToUser(ticket);
   console.log("Ticket adicionado:", ticket);
-  updateGroupedTickets(); //Vai atuazilar os tickets apos serem adicionadaos
+  updateGroupedTickets(); 
 };
 
 const updateGroupedTickets = () => {
@@ -70,7 +70,6 @@ const updateGroupedTickets = () => {
   groupedTickets.value = ticketsByEvent;
 };
 
-// Inicializa os tickets e grupos ao carregar a página
 onMounted(() => {
   ticketStore.initializeTickets(); 
   updateGroupedTickets(); 

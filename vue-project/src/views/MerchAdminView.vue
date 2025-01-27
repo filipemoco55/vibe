@@ -3,9 +3,7 @@ import { ref } from "vue";
 import { useMerchStore } from "@/stores/merch";
 import Sidebar from "@/components/SideNavbar.vue";
 
-
 const merchStore = useMerchStore();
-
 
 const showModal = ref(false);
 const isEditing = ref(false);
@@ -103,10 +101,7 @@ const handleImageUpload = (event) => {
 const removeMerchItem = (id) => {
   merchStore.removeItem(id);
 };
-
-
 </script>
-
 
 <template>
   <div class="admin-container">
@@ -173,9 +168,6 @@ const removeMerchItem = (id) => {
     </div>
   </div>
 </template>
-
-
-
 
 <style scoped>
 .admin-container {

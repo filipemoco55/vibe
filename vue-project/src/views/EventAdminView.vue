@@ -3,20 +3,20 @@ import { ref } from "vue";
 import Sidebar from "@/components/SideNavbar.vue";
 
 const events = ref([
-  { 
-    id: 1, 
-    name: "Vibe Festival", 
-    date: "2025-06-15", 
+  {
+    id: 1,
+    name: "Vibe Festival",
+    date: "2025-06-15",
     location: "Porto,Portugal",
     lineup: {
       mainStage: "Artist A, Artist B",
       secondaryStage: "Artist C, Artist D"
     }
   },
-  { 
-    id: 2, 
-    name: "Art Attack event", 
-    date: "2025-12-10", 
+  {
+    id: 2,
+    name: "Art Attack event",
+    date: "2025-12-10",
     location: "Porto,Portugal",
     lineup: {
       mainStage: "Artist X, Artist Y",

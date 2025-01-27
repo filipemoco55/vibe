@@ -3,8 +3,7 @@ import { ref, onMounted } from 'vue';
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 import { useArtistStore } from '@/stores/artist';
-// Countdown component (from the code you provided)
-const targetDate = new Date("2025-11-11T18:00:00"); // Target date for countdown
+const targetDate = new Date("2025-11-11T18:00:00");
 const countdown = ref({
   months: 0,
   days: 0,
@@ -12,7 +11,7 @@ const countdown = ref({
   minutes: 0,
   seconds: 0
 });
-// Function to update countdown
+
 const updateCountdown = () => {
   const now = new Date();
   const diffInMs = targetDate - now;
@@ -22,7 +21,7 @@ const updateCountdown = () => {
     return;
   }
   const totalSeconds = Math.floor(diffInMs / 1000);
-  const months = Math.floor(totalSeconds / (30 * 24 * 3600)); // Approximate months
+  const months = Math.floor(totalSeconds / (30 * 24 * 3600));
   const days = Math.floor((totalSeconds % (30 * 24 * 3600)) / (24 * 3600));
   const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -33,16 +32,16 @@ const artistStore = useArtistStore();
 const artists = ref([]);
 onMounted(() => {
   artistStore.fetchArtists();
-  artists.value = artistStore.artists.slice(0, 6); // Get the first 6 artists
-  setInterval(updateCountdown, 1000); // Update countdown every second
+  artists.value = artistStore.artists.slice(0, 6);
+  setInterval(updateCountdown, 1000);
 });
 </script>
 
 <template>
   <Navbar />
 
-<!-- Hero Section with Background Video -->
-<div class="hero-container">
+  <!-- Hero Section with Background Video -->
+  <div class="hero-container">
     <div class="hero-overlay">
       <h1 class="hero-title">Welcome to Vibe Concert</h1>
       <router-link to="/tickets" class="buy-button">Buy your Ticket Now!</router-link>
@@ -75,9 +74,6 @@ onMounted(() => {
 
   <Footer />
 </template>
-
-
-
 
 
 <style scoped>
@@ -199,6 +195,7 @@ h2 {
   text-align: center;
   transition: transform 0.3s ease;
 }
+
 .artist-card:hover {
   transform: translateY(-10px);
 }
@@ -208,19 +205,23 @@ h2 {
   height: 250px;
   object-fit: cover;
 }
+
 .artist-card h2 {
   margin: 1rem 0;
   color: white;
   font-size: 1.5rem;
 }
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2rem;
   }
+
   .buy-button {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
   }
+
   .artist-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
@@ -230,6 +231,7 @@ h2 {
   .hero-title {
     font-size: 2rem;
   }
+
   .buy-button {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
@@ -246,7 +248,7 @@ h2 {
   }
 
 
-.buy-button {
+  .buy-button {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
@@ -255,13 +257,11 @@ h2 {
     height: 200px;
   }
 
-.More {
-  font-family: 'Poppins', sans-serif;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 40px;
+  .More {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 40px;
+  }
 }
-}
-
-
 </style>
