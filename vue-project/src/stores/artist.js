@@ -15,6 +15,7 @@ export const useArtistStore = defineStore('artist', {
             state.artists.filter((artist) => artist.genre.toLowerCase() === genre.toLowerCase()),
         filterByName: (state) => (name) =>
             state.artists.filter((artist) => artist.name.toLowerCase().includes(name.toLowerCase())),
+        getGenres: (state) => [...new Set(state.artists.map((artist) => artist.genre))],
     },
 
     actions: {

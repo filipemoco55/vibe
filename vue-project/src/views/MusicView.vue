@@ -1,3 +1,45 @@
+<script setup>
+import { onMounted, ref, computed } from 'vue';
+import { useArtistStore } from '@/stores/artist';
+import Navbar from "@/components/NavBar.vue";
+import Footer from "@/components/Footer.vue";
+import MusicComponent from "@/components/MusicComponent.vue";
+
+const artistStore = useArtistStore();
+const searchQuery = ref("");
+const selectedGenre = ref("");
+
+onMounted(async () => {
+  isLoading.value = true;
+  hasError.value = false;
+
+  try {
+    await artistStore.fetchArtists();
+  } catch (error) {
+    console.error("Error fetching artists:", error);
+    hasError.value = true;
+  } finally {
+    isLoading.value = false;
+  }
+});
+
+const genres = computed(() => artistStore.getGenres);
+
+const filteredArtists = computed(() => {
+  let artists = artistStore.artists;
+
+  if (searchQuery.value) {
+    artists = artistStore.filterByName(searchQuery.value);
+  }
+
+  if (selectedGenre.value) {
+    artists = artistStore.filterByGenre(selectedGenre.value);
+  }
+
+  return artists;
+});
+</script>
+
 <template>
   <Navbar />
 
@@ -7,19 +49,16 @@
       type="text" 
       placeholder="Search by artist name..." 
       v-model="searchQuery" 
-      @input="filterArtistsByName"
       class="text-input"
     />
 
     <select 
       v-model="selectedGenre" 
-      @change="filterArtistsByGenre" 
       class="dropdown"
     >
       <option value="">All Genres</option>
-      <option v-for="genre in genres" :key="genre" :value="genre">
-        {{ genre }}
-      </option>
+      <!-- Loop through the genres from the store -->
+      <option v-for="genre in genres" :key="genre" :value="genre">{{ genre }}</option>
     </select>
   </div>
 
@@ -28,7 +67,6 @@
     <p>Loading Music...</p>
   </div>
 
-  <!-- Error Message -->
   <div v-else-if="hasError" class="error-wrapper">
     <h2>Oops! Something went wrong.</h2>
     <p>We’re experiencing technical difficulties. Please try again later.</p>
@@ -42,70 +80,6 @@
 
   <Footer />
 </template>
-
-<script setup>
-import { onMounted, ref, computed } from 'vue';
-import { useArtistStore } from '@/stores/artist';
-import Navbar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
-import MusicComponent from "@/components/MusicComponent.vue";
-
-const artistStore = useArtistStore();
-const artists = ref([]);
-const isLoading = ref(true);
-const hasError = ref(false);
-const searchQuery = ref("");
-const selectedGenre = ref("");
-const genres = ref([]);
-
-const filteredArtists = computed(() => {
-  let filtered = artists.value;
-
-  if (searchQuery.value) {
-    filtered = filtered.filter((artist) =>
-      artist.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-  }
-
-  if (selectedGenre.value) {
-    filtered = filtered.filter((artist) =>
-      artist.genre.toLowerCase() === selectedGenre.value.toLowerCase()
-    );
-  }
-
-  return filtered;
-});
-
-onMounted(async () => {
-  isLoading.value = true;
-  hasError.value = false;
-
-  try {
-    await artistStore.fetchArtists();
-    artists.value = artistStore.artists;
-
-    genres.value = [...new Set(artists.value.map((artist) => artist.genre))];
-
-    if (!artists.value.length) {
-      console.warn("No artists data received.");
-      hasError.value = true;
-    }
-  } catch (error) {
-    console.error("Error fetching artists:", error);
-    hasError.value = true;
-  } finally {
-    isLoading.value = false;
-  }
-});
-
-const filterArtistsByName = () => {
-
-};
-
-const filterArtistsByGenre = () => {
-
-};
-</script>
 
 
 <style scoped>
