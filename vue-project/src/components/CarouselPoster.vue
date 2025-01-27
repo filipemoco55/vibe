@@ -31,6 +31,21 @@ const secondaryStageArtists = computed(() => {
 const carousel = ref(null);
 const secondaryCarousel = ref(null);
 
+const uniqueEventDays = computed(() => {
+  // Extract and sort unique days from events
+  const days = eventStore.event.map((event) => event.day);
+  return [...new Set(days)].sort((a, b) => a - b); // Ensure days are sorted numerically
+});
+
+const activeEventDetails = computed(() => {
+  const activeEvent = eventStore.event.find(
+    (event) => event.day === parseInt(props.activeDay)
+  );
+  return activeEvent
+    ? { name: activeEvent.name, location: activeEvent.location }
+    : { name: 'No Event', location: 'Unknown Location' };
+});
+
 
 const scrollLeft = () => {
   if (carousel.value) {
@@ -75,14 +90,25 @@ onMounted(() => {
 </script>
 
 
-
 <template>
   <div>
+    <!-- Dynamic Button Container -->
     <div class="button-container">
-      <button v-for="day in ['11', '12', '13']" :key="day" class="date-button"
-        :class="{ active: props.activeDay === day }" @click="setActiveDay(day)">
+      <button
+        v-for="day in uniqueEventDays"
+        :key="day"
+        class="date-button"
+        :class="{ active: props.activeDay === day.toString() }"
+        @click="setActiveDay(day.toString())"
+      >
         {{ day }} Jun
       </button>
+    </div>
+
+    <!-- Event Name and Location -->
+    <div class="event-details">
+      <h2 class="event-name">{{ activeEventDetails.name }}</h2>
+      <p class="event-location">{{ activeEventDetails.location }}</p>
     </div>
 
     <h1>MAIN STAGE</h1>
@@ -90,7 +116,11 @@ onMounted(() => {
       <button class="carousel-button left" @click="scrollLeft">‹</button>
 
       <div class="carousel" ref="carousel">
-        <div class="carousel-item" v-for="(artist, index) in mainStageArtists" :key="index">
+        <div
+          class="carousel-item"
+          v-for="(artist, index) in mainStageArtists"
+          :key="index"
+        >
           <img :src="artist.image" alt="Artist Image" class="carousel-image" />
           <div class="carousel-caption">{{ artist.name }}</div>
         </div>
@@ -104,7 +134,11 @@ onMounted(() => {
       <button class="carousel-button left" @click="scrollLeftSecondary">‹</button>
 
       <div class="small-carousel" ref="secondaryCarousel">
-        <div class="small-carousel-item" v-for="(artist, index) in secondaryStageArtists" :key="index">
+        <div
+          class="small-carousel-item"
+          v-for="(artist, index) in secondaryStageArtists"
+          :key="index"
+        >
           <img :src="artist.image" alt="Artist" class="small-card-image" />
           <div class="small-card-caption">{{ artist.name }}</div>
         </div>
@@ -114,6 +148,8 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+
 
 
 
@@ -263,5 +299,25 @@ h1 {
     margin-left: 100px;
     font-weight: bold;
     font-size: 40px;
+}
+
+.event-details {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.event-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  margin: 10px 0;
+}
+
+.event-location {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: white;
 }
 </style>
