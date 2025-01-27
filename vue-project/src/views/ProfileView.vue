@@ -84,12 +84,12 @@ const saveChanges = () => {
       <p v-else>No merch purchased yet.</p>
     </div>
 
-    <!-- Botão para abrir o editor -->
+   
     <div class="edit-profile">
       <button @click="openEditor">Edit Profile</button>
     </div>
 
-    <!-- Modal de edição do perfil -->
+   
     <div class="modal" v-if="editing">
       <div class="modal-content">
         <h2>Edit Profile</h2>
@@ -117,7 +117,7 @@ const saveChanges = () => {
 </template>
 
 <style scoped>
-/* Design original do perfil */
+
 .user-profile {
   color: white;
   font-family: 'Poppins', sans-serif;
