@@ -65,6 +65,13 @@ export const useEventStore = defineStore('event', {
             this.event.push(event)
         },
 
+        updateEvent(event) {
+            const index = this.event.findIndex((e) => e.id === event.id)
+            if (index !== -1) {
+                this.event[index] = event
+            }
+        },
+
         addArtistToLineup(eventId, artistId) {
             const artistStore = useArtistStore(); // Access the artist store
             const artist = artistStore.artist.find((a) => a.id === artistId);

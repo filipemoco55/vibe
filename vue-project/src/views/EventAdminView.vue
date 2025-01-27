@@ -8,9 +8,11 @@ const eventStore = useEventStore(); // Access the event store
 const artistStore = useArtistStore(); // Access the artist store
 const events = ref([]); // Local events reference
 const showModal = ref(false); // Modal visibility state
+const isEditing = ref(false); // To check if editing or adding
 
 // New event template
 const newEvent = ref({
+  id: null,
   name: "",
   day: null,
   location: "",
@@ -33,15 +35,27 @@ const nextEventId = computed(() => {
   return maxId + 1;
 });
 
-// Add a new event
+// Open the modal for editing
+const editEvent = (event) => {
+  newEvent.value = JSON.parse(JSON.stringify(event)); // Clone the event to avoid mutations
+  isEditing.value = true; // Set editing mode
+  showModal.value = true; // Open modal
+};
+
+// Add or update event
 const addEvent = () => {
   if (newEvent.value.name && newEvent.value.day && newEvent.value.location) {
-    const eventToAdd = {
-      ...newEvent.value,
-      id: nextEventId.value, // Auto-incremented ID
-    };
-
-    eventStore.addEvent(eventToAdd); // Add the event to the store
+    if (isEditing.value) {
+      // Update existing event
+      eventStore.updateEvent(newEvent.value);
+    } else {
+      // Add new event
+      const eventToAdd = {
+        ...newEvent.value,
+        id: nextEventId.value, // Auto-incremented ID
+      };
+      eventStore.addEvent(eventToAdd);
+    }
     resetForm();
     showModal.value = false; // Close the modal
   } else {
@@ -52,6 +66,7 @@ const addEvent = () => {
 // Reset the form after submission
 const resetForm = () => {
   newEvent.value = {
+    id: null,
     name: "",
     day: null,
     location: "",
@@ -60,6 +75,7 @@ const resetForm = () => {
       secondaryStage: [],
     },
   };
+  isEditing.value = false; // Reset editing mode
 };
 
 // Delete an event
@@ -73,6 +89,7 @@ const deleteEvent = (eventId) => {
 // Artists list for the multi-select dropdown
 const artists = computed(() => artistStore.artists);
 </script>
+
 
 
 <template>
@@ -104,7 +121,7 @@ const artists = computed(() => artistStore.artists);
             <td>{{ event.lineup.mainStage.map(artist => artist.name).join(", ") }}</td>
             <td>{{ event.lineup.secondaryStage.map(artist => artist.name).join(", ") }}</td>
             <td>
-              <button class="action-btn edit">Edit</button>
+              <button class="action-btn edit" @click="editEvent(event)">Edit</button>
               <button class="action-btn delete" @click="deleteEvent(event.id)">Delete</button>
             </td>
           </tr>
@@ -112,12 +129,12 @@ const artists = computed(() => artistStore.artists);
       </table>
 
       <!-- Add Event Button -->
-      <button class="add-button" @click="showModal = true">Add Event</button>
+      <button class="add-button" @click="() => { isEditing = false; showModal = true }">Add Event</button>
 
-      <!-- Add Event Modal -->
+      <!-- Add/Edit Event Modal -->
       <div v-if="showModal" class="modal-overlay">
         <div class="modal">
-          <h2>Add Event</h2>
+          <h2>{{ isEditing ? "Edit Event" : "Add Event" }}</h2>
 
           <!-- Event Form -->
           <form @submit.prevent="addEvent">
@@ -173,7 +190,7 @@ const artists = computed(() => artistStore.artists);
             </label>
 
             <!-- Submit & Cancel Buttons -->
-            <button type="submit">Add Event</button>
+            <button type="submit">{{ isEditing ? "Update Event" : "Add Event" }}</button>
             <button type="button" @click="showModal = false">Cancel</button>
           </form>
         </div>
@@ -181,6 +198,7 @@ const artists = computed(() => artistStore.artists);
     </div>
   </div>
 </template>
+
 
 
 
