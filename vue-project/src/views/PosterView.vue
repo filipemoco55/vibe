@@ -6,7 +6,6 @@ import CarouselPoster from '@/components/CarouselPoster.vue';
 import { useEventStore } from '@/stores/event';
 import { useArtistStore } from '@/stores/artist';
 
-// State variables
 const activeDay = ref(11);
 const isLoading = ref(true);
 const hasError = ref(false);
@@ -15,23 +14,22 @@ const setActiveDay = (day) => {
     activeDay.value = day;
 };
 
-// Fetch data when the component is mounted
 onMounted(async () => {
     
     const artistStore = useArtistStore();
     const eventStore = useEventStore();
 
     try {
-        await artistStore.fetchArtists();  // Fetch artists
-        await eventStore.initializeLineups();  // Fetch event lineups
+        await artistStore.fetchArtists();  
+        await eventStore.initializeLineups();  
         if (artistStore.artists.length === 0) {
-            hasError.value = true;  // Set error flag    
+            hasError.value = true;   
         }
     } catch (error) {
         console.error('Error loading data:', error);
-        hasError.value = true;  // Set error flag
+        hasError.value = true;  
     } finally {
-        isLoading.value = false;  // Hide the loading spinner
+        isLoading.value = false;  
     }
 });
 </script>
@@ -77,7 +75,6 @@ h1 {
     align-items: center;
     justify-content: center;
     height: 70vh;
-    /* Center vertically */
     color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
@@ -110,7 +107,7 @@ h1 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 70vh; /* Center vertically */
+    height: 70vh; 
     color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 18px;

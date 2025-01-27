@@ -23,7 +23,7 @@
               <p class="ticket-price">Price: €{{ ticket.price }}</p>
               <p class="ticket-type">Type: {{ ticket.type }}</p>
               <p class="ticket-availability">Available</p>
-              <button @click="addTicketToUser(ticket)">Buy</button>
+              <button @click="addTicketToUser(ticket)">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -50,7 +50,8 @@ const groupedTickets = ref({});
 
 const addTicketToUser = (ticket) => {
   ticketStore.addTicketToUser(ticket);
-  alert("Obrigado e aproveite o Festival. Ticket adicionado:", ticket);
+  console.log("Ticket adicionado:", ticket);
+  updateGroupedTickets(); //Vai atuazilar os tickets apos serem adicionadaos
 };
 
 const updateGroupedTickets = () => {
@@ -151,7 +152,7 @@ h1 {
 
 .ticket-card {
   background: #fff;
-  border: 1px solid #ddd;   
+  border: 1px solid #ddd;
   padding: 25px;
   width: 320px;
   text-align: center;

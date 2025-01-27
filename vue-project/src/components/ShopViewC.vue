@@ -1,10 +1,9 @@
 <script setup>
-import { useMerchStore } from '@/stores/merch'; // Import the store
+import { useMerchStore } from '@/stores/merch'; 
 import { computed } from 'vue';
 
-const merchStore = useMerchStore(); // Access the store
+const merchStore = useMerchStore(); 
 
-// Get the merchandise items from the store
 const merchItems = computed(() => merchStore.merch);
 </script>
 

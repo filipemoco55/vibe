@@ -15,7 +15,6 @@
 
 
         <div class="user-actions">
-            <!-- Profile Icon visible only when logged in -->
             <RouterLink v-if="isAuthenticated" to="/profile" class="profile-icon-button" title="Profile">
                 <img src="@/assets/user.png" alt="User Icon" class="profile-icon" />
             </RouterLink>
@@ -47,9 +46,7 @@
 <script>
 import { useAuthStore } from "@/stores/authStore";
 import { computed } from "vue";
-// import { useCartStore } from '@/stores/cart';
 
-// const cartStore = useCartStore();
 
 export default {
     name: "Navbar",

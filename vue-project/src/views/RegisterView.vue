@@ -43,8 +43,7 @@ const router = useRouter();
 
 const handleRegister = () => {
   const newUser = {
-    id: Date.now(), //gera um id aleatorio
-    //id: userStore.users.length + 1, // a diferença e que este gera um id simples
+    id: Date.now(), 
     name: name.value,
     email: email.value,
     password: password.value,

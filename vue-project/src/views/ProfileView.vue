@@ -89,7 +89,7 @@ const saveChanges = () => {
       <button @click="openEditor">Edit Profile</button>
     </div>
 
-   
+    
     <div class="modal" v-if="editing">
       <div class="modal-content">
         <h2>Edit Profile</h2>

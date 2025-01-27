@@ -11,12 +11,12 @@ export default {
     const authStore = useAuthStore();
     const router = useRouter();
 
-   
+
     authStore.loadStateFromLocalStorage();
 
     const logout = () => {
-      authStore.logout(); 
-      router.push("/login"); 
+      authStore.logout();
+      router.push("/login");
     };
 
     return { logout };

@@ -17,7 +17,6 @@ const currentTicket = ref({
   eventId: null,
 });
 
-
 const tickets = computed(() => ticketStore.ticket);
 
 const openModal = (ticket = null) => {
@@ -67,7 +66,6 @@ const saveTicket = () => {
 const deleteTicket = (id) => {
   ticketStore.deleteTicket(id);
 };
-
 
 onMounted(() => {
   ticketStore.initializeTickets();
@@ -120,23 +118,12 @@ onMounted(() => {
           <form @submit.prevent="saveTicket">
             <div class="form-group">
               <label for="name">Ticket Name</label>
-              <input
-                id="name"
-                v-model="currentTicket.name"
-                type="text"
-                required
-              />
+              <input id="name" v-model="currentTicket.name" type="text" required />
             </div>
 
             <div class="form-group">
               <label for="price">Price</label>
-              <input
-                id="price"
-                v-model.number="currentTicket.price"
-                type="number"
-                min="0"
-                required
-              />
+              <input id="price" v-model.number="currentTicket.price" type="number" min="0" required />
             </div>
 
             <div class="form-group">
@@ -151,11 +138,7 @@ onMounted(() => {
             <div class="form-group">
               <label for="event">Event</label>
               <select id="event" v-model="currentTicket.eventId" required>
-                <option
-                  v-for="event in eventStore.event"
-                  :key="event.id"
-                  :value="event.id"
-                >
+                <option v-for="event in eventStore.event" :key="event.id" :value="event.id">
                   {{ event.name }} - Day {{ event.day }}
                 </option>
               </select>
@@ -178,7 +161,6 @@ onMounted(() => {
 
 
 <style scoped>
-
 .modal-overlay {
   position: fixed;
   top: 0;

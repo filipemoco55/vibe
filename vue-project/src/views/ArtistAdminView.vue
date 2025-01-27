@@ -5,22 +5,18 @@ import Sidebar from "@/components/SideNavbar.vue";
 
 const artistStore = useArtistStore();
 
-// Pagination state
 const currentPage = ref(1);
 const itemsPerPage = 8;
 
-// Modal state
 const showAddModal = ref(false);
 const showUpdateModal = ref(false);
 const newArtist = ref({ name: "", genre: "", followers: 0, image: "" });
 const artistToUpdate = ref(null);
 
-// Fetch artists on page load
 onMounted(async () => {
   await artistStore.fetchArtists();
 });
 
-// Pagination logic
 const paginatedArtists = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
   return artistStore.artists.slice(startIndex, startIndex + itemsPerPage);
@@ -28,7 +24,6 @@ const paginatedArtists = computed(() => {
 
 const totalPages = computed(() => Math.ceil(artistStore.artists.length / itemsPerPage));
 
-// CRUD Actions
 const addArtist = async () => {
   if (newArtist.value.name && newArtist.value.genre) {
     await artistStore.addArtist({ ...newArtist.value });
@@ -54,7 +49,6 @@ const deleteArtist = async (id) => {
   await artistStore.removeArtist(id);
 };
 
-// Open update modal and set the artist to update
 const openUpdateModal = (artist) => {
   artistToUpdate.value = { ...artist };
   showUpdateModal.value = true;

@@ -126,6 +126,20 @@
       "genre": "Pop",
       "followers": 19653456,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq2iHk7y7LSHJf-KUnJS6sERARdUm0Vq5q02fgIfQhp0kZU9VPCvdufjuNen-rppc1l08&usqp=CAU"
+    },
+    {
+      "id": "17",
+      "name": "Dianne Reeves",
+      "genre": "Jazz",
+      "followers": 11111111,
+      "image": "https://www.detroitjazzfest.org/wp-content/uploads/2022/07/Dianne-Reeves_Photo-1-scaled.jpeg"
+    },
+    {
+      "id": "18",
+      "name": "Barbara Bandeira",
+      "genre": "Pop",
+      "followers": 1234567,
+      "image": "https://www.hiper.fm/wp-content/uploads/2023/06/03-barbara-bandeira.png"
     }
   ]
 }
