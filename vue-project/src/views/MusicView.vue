@@ -1,6 +1,28 @@
 <template>
   <Navbar />
 
+  <!-- Search and Filter Inputs -->
+  <div class="filter-section">
+    <input 
+      type="text" 
+      placeholder="Search by artist name..." 
+      v-model="searchQuery" 
+      @input="filterArtistsByName"
+      class="text-input"
+    />
+
+    <select 
+      v-model="selectedGenre" 
+      @change="filterArtistsByGenre" 
+      class="dropdown"
+    >
+      <option value="">All Genres</option>
+      <option v-for="genre in genres" :key="genre" :value="genre">
+        {{ genre }}
+      </option>
+    </select>
+  </div>
+
   <div v-if="isLoading" class="spinner-wrapper">
     <div class="spinner"></div>
     <p>Loading Music...</p>
@@ -15,16 +37,14 @@
   </div>
 
   <div v-else>
-    <MusicComponent title="Popular Artists!" :items="artists" />
+    <MusicComponent title="Popular Artists!" :items="filteredArtists" />
   </div>
 
   <Footer />
 </template>
 
-
-
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useArtistStore } from '@/stores/artist';
 import Navbar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
@@ -34,6 +54,27 @@ const artistStore = useArtistStore();
 const artists = ref([]);
 const isLoading = ref(true);
 const hasError = ref(false);
+const searchQuery = ref("");
+const selectedGenre = ref("");
+const genres = ref([]);
+
+const filteredArtists = computed(() => {
+  let filtered = artists.value;
+
+  if (searchQuery.value) {
+    filtered = filtered.filter((artist) =>
+      artist.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+  }
+
+  if (selectedGenre.value) {
+    filtered = filtered.filter((artist) =>
+      artist.genre.toLowerCase() === selectedGenre.value.toLowerCase()
+    );
+  }
+
+  return filtered;
+});
 
 onMounted(async () => {
   isLoading.value = true;
@@ -42,6 +83,9 @@ onMounted(async () => {
   try {
     await artistStore.fetchArtists();
     artists.value = artistStore.artists;
+
+    // Extract unique genres
+    genres.value = [...new Set(artists.value.map((artist) => artist.genre))];
 
     if (!artists.value.length) {
       console.warn("No artists data received.");
@@ -54,6 +98,14 @@ onMounted(async () => {
     isLoading.value = false;
   }
 });
+
+const filterArtistsByName = () => {
+  // Computed property handles the filtering
+};
+
+const filterArtistsByGenre = () => {
+  // Computed property handles the filtering
+};
 </script>
 
 
@@ -124,5 +176,39 @@ h1 {
     width: 200px;
     margin-top: 20px;
     opacity: 0.8;
+}
+.filter-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.text-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  width: 250px;
+}
+
+.text-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  width: 200px;
 }
 </style>
