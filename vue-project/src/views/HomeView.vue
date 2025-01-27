@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import Navbar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 import { useArtistStore } from '@/stores/artist';
-const targetDate = new Date("2025-11-11T18:00:00");
+const targetDate = new Date("2025-06-11T18:00:00");
 const countdown = ref({
   months: 0,
   days: 0,
