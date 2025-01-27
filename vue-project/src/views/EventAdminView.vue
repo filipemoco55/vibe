@@ -77,10 +77,6 @@ const deleteEvent = (eventId) => {
   </div>
 </template>
 
-<style scoped>
-/* Same styles as before */
-</style>
-
 
 
 <style scoped>
