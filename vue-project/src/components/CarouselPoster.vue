@@ -32,9 +32,8 @@ const carousel = ref(null);
 const secondaryCarousel = ref(null);
 
 const uniqueEventDays = computed(() => {
-  // Extract and sort unique days from events
   const days = eventStore.event.map((event) => event.day);
-  return [...new Set(days)].sort((a, b) => a - b); // Ensure days are sorted numerically
+  return [...new Set(days)].sort((a, b) => a - b);
 });
 
 const activeEventDetails = computed(() => {

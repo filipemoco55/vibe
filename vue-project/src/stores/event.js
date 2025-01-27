@@ -73,13 +73,13 @@ export const useEventStore = defineStore('event', {
         },
 
         addArtistToLineup(eventId, artistId) {
-            const artistStore = useArtistStore(); // Access the artist store
+            const artistStore = useArtistStore(); 
             const artist = artistStore.artist.find((a) => a.id === artistId);
 
             if (artist) {
                 const event = this.event.find((e) => e.id === eventId);
                 if (event) {
-                    event.lineup.push(artist); // Add artist to the lineup
+                    event.lineup.push(artist);
                 } else {
                     console.error('Event not found');
                 }
@@ -91,10 +91,10 @@ export const useEventStore = defineStore('event', {
         async initializeLineups() {
             const artistStore = useArtistStore();
             if (!artistStore.artists.length) {
-                await artistStore.fetchArtists(); // Ensure artists are fetched
+                await artistStore.fetchArtists(); 
             }
 
-            // Populate lineups dynamically based on fetched artists
+
             this.event.forEach((event, index) => {
                 if (event.day === 11) {
                     event.lineup.mainStage = [artistStore.artists[0], artistStore.artists[1], artistStore.artists[12], artistStore.artists[14], artistStore.artists[15]];

@@ -16,7 +16,7 @@ const updateCountdown = () => {
   const now = new Date();
   const diffInMs = targetDate - now;
   if (diffInMs <= 0) {
-    // Countdown finished
+
     countdown.value = { months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
     return;
   }

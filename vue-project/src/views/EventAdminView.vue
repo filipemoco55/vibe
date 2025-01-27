@@ -1,16 +1,16 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useEventStore } from "@/stores/event";
-import { useArtistStore } from "@/stores/artist"; // Import artist store
+import { useArtistStore } from "@/stores/artist";
 import Sidebar from "@/components/SideNavbar.vue";
 
-const eventStore = useEventStore(); // Access the event store
-const artistStore = useArtistStore(); // Access the artist store
-const events = ref([]); // Local events reference
-const showModal = ref(false); // Modal visibility state
-const isEditing = ref(false); // To check if editing or adding
+const eventStore = useEventStore();
+const artistStore = useArtistStore(); 
+const events = ref([]);
+const showModal = ref(false); 
+const isEditing = ref(false);
 
-// New event template
+
 const newEvent = ref({
   id: null,
   name: "",
@@ -22,48 +22,48 @@ const newEvent = ref({
   },
 });
 
-// Fetch data when the component mounts
+
 onMounted(() => {
-  eventStore.initializeLineups(); // Initialize event lineups
-  artistStore.fetchArtists(); // Fetch artists from the artist store
-  events.value = eventStore.event; // Sync events with the store
+  eventStore.initializeLineups();
+  artistStore.fetchArtists(); 
+  events.value = eventStore.event; 
 });
 
-// Computed property for the next event ID
+
 const nextEventId = computed(() => {
   const maxId = events.value.reduce((max, event) => Math.max(max, event.id), 0);
   return maxId + 1;
 });
 
-// Open the modal for editing
+
 const editEvent = (event) => {
-  newEvent.value = JSON.parse(JSON.stringify(event)); // Clone the event to avoid mutations
-  isEditing.value = true; // Set editing mode
-  showModal.value = true; // Open modal
+  newEvent.value = JSON.parse(JSON.stringify(event)); 
+  isEditing.value = true;
+  showModal.value = true; 
 };
 
-// Add or update event
+
 const addEvent = () => {
   if (newEvent.value.name && newEvent.value.day && newEvent.value.location) {
     if (isEditing.value) {
-      // Update existing event
+
       eventStore.updateEvent(newEvent.value);
     } else {
-      // Add new event
+
       const eventToAdd = {
         ...newEvent.value,
-        id: nextEventId.value, // Auto-incremented ID
+        id: nextEventId.value, 
       };
       eventStore.addEvent(eventToAdd);
     }
     resetForm();
-    showModal.value = false; // Close the modal
+    showModal.value = false; 
   } else {
     alert("Please fill out all fields!");
   }
 };
 
-// Reset the form after submission
+
 const resetForm = () => {
   newEvent.value = {
     id: null,
@@ -75,10 +75,10 @@ const resetForm = () => {
       secondaryStage: [],
     },
   };
-  isEditing.value = false; // Reset editing mode
+  isEditing.value = false; 
 };
 
-// Delete an event
+
 const deleteEvent = (eventId) => {
   const index = events.value.findIndex((e) => e.id === eventId);
   if (index !== -1) {
@@ -86,7 +86,7 @@ const deleteEvent = (eventId) => {
   }
 };
 
-// Artists list for the multi-select dropdown
+
 const artists = computed(() => artistStore.artists);
 </script>
 

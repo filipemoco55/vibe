@@ -84,7 +84,6 @@ onMounted(async () => {
     await artistStore.fetchArtists();
     artists.value = artistStore.artists;
 
-    // Extract unique genres
     genres.value = [...new Set(artists.value.map((artist) => artist.genre))];
 
     if (!artists.value.length) {
@@ -100,11 +99,11 @@ onMounted(async () => {
 });
 
 const filterArtistsByName = () => {
-  // Computed property handles the filtering
+
 };
 
 const filterArtistsByGenre = () => {
-  // Computed property handles the filtering
+
 };
 </script>
 
